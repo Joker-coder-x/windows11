@@ -5,6 +5,7 @@ $desktopHeight: calc(calc(1020px * 100vh) / 1080px);
 
 // 任务栏相关
 $taskbarHeight: calc(100vh - $desktopHeight);
-$taskbarBgColor: #F3F3F3;
+$taskbarBgColor: #f3f3f3cc;
 $taskbarBorderColor: #E5E5E5;
+$taskbarHoverColor: #ffffff70;
 

@@ -35,7 +35,7 @@ export default {
   line-height: 26px;
 
   &:hover {
-    background-color: rgb(255, 255, 255);
+    background-color: $taskbarHoverColor;
   }
 
   &:active {

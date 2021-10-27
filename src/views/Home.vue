@@ -17,3 +17,13 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.home {
+  background-image: url("~assets/images/bg/img20.jpg");
+  background-repeat: no-repeat;
+  background-position: 0 0;
+  background-size: cover;
+  box-sizing: border-box;
+}
+</style>
