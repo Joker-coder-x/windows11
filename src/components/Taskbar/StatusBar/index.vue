@@ -3,19 +3,23 @@
     <status-bar-item></status-bar-item>
     <status-bar-item></status-bar-item>
     <status-bar-item></status-bar-item>
-    <status-bar-item></status-bar-item>
+    <status-bar-item>
+      <date-view></date-view>
+    </status-bar-item>
   </div>
 </template>
 
 <script>
 import StatusBarItem from "./StatusBarItem.vue";
+import DateView from "../DateView/index.vue";
 
 export default {
   components: {
-    StatusBarItem
+    StatusBarItem,
+    DateView
   },
   setup() {
-    
+
   },
 }
 </script>
