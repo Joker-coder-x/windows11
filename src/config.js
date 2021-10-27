@@ -3,8 +3,8 @@ export default {
   layout: {
     row: 8,
     column: 20,
-    rowGap: 5,
-    columnGap: 2
+    rowGap: 15,
+    columnGap: 4
   },
   apps: [
     {

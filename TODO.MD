@@ -11,6 +11,7 @@
   - assets
     - icons 存放icon图标
   - components 存放组件目录
+  - composables 组合式API模块目录
   - router 存放路由目录
   - store 状态管理目录
   - views 存放视图目录

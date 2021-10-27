@@ -21,7 +21,7 @@
     border-radius: 4px;
 
     &:hover {
-      background-color: #fff;
+      background-color: $taskbarHoverColor;
     }
 
     .img {

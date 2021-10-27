@@ -11,8 +11,9 @@
   align-items: center;
 
   &:hover {
-    background-color: #fff;
+    background-color: $taskbarHoverColor;
   }
+
   .iconfont {
     font-size: 25px;
     color: #424242;

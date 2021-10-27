@@ -74,7 +74,7 @@ export default {
     padding: 2px 5px 2px 0;
 
     &:hover {
-      background-color: #fff;
+      background-color: $taskbarHoverColor;
       border-radius: 4px;
     }
 
