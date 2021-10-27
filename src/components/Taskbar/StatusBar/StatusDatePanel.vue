@@ -1,11 +1,13 @@
 <template>
-  <div class="date-view">
-    <div class="date-info">
-      <div class="label-time">{{ time }}</div>
-      <div class="lebel-date">{{ date }}</div>
-    </div>
-    <div class="date-logo">
-      <i class="iconfont icon-moon"></i>
+  <div class="date-panel-container">
+    <div class="date-panel">
+      <div class="date-info">
+        <div class="label-time">{{ time }}</div>
+        <div class="lebel-date">{{ date }}</div>
+      </div>
+      <div class="date-logo">
+        <i class="iconfont icon-moon"></i>
+      </div>
     </div>
   </div>
 </template>
@@ -60,46 +62,50 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.date-view {
-  @include disabled-selected;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin: 2px 5px 2px 5px;
-  padding: 0 5px;
+.date-panel-container {
+  padding: 3px 0;
+  .date-panel {
+    @include disabled-selected;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+    margin-right: 8px;
+    padding: 2px 5px 2px 0;
 
-  &:hover {
-    background-color: #fff;
-    border-radius: 4px;
-  }
+    &:hover {
+      background-color: #fff;
+      border-radius: 4px;
+    }
 
-  &:active {
-    color: #666;
+    &:active {
+      color: #666;
+
+      .date-logo {
+        .iconfont {
+          color: #777;
+        }
+      }
+    }
+
+    .date-info {
+      margin-right: 5px;
+      font-size: 9px;
+      transform: scale(.85);
+
+      .label-time {
+        text-align: right;
+        margin-bottom: 3px;
+      }
+    }
 
     .date-logo {
       .iconfont {
-        color: #777;
+        display: inline-block;
+        color: #424242;
+        font-weight: 200;
+        transform: rotate(10deg);
       }
-    }
-  }
-
-  .date-info {
-    margin-right: 5px;
-    font-size: 9px;
-    transform: scale(.9);
-
-    .label-time {
-      text-align: right;
-      margin-bottom: 3px;
-    }
-  }
-
-  .date-logo {
-    .iconfont {
-      display: inline-block;
-      color: #424242;
-      font-weight: 200;
-      transform: rotate(10deg);
     }
   }
 }

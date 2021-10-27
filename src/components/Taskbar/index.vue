@@ -15,13 +15,14 @@ export default {
     TaskList
   },
   setup() {
-    
+
   },
 }
 </script>
 
 <style lang="scss">
 .taskbar {
+  @include disabled-selected;
   position: relative;
   height: $taskbarHeight;
   border: 1px solid $taskbarBorderColor;
