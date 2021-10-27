@@ -1,5 +1,7 @@
 <template>
-  <div class="status-bar-item">1</div>
+  <div class="status-bar-item">
+    <slot></slot>
+  </div>
 </template>
 
 <style lang="scss" scoped>
