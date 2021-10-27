@@ -1,22 +1,21 @@
 <template>
-  <div class="status-bar">
-    <status-bar-item></status-bar-item>
-    <status-bar-item></status-bar-item>
-    <status-bar-item></status-bar-item>
-    <status-bar-item>
-      <date-view></date-view>
-    </status-bar-item>
+  <div class="status-bar" draggable="false">
+    <status-pick-up></status-pick-up>
+    <status-info-panel></status-info-panel>
+    <status-date-panel></status-date-panel>
   </div>
 </template>
 
 <script>
-import StatusBarItem from "./StatusBarItem.vue";
-import DateView from "../DateView/index.vue";
+import StatusPickUp from "./StatusPickUp.vue";
+import StatusDatePanel from "./StatusDatePanel.vue";
+import StatusInfoPanel from "./StatusInfoPanel.vue";
 
 export default {
   components: {
-    StatusBarItem,
-    DateView
+    StatusPickUp,
+    StatusDatePanel,
+    StatusInfoPanel
   },
   setup() {
 

@@ -35,8 +35,22 @@ export default {
     const oDesktop = ref(null);
     const apps = reactive([
       {
+        icon: require("assets/icons/win/917.png"),
+        name: '此电脑',
+        x: 0,
+        y: 0,
+        appid: null
+      },
+      {
+        icon: require("assets/icons/bin0.png"),
+        name: '回收站',
+        x: 0,
+        y: 0,
+        appid: null
+      },
+      {
         icon: require("assets/images/app/vscode.png"),
-        name: 'VsCode',
+        name: 'VSCode',
         x: 0,
         y: 0,
         appid: null
@@ -47,7 +61,14 @@ export default {
         x: 0,
         y: 0,
         appid: null
-      }
+      },
+      {
+        icon: require("assets/icons/edge.png"),
+        name: 'Edge浏览器',
+        x: 0,
+        y: 0,
+        appid: null
+      },
     ]);
 
     const {
