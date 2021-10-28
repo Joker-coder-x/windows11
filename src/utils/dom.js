@@ -6,7 +6,6 @@ export function getStyles (elem, prop) {
   }
 }
 
-
 /**
  *
  * document.documentElement.clientLeft/clientTop 表示文档的偏移（margin) 这两个值在IE8及以下版本的值可能会是undefined
@@ -36,4 +35,21 @@ export function getScrollOffset(){
           y: document.body.scrollTop + document.documentElement.scrollTop
       }
   }
+}
+
+export function getElemDocPosition(node){
+  var oParent = node.offsetParent,
+      offsetLeft = node.offsetLeft,
+      offsetTop = node.offsetTop;
+
+  while(oParent){
+    offsetLeft += oParent.offsetLeft;
+    offsetTop  += oParent.offsetTop;
+    oParent = oParent.offsetParent;
+  }
+
+  return {
+    offsetLeft: offsetLeft,
+    offsetTop: offsetTop
+  };
 }

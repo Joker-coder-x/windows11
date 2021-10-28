@@ -1,9 +1,12 @@
 <template>
   <div
     class="desktop"
-    ref="desktop"
+    ref="desktopRef"
     @dragover="handleDragOver"
     @drop="handleDrop"
+    @mousedown.right="handleShowContextMenu"
+    @mousedown.middle="handleHiddenContextMenu"
+    @mousedown.left="handleHiddenContextMenu"
   >
     <app-item
       v-for="(item, index) of apps"
@@ -11,6 +14,8 @@
       :item="item"
       @set-app-id="handleSetAppId"
     ></app-item>
+
+    <context-menu ref="contextMenuRef"></context-menu>
   </div>
 </template>
 
@@ -21,18 +26,25 @@ import {
   reactive
 } from 'vue';
 
+import { useStore } from 'vuex';
+
 // 导入子组件
 import AppItem from "./AppItem/index.vue";
+import ContextMenu from "./ContextMenu/index.vue";
 
 // 组合API模块
 import initLayOut from "@/composables/layout";
+import  { getDesktopContextMenuBehavior } from "composables/contextMenuBehavior";
 
 export default {
   components: {
-    AppItem
+    AppItem,
+    ContextMenu
   },
   setup () {
-    const oDesktop = ref(null);
+    const desktopRef = ref(null);
+    const contextMenuRef = ref(null);
+    const store = useStore();
     const apps = reactive([
       {
         icon: require("assets/icons/win/917.png"),
@@ -75,14 +87,22 @@ export default {
       handleDragOver,
       handleDrop,
       handleSetAppId
-    } = initLayOut(apps, oDesktop);
+    } = initLayOut(apps, desktopRef, store);
+
+    const {
+      handleShowContextMenu,
+      handleHiddenContextMenu
+    } = getDesktopContextMenuBehavior(store, desktopRef, contextMenuRef);
 
     return {
-      desktop: oDesktop,
+      desktopRef,
+      contextMenuRef,
       apps,
       handleDragOver,
       handleDrop,
-      handleSetAppId
+      handleSetAppId,
+      handleShowContextMenu,
+      handleHiddenContextMenu
     }
   },
 }
@@ -93,6 +113,5 @@ export default {
 .desktop {
   position: relative;
   height: $desktopHeight;
-
 }
 </style>

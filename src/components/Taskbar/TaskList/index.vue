@@ -14,6 +14,7 @@ import TaskListItem from "./TaskListItem.vue";
 
 
 export default {
+  name: 'TaskList',
   components: {
     TaskListItem,
   },

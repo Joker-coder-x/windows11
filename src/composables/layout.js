@@ -1,5 +1,4 @@
 import { onMounted } from "vue";
-import { useStore } from "vuex";
 
 import config from "@/config";
 
@@ -10,8 +9,7 @@ import {
 
 const layoutConfig = config.layout;
 
-export default function initLayout (apps, oDesktop) {
-  const store = useStore();
+export default function initLayout (apps, oDesktop, store) {
   let layoutInfo = [],
       appItemWidth = 0,
       appItemHeight = 0;
