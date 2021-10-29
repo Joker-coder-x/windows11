@@ -5,9 +5,14 @@ $desktopHeight: calc(calc(1020px * 100vh) / 1080px);
 
 // 任务栏相关
 $taskbarHeight: calc(100vh - $desktopHeight);
-$taskbarBgColor: #f3f3f3cc;
+$taskbarBgColor: #f3f3f3ee;
 $taskbarBorderColor: #E5E5E5;
-$taskbarHoverColor: #ffffff70;
+$taskbarHoverColor: #ffffff8c;
 $taskbarContextMenuBgColor: #f3f3f3cc;
 $taskbarContextMenuHoverColor: #cec8c8b2;
+
+
+// z-index 层级相关
+$desktopContextMenuZIndex: 1000;
+$taskbarContextMenuZIndex: 1000;
 

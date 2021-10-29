@@ -1,5 +1,8 @@
 <template>
-  <div :class="['task-list-item', item.builtIn ? '':  'action' ]">
+  <div
+    :class="['task-list-item', item.builtIn ? '':  'action' ]"
+    @click="handleTaskItemClick"
+  >
     <template v-if="item.img">
       <img
         class="img"
@@ -17,8 +20,17 @@ export default {
   props:{
     item: Object
   },
-  setup() {
+  emits: {
+    taskItemClick: null
+  },
+  setup (props, { emit }) {
+    const handleTaskItemClick = () => {
+      emit('taskItemClick', props.item);
+    };
 
+    return {
+      handleTaskItemClick
+    };
   },
 }
 </script>

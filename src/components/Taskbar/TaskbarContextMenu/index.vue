@@ -34,11 +34,11 @@ export default {
           state = store.state;
     const setMenuPos = computed(() => {
       return {
-        left: store.state.taskbarContextMenuPosX + 'px',
-        top: store.state.taskbarContextMenuPosY + 'px',
+        left: state.taskbarContextMenuPosX + 'px',
+        top: state.taskbarContextMenuPosY + 'px',
       };
     });
-    const isShow = computed(() => store.state.isShowTaskbarContextMenu);
+    const isShow = computed(() => state.isShowTaskbarContextMenu);
 
     return {
       taskMenus,
@@ -54,6 +54,7 @@ export default {
 .taskbar-context-menu {
   display: none;
   position: fixed;
+   z-index: $taskbarContextMenuZIndex;
   padding: 3px;
   background-color: $taskbarContextMenuBgColor;
   border: 1px solid #ddd;

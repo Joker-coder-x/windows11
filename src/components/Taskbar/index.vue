@@ -18,7 +18,6 @@ import { useStore } from "vuex";
 
 import StatusBar from "./StatusBar/index.vue";
 import TaskList from "./TaskList/index.vue";
-
 import TaskbarContextMenu from "./TaskbarContextMenu/index.vue";
 
 import { getTaskbarContextMenuBehavior } from "composables/contextMenuBehavior";

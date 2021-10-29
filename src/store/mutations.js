@@ -27,4 +27,12 @@ export default {
   hiddenTaskbarContextMenu (state) {
     state.isShowTaskbarContextMenu = false;
   },
+
+  showSystemMenuBoard (state) {
+    state.isShowSystemMenuBoard = true;
+  },
+
+  hiddenSystemMenuBoard (state) {
+    state.isShowSystemMenuBoard = false;
+  }
 }
