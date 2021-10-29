@@ -91,6 +91,7 @@ export default {
   position: fixed;
   left: 0;
   top: 0;
+  z-index: $desktopContextMenuZIndex;
   padding: 4px;
   background-color: #f9f9f9e0;
   border-radius: 10px;
