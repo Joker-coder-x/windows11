@@ -8,17 +8,21 @@
     @mousedown.middle="handleHiddenContextMenu"
     @mousedown.left="handleHiddenContextMenu"
   >
+    <!-- app图标item -->
     <app-item
       v-for="(item, index) of apps"
       :key="index"
       :item="item"
       @set-app-id="handleSetAppId"
     ></app-item>
-
+    <!-- 鼠标右键点击显示的菜单栏面板 -->
     <context-menu ref="contextMenuRef"></context-menu>
-
+    <!-- 系统菜单面板 -->
     <system-menu-board></system-menu-board>
+    <!-- 系统搜索面板 -->
     <system-search-board></system-search-board>
+    <!-- 系统推荐资讯面板 -->
+    <system-recom-info-board></system-recom-info-board>
   </div>
 </template>
 
@@ -36,6 +40,7 @@ import AppItem from "./AppItem/index.vue";
 import ContextMenu from "./ContextMenu/index.vue";
 import SystemMenuBoard from "../apps/SystemMenuBoard";
 import SystemSearchBoard from "../apps/SystemSearchBoard";
+import SystemRecomInfoBoard from "../apps/SystemRecomInfoBoard";
 
 // 组合API模块
 import initLayOut from "@/composables/layout";
@@ -46,7 +51,8 @@ export default {
     AppItem,
     ContextMenu,
     SystemMenuBoard,
-    SystemSearchBoard
+    SystemSearchBoard,
+    SystemRecomInfoBoard
   },
   setup () {
     const desktopRef = ref(null);

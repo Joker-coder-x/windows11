@@ -10,7 +10,7 @@
   }
 }
 
-@keyframes slide-down{
+@keyframes slide-down {
   from {
     opacity: 1;
   }
@@ -18,5 +18,28 @@
   to {
     bottom: -100%;
     opacity: 0;
+  }
+}
+
+@keyframes slide-left {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    left: -60%;
+    opacity: 0;
+  }
+}
+
+@keyframes slide-right {
+  from {
+    left: -60%;
+    opacity: 0;
+  }
+
+  to {
+    left: 1%;
+    opacity: 1;
   }
 }

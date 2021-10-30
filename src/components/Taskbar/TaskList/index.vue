@@ -18,7 +18,9 @@ import {
   HIDDEN_SYSTEM_MENU_BOARD,
   SHOW_SYSTEM_MENU_BOARD,
   HIDDEN_SYSTEM_SEARCH_BOARD,
-  SHOW_SYSTEM_SEARCH_BOARD
+  SHOW_SYSTEM_SEARCH_BOARD,
+  HIDDEN_SYSTEM_RECOM_INFO_BOARD,
+  SHOW_SYSTEM_RECOM_INFO_BOARD,
 } from "store/mutation-types";
 
 const tasks = [
@@ -45,7 +47,12 @@ const tasks = [
   {
     img: require("assets/icons/widget.png"),
     name: 'widget',
-    builtIn: true // 内置的
+    builtIn: true, // 内置的
+    handler: (store) => {
+      store.state.isShowSystemRecomInfoBoard ?
+        store.commit(HIDDEN_SYSTEM_RECOM_INFO_BOARD) :
+        store.commit(SHOW_SYSTEM_RECOM_INFO_BOARD);
+    }
   },
   {
     img: require("assets/icons/settings.png"),
