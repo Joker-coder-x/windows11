@@ -3,7 +3,7 @@
     <div
       v-show="isShowSystemMenuBoard"
       class="system-menu-board"
-      @mousedown.right="handleMouseRightDown"
+      @mousedown.stop
     >
       <div class="false-input-wrap">
         <false-input></false-input>
@@ -113,15 +113,9 @@ export default {
     const store = useStore(),
           isShowSystemMenuBoard = computed(() => store.state.isShowSystemMenuBoard);
 
-    const handleMouseRightDown = (e) => {
-      e = e || window.event;
-      e.stopPropagation();
-    }
-
     return {
       apps,
-      isShowSystemMenuBoard,
-      handleMouseRightDown
+      isShowSystemMenuBoard
     };
   },
 }

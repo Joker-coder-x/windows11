@@ -1,7 +1,9 @@
 <template>
   <div
     :class="['context-menu', isShow ? 'show' : '']"
-    :style="setMenuPos">
+    :style="setMenuPos"
+    @mousedown.stop
+  >
     <context-menu-item
       v-for="(item, index) of menus"
       :key="index"

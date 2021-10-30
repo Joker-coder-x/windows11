@@ -2,6 +2,7 @@
   <div
     :class="['task-list-item', item.builtIn ? '':  'action' ]"
     @click="handleTaskItemClick"
+    @mousedown.stop
   >
     <template v-if="item.img">
       <img

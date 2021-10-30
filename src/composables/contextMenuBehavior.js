@@ -1,4 +1,11 @@
 import {
+  HIDDEN_DESKTOP_CONTEXT_MENU,
+  HIDDEN_TASKBAR_CONTEXT_MENU,
+  SHOW_DESKTOP_CONTEXT_MENU,
+  SHOW_TASKBAR_CONTEXT_MENU
+} from "store/mutation-types";
+
+import {
   getElemDocPosition,
   getStyles,
   pagePos
@@ -8,13 +15,17 @@ export function getDesktopContextMenuBehavior (store, desktopRef, contextMenuRef
   const handleShowContextMenu = (e) => {
     e = e || window.event;
     e.preventDefault();
-    store.commit('showDesktopContextMenu', computedElementShowPos(e, contextMenuRef.value.$el, desktopRef.value));
+
+    store.commit(
+      SHOW_DESKTOP_CONTEXT_MENU,
+      computedElementShowPos(e, contextMenuRef.value.$el, desktopRef.value)
+    );
   }
 
   const handleHiddenContextMenu = (e) => {
     e = e || window.event;
     if (!contextMenuRef.value.$el.contains(e.target)) {
-      store.commit('hiddenDesktopContextMenu');
+      store.commit(HIDDEN_DESKTOP_CONTEXT_MENU);
     }
   };
 
@@ -28,13 +39,17 @@ export function getTaskbarContextMenuBehavior (store, tarbarRef, contextMenuRef)
   const handleShowContextMenu = (e) => {
     e = e || window.event;
     e.preventDefault();
-    store.commit('showTaskbarContextMenu', computedElementShowPos(e, contextMenuRef.value.$el, tarbarRef.value));
+    store.commit(
+      SHOW_TASKBAR_CONTEXT_MENU,
+      computedElementShowPos(e, contextMenuRef.value.$el, tarbarRef.value)
+    );
   }
 
   const handleHiddenContextMenu = (e) => {
     e = e || window.event;
+
     if (!contextMenuRef.value.$el.contains(e.target)) {
-      store.commit('hiddenTaskbarContextMenu');
+      store.commit(HIDDEN_TASKBAR_CONTEXT_MENU);
     }
   };
 

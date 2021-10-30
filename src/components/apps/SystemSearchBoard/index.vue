@@ -3,7 +3,7 @@
     <div
       class="system-search-board"
       v-show="isShowSystemSearchBoard"
-      @mousedown.right="handleMouseRightDown"
+      @mousedown.stop
     >
       <div class="system-search-board-input-wrap">
         <system-search-board-input
@@ -93,11 +93,6 @@ export default {
       activeIndex.value = index
     };
 
-    const handleMouseRightDown = (e) => {
-      e = e || window.event;
-      e.stopPropagation();
-    }
-
     return {
       tabsData,
       activeIndex,
@@ -105,8 +100,7 @@ export default {
       panelComponentName,
       searchInputRef,
       isShowSystemSearchBoard,
-      handleUpdateActiveIndex,
-      handleMouseRightDown
+      handleUpdateActiveIndex
     };
   },
 }

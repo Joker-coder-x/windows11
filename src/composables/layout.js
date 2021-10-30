@@ -7,6 +7,8 @@ import {
   pagePos
 } from "utils";
 
+import { SET_APP_ITEM_SIZE } from "../store/mutation-types";
+
 const layoutConfig = config.layout;
 
 export default function initLayout (apps, oDesktop, store) {
@@ -25,7 +27,7 @@ export default function initLayout (apps, oDesktop, store) {
 
     appItemWidth = width;
     appItemHeight = height;
-    store.commit('setAppItemSize', { width, height });
+    store.commit(SET_APP_ITEM_SIZE, { width, height });
 
     // 初始化布局信息
     layoutInfo = initLayOutInfo(
@@ -41,10 +43,7 @@ export default function initLayout (apps, oDesktop, store) {
   });
 
 
-  const handleDragOver = (e) => {
-    e.preventDefault();
-  };
-
+  const handleDragOver = (e) => e.preventDefault();
   const handleDrop = (e) => {
     e.preventDefault();
 
@@ -67,9 +66,7 @@ export default function initLayout (apps, oDesktop, store) {
     }
   };
 
-  const handleSetAppId = ({ item, appid }) => {
-    item.appid = appid;
-  };
+  const handleSetAppId = ({ item, appid }) => item.appid = appid;
 
   return {
     handleDragOver,
