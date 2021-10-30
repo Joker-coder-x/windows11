@@ -13,12 +13,22 @@
   user-select: none; /* Non-prefixed version, currently not supported by any browser */
 }
 
-@mixin slide-enter-active {
+@mixin animation-slide-up {
   animation: slide-up;
   animation-duration: .25s;
 }
 
-@mixin slide-leave-active {
+@mixin animation-slide-down {
   animation: slide-down;
+  animation-duration: .25s;
+}
+
+@mixin animation-slide-left {
+  animation: slide-left;
+  animation-duration: .25s;
+}
+
+@mixin animation-slide-right {
+  animation: slide-right;
   animation-duration: .25s;
 }

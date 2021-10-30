@@ -3,11 +3,13 @@ import {
   HIDDEN_ALL_SINGLE_BOARD,
   HIDDEN_DESKTOP_CONTEXT_MENU,
   HIDDEN_SYSTEM_MENU_BOARD,
+  HIDDEN_SYSTEM_RECOM_INFO_BOARD,
   HIDDEN_SYSTEM_SEARCH_BOARD,
   HIDDEN_TASKBAR_CONTEXT_MENU,
   SET_APP_ITEM_SIZE,
   SHOW_DESKTOP_CONTEXT_MENU,
   SHOW_SYSTEM_MENU_BOARD,
+  SHOW_SYSTEM_RECOM_INFO_BOARD,
   SHOW_SYSTEM_SEARCH_BOARD,
   SHOW_TASKBAR_CONTEXT_MENU
 } from "./mutation-types";
@@ -60,6 +62,15 @@ export default {
     state.isShowSystemSearchBoard = false;
   },
 
+  [SHOW_SYSTEM_RECOM_INFO_BOARD] (state) {
+    this.commit(HIDDEN_ALL_SINGLE_BOARD);
+    state.isShowSystemRecomInfoBoard = true;
+  },
+
+  [HIDDEN_SYSTEM_RECOM_INFO_BOARD] (state) {
+    state.isShowSystemRecomInfoBoard = false;
+  },
+
   // 关闭所有的非右键菜单的面板
   [HIDDEN_ALL_NOT_CONTEXT_MENU_BOARD] (state) {
     state.isShowSystemMenuBoard = false;
@@ -72,5 +83,6 @@ export default {
     state.isShowSystemSearchBoard = false;
     state.isShowDesktopContextMenu = false;
     state.isShowTaskbarContextMenu = false;
+    state.isShowSystemRecomInfoBoard = false;
   },
 }

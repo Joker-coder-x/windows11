@@ -123,11 +123,11 @@ export default {
 
 <style lang="scss" scoped>
 .slide-enter-active {
-  @include slide-enter-active;
+  @include animation-slide-up;
 }
 
 .slide-leave-active {
-  @include slide-leave-active;
+  @include animation-slide-down;
 }
 
 .system-menu-board {

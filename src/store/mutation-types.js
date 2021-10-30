@@ -12,5 +12,10 @@ export const HIDDEN_SYSTEM_MENU_BOARD = "hiddenSystemMenuBoard";
 export const SHOW_SYSTEM_SEARCH_BOARD = "showSystemSearchBoard";
 export const HIDDEN_SYSTEM_SEARCH_BOARD = "hiddenSystemSearchBoard";
 
+export const SHOW_SYSTEM_RECOM_INFO_BOARD = "showSystemRecomInfoBoard";
+export const HIDDEN_SYSTEM_RECOM_INFO_BOARD = "hiddenSystemRecomInfoBoard";
+
 export const HIDDEN_ALL_NOT_CONTEXT_MENU_BOARD = "hiddenAllNotContextMenuBoard";
 export const HIDDEN_ALL_SINGLE_BOARD = "hiddenAllSingleBoard";
+
+

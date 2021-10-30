@@ -110,11 +110,11 @@ export default {
 $bgColor: #f2f2f2e7;
 
 .slide-enter-active {
-  @include slide-enter-active;
+  @include animation-slide-up;
 }
 
 .slide-leave-active {
-  @include slide-leave-active;
+  @include animation-slide-down;
 }
 
 .system-search-board {
