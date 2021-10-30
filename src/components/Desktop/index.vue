@@ -18,6 +18,7 @@
     <context-menu ref="contextMenuRef"></context-menu>
 
     <system-menu-board></system-menu-board>
+    <system-search-board></system-search-board>
   </div>
 </template>
 
@@ -34,6 +35,7 @@ import { useStore } from 'vuex';
 import AppItem from "./AppItem/index.vue";
 import ContextMenu from "./ContextMenu/index.vue";
 import SystemMenuBoard from "../apps/SystemMenuBoard";
+import SystemSearchBoard from "../apps/SystemSearchBoard";
 
 // 组合API模块
 import initLayOut from "@/composables/layout";
@@ -43,7 +45,8 @@ export default {
   components: {
     AppItem,
     ContextMenu,
-    SystemMenuBoard
+    SystemMenuBoard,
+    SystemSearchBoard
   },
   setup () {
     const desktopRef = ref(null);

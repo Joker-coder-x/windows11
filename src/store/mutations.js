@@ -34,5 +34,13 @@ export default {
 
   hiddenSystemMenuBoard (state) {
     state.isShowSystemMenuBoard = false;
-  }
+  },
+
+  showSystemSearchBoard (state) {
+    state.isShowSystemSearchBoard = true;
+  },
+
+  hiddenSystemSearchBoard (state) {
+    state.isShowSystemSearchBoard = false;
+  },
 }

@@ -54,7 +54,7 @@ export default {
 .taskbar-context-menu {
   display: none;
   position: fixed;
-   z-index: $taskbarContextMenuZIndex;
+  z-index: $taskbarContextMenuZIndex;
   padding: 3px;
   background-color: $taskbarContextMenuBgColor;
   border: 1px solid #ddd;

@@ -3,6 +3,7 @@
     <div
       v-show="isShowSystemMenuBoard"
       class="system-menu-board"
+      @mousedown.right="handleMouseRightDown"
     >
       <div class="false-input-wrap">
         <false-input></false-input>
@@ -112,9 +113,15 @@ export default {
     const store = useStore(),
           isShowSystemMenuBoard = computed(() => store.state.isShowSystemMenuBoard);
 
+    const handleMouseRightDown = (e) => {
+      e = e || window.event;
+      e.stopPropagation();
+    }
+
     return {
       apps,
-      isShowSystemMenuBoard
+      isShowSystemMenuBoard,
+      handleMouseRightDown
     };
   },
 }
@@ -122,37 +129,11 @@ export default {
 
 <style lang="scss" scoped>
 .slide-enter-active {
-  animation: slide-up;
-  animation-duration: .25s;
+  @include slide-enter-active;
 }
 
 .slide-leave-active {
-  animation: slide-down;
-  animation-duration: .25s;
-}
-
-@keyframes slide-up {
-  from {
-    bottom: -100%;
-    opacity: 0;
-  }
-
-  to {
-    bottom: 2%;
-    opacity: 1;
-  }
-}
-
-@keyframes slide-down{
-
-  from {
-    opacity: 1;
-  }
-
-  to {
-    bottom: -100%;
-    opacity: 0;
-  }
+  @include slide-leave-active;
 }
 
 .system-menu-board {
