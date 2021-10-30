@@ -1,0 +1,22 @@
+@keyframes slide-up {
+  from {
+    bottom: -100%;
+    opacity: 0;
+  }
+
+  to {
+    bottom: 2%;
+    opacity: 1;
+  }
+}
+
+@keyframes slide-down{
+  from {
+    opacity: 1;
+  }
+
+  to {
+    bottom: -100%;
+    opacity: 0;
+  }
+}

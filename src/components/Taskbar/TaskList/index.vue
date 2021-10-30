@@ -15,21 +15,24 @@ import TaskListItem from "./TaskListItem.vue";
 
 const tasks = [
   {
-    //iconClass: 'icon-windows-fill windows',
     img: require("assets/icons/home.png"),
     name: 'windows',
     builtIn: true, // 内置的,
     handler: (store) => {
       store.state.isShowSystemMenuBoard ?
         store.commit('hiddenSystemMenuBoard') :
-        store.commit('showSystemMenuBoard')
+        store.commit('showSystemMenuBoard');
     }
   },
   {
     iconClass: 'icon-search search',
-    //img: require("assets/icons/search.png"),
     name: 'search',
-    builtIn: true // 内置的
+    builtIn: true, // 内置的
+    handler: (store) => {
+      store.state.isShowSystemSearchBoard ?
+        store.commit('hiddenSystemSearchBoard') :
+        store.commit('showSystemSearchBoard');
+    }
   },
   {
     img: require("assets/icons/widget.png"),
