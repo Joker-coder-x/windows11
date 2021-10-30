@@ -11,7 +11,8 @@ module.exports={
       .set('assets', resolve('./src/assets'))
       .set('styles', resolve('./src/styles'))
       .set('utils', resolve('./src/utils'))
-      .set('router', resolve('./src/router'))　
+      .set('router', resolve('./src/router'))
+      .set('store', resolve('./src/store'))
 
     // 每个单文件组件 scss 中导入 ./src/styles/variables.scss
     const types = ['vue-modules', 'vue', 'normal-modules', 'normal'];

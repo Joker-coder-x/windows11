@@ -1,10 +1,24 @@
+import {
+  HIDDEN_ALL_NOT_CONTEXT_MENU_BOARD,
+  HIDDEN_ALL_SINGLE_BOARD,
+  HIDDEN_DESKTOP_CONTEXT_MENU,
+  HIDDEN_SYSTEM_MENU_BOARD,
+  HIDDEN_SYSTEM_SEARCH_BOARD,
+  HIDDEN_TASKBAR_CONTEXT_MENU,
+  SET_APP_ITEM_SIZE,
+  SHOW_DESKTOP_CONTEXT_MENU,
+  SHOW_SYSTEM_MENU_BOARD,
+  SHOW_SYSTEM_SEARCH_BOARD,
+  SHOW_TASKBAR_CONTEXT_MENU
+} from "./mutation-types";
+
 export default {
-  setAppItemSize (state, sizeInfo) {
+  [SET_APP_ITEM_SIZE] (state, sizeInfo) {
     state.appGridLayoutItemWidth = sizeInfo.width;
     state.appGridLayoutItemHeight = sizeInfo.height;
   },
 
-  showDesktopContextMenu (state, pos) {
+  [SHOW_DESKTOP_CONTEXT_MENU] (state, pos) {
     this.commit('hiddenTaskbarContextMenu');
 
     state.isShowDesktopContextMenu = true;
@@ -12,35 +26,51 @@ export default {
     state.desktopContextMenuPosY = pos.y || 0;
   },
 
-  hiddenDesktopContextMenu (state) {
+  [HIDDEN_DESKTOP_CONTEXT_MENU] (state) {
     state.isShowDesktopContextMenu = false;
   },
 
-  showTaskbarContextMenu (state, pos) {
-    this.commit('hiddenDesktopContextMenu');
+  [SHOW_TASKBAR_CONTEXT_MENU] (state, pos) {
+    this.commit(HIDDEN_DESKTOP_CONTEXT_MENU);
 
     state.isShowTaskbarContextMenu = true;
     state.taskbarContextMenuPosX = pos.x || 0;
     state.taskbarContextMenuPosY = pos.y || 0;
   },
 
-  hiddenTaskbarContextMenu (state) {
+  [HIDDEN_TASKBAR_CONTEXT_MENU] (state) {
     state.isShowTaskbarContextMenu = false;
   },
 
-  showSystemMenuBoard (state) {
+  [SHOW_SYSTEM_MENU_BOARD] (state) {
+    this.commit(HIDDEN_ALL_SINGLE_BOARD);
     state.isShowSystemMenuBoard = true;
   },
 
-  hiddenSystemMenuBoard (state) {
+  [HIDDEN_SYSTEM_MENU_BOARD] (state) {
     state.isShowSystemMenuBoard = false;
   },
 
-  showSystemSearchBoard (state) {
+  [SHOW_SYSTEM_SEARCH_BOARD] (state) {
+    this.commit(HIDDEN_ALL_SINGLE_BOARD);
     state.isShowSystemSearchBoard = true;
   },
 
-  hiddenSystemSearchBoard (state) {
+  [HIDDEN_SYSTEM_SEARCH_BOARD] (state) {
     state.isShowSystemSearchBoard = false;
+  },
+
+  // 关闭所有的非右键菜单的面板
+  [HIDDEN_ALL_NOT_CONTEXT_MENU_BOARD] (state) {
+    state.isShowSystemMenuBoard = false;
+    state.isShowSystemSearchBoard = false;
+  },
+
+  // 关闭所有的面板
+  [HIDDEN_ALL_SINGLE_BOARD] (state) {
+    state.isShowSystemMenuBoard = false;
+    state.isShowSystemSearchBoard = false;
+    state.isShowDesktopContextMenu = false;
+    state.isShowTaskbarContextMenu = false;
   },
 }

@@ -11,7 +11,15 @@
 
 <script>
 import { useStore } from 'vuex';
+
 import TaskListItem from "./TaskListItem.vue";
+
+import {
+  HIDDEN_SYSTEM_MENU_BOARD,
+  SHOW_SYSTEM_MENU_BOARD,
+  HIDDEN_SYSTEM_SEARCH_BOARD,
+  SHOW_SYSTEM_SEARCH_BOARD
+} from "store/mutation-types";
 
 const tasks = [
   {
@@ -20,8 +28,8 @@ const tasks = [
     builtIn: true, // 内置的,
     handler: (store) => {
       store.state.isShowSystemMenuBoard ?
-        store.commit('hiddenSystemMenuBoard') :
-        store.commit('showSystemMenuBoard');
+        store.commit(HIDDEN_SYSTEM_MENU_BOARD) :
+        store.commit(SHOW_SYSTEM_MENU_BOARD);
     }
   },
   {
@@ -30,8 +38,8 @@ const tasks = [
     builtIn: true, // 内置的
     handler: (store) => {
       store.state.isShowSystemSearchBoard ?
-        store.commit('hiddenSystemSearchBoard') :
-        store.commit('showSystemSearchBoard');
+        store.commit(HIDDEN_SYSTEM_SEARCH_BOARD) :
+        store.commit(SHOW_SYSTEM_SEARCH_BOARD);
     }
   },
   {

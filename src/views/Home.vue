@@ -14,7 +14,7 @@ export default {
   components: {
     Desktop,
     Taskbar
-  },
+  }
 }
 </script>
 

@@ -5,6 +5,9 @@ export default {
   isShowTaskbarContextMenu: false,
   isShowSystemMenuBoard: false,
   isShowSystemSearchBoard: false,
+  singleWindowSets: {
+
+  },
   desktopContextMenuPosX: 0,
   desktopContextMenuPosY: 0,
   taskbarContextMenuPosX: 0,

@@ -2,6 +2,7 @@
   <div
     :class="['taskbar-context-menu', isShow ? 'show' : '']"
     :style="setMenuPos"
+    @mousedown.stop
   >
     <taskbar-context-menu-item
       v-for="(item, index) of taskMenus"
