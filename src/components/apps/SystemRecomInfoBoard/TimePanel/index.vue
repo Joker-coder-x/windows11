@@ -16,6 +16,7 @@ function getTimeInfo () {
   };
 }
 export default {
+  name: 'TimePanel',
   setup() {
     const timeInfo = reactive(getTimeInfo());
     const time = computed(() => {
