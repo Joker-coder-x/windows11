@@ -1,5 +1,6 @@
 <template>
   <div class="home">
+    <system-mask-layer></system-mask-layer>
     <desktop></desktop>
     <taskbar></taskbar>
   </div>
@@ -8,12 +9,14 @@
 <script>
 import Desktop from "components/Desktop";
 import Taskbar from "components/Taskbar";
+import SystemMaskLayer from "components/apps/SystemMaskLayer";
 
 export default {
   name: 'Home',
   components: {
     Desktop,
-    Taskbar
+    Taskbar,
+    SystemMaskLayer
   }
 }
 </script>

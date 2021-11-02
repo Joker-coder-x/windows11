@@ -1,6 +1,9 @@
 <template>
-  <transition>
-    <div class="system-status-control-panel">
+  <transition name="slide-horizontal">
+    <div
+      v-show="isShowSystemStatusControlBoard"
+      class="system-status-control-panel"
+    >
       <div class="control-list">
         <control-item
           v-for="(item, index) of controlList"
@@ -14,6 +17,7 @@
           class="icon"
           src="~assets/icons/ui/nightlight.png" />
         <input-range
+          v-model="lightValue"
           class="range"
           slider-class="slider"
           bg-color="#868686"
@@ -34,9 +38,13 @@
 </template>
 
 <script>
-import { reactive } from 'vue';
+import { computed, reactive } from 'vue';
+import { useStore } from 'vuex';
+
 import ControlItem from "./ControlItem";
 import InputRange from "../../common/InputRange";
+
+import { SET_LIGHT_VALUE } from "store/mutation-types";
 
 const controlList = [
   {
@@ -56,7 +64,7 @@ const controlList = [
   },
   {
     icon: require('assets/icons/ui/saver.png'),
-    name: '省点模式',
+    name: '省电模式',
     active: false
   },
   {
@@ -92,13 +100,23 @@ export default {
     ControlItem,
     InputRange
   },
-  setup() {
-    const handleSetActiveItem = (item) => {
-      item.active = !item.active;
-    }
+  setup () {
+    const store = useStore();
+    const handleSetActiveItem = (item) => item.active = !item.active;
+    const isShowSystemStatusControlBoard = computed(() => store.state.isShowSystemStatusControlBoard);
+    const lightValue = computed({
+      get () {
+        return store.state.lightValue;
+      },
+      set (newVal) {
+        store.commit(SET_LIGHT_VALUE, newVal);
+      }
+    });
 
     return {
       controlList: reactive(controlList),
+      lightValue,
+      isShowSystemStatusControlBoard,
       handleSetActiveItem
     };
   },
@@ -133,6 +151,38 @@ export default {
 :global(.slider:active::after) {
   width: 8px;
   height: 8px;
+}
+
+.slide-horizontal-enter-active {
+  animation: slide-left .25s;
+}
+
+.slide-horizontal-leave-active {
+  animation: slide-right .25s;
+}
+
+@keyframes slide-left {
+  from {
+    right: -100%;
+    opacity: 0;
+  }
+
+  to {
+    right: 1%;
+    opacity: 1;
+  }
+}
+
+@keyframes slide-right {
+  from {
+    right: 1%;
+    opacity: 1;
+  }
+
+  to {
+    right: -100%;
+    opacity: 0;
+  }
 }
 
 .system-status-control-panel {

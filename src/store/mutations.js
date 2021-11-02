@@ -5,12 +5,15 @@ import {
   HIDDEN_SYSTEM_MENU_BOARD,
   HIDDEN_SYSTEM_RECOM_INFO_BOARD,
   HIDDEN_SYSTEM_SEARCH_BOARD,
+  HIDDEN_SYSTEM_STATUS_CONTROL_BOARD,
   HIDDEN_TASKBAR_CONTEXT_MENU,
   SET_APP_ITEM_SIZE,
+  SET_LIGHT_VALUE,
   SHOW_DESKTOP_CONTEXT_MENU,
   SHOW_SYSTEM_MENU_BOARD,
   SHOW_SYSTEM_RECOM_INFO_BOARD,
   SHOW_SYSTEM_SEARCH_BOARD,
+  SHOW_SYSTEM_STATUS_CONTROL_BOARD,
   SHOW_TASKBAR_CONTEXT_MENU
 } from "./mutation-types";
 
@@ -18,6 +21,10 @@ export default {
   [SET_APP_ITEM_SIZE] (state, sizeInfo) {
     state.appGridLayoutItemWidth = sizeInfo.width;
     state.appGridLayoutItemHeight = sizeInfo.height;
+  },
+
+  [SET_LIGHT_VALUE] (state, value) {
+    state.lightValue = value < 10 ? 10 : value;
   },
 
   [SHOW_DESKTOP_CONTEXT_MENU] (state, pos) {
@@ -69,6 +76,15 @@ export default {
 
   [HIDDEN_SYSTEM_RECOM_INFO_BOARD] (state) {
     state.isShowSystemRecomInfoBoard = false;
+  },
+
+  [SHOW_SYSTEM_STATUS_CONTROL_BOARD] (state) {
+    this.commit(HIDDEN_ALL_SINGLE_BOARD);
+    state.isShowSystemStatusControlBoard = true;
+  },
+
+  [HIDDEN_SYSTEM_STATUS_CONTROL_BOARD] (state) {
+    state.isShowSystemStatusControlBoard = false;
   },
 
   // 关闭所有的非右键菜单的面板
