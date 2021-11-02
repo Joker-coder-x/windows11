@@ -23,6 +23,8 @@
     <system-search-board></system-search-board>
     <!-- 系统推荐资讯面板 -->
     <system-recom-info-board></system-recom-info-board>
+    <!-- 系统状态控制面板 -->
+    <system-status-control-board></system-status-control-board>
   </div>
 </template>
 
@@ -41,6 +43,7 @@ import ContextMenu from "./ContextMenu/index.vue";
 import SystemMenuBoard from "../apps/SystemMenuBoard";
 import SystemSearchBoard from "../apps/SystemSearchBoard";
 import SystemRecomInfoBoard from "../apps/SystemRecomInfoBoard";
+import SystemStatusControlBoard from "../apps/SystemStatusControlBoard";
 
 // 组合API模块
 import initLayOut from "@/composables/layout";
@@ -52,7 +55,8 @@ export default {
     ContextMenu,
     SystemMenuBoard,
     SystemSearchBoard,
-    SystemRecomInfoBoard
+    SystemRecomInfoBoard,
+    SystemStatusControlBoard
   },
   setup () {
     const desktopRef = ref(null);
