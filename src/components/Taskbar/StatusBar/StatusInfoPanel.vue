@@ -1,5 +1,8 @@
 <template>
-  <div class="status-info-panel-container">
+  <div
+    class="status-info-panel-container"
+    @click="handleStatusInfoPanelClick"
+  >
     <div class="status-info-panel">
       <img src="~assets/icons/wifi.png" class="img" />
       <img src="~assets/icons/audio3.png" class="img" />
@@ -7,6 +10,31 @@
     </div>
   </div>
 </template>
+
+<script>
+import { useStore } from 'vuex';
+
+import {
+  SHOW_SYSTEM_STATUS_CONTROL_BOARD,
+  HIDDEN_SYSTEM_STATUS_CONTROL_BOARD
+} from "store/mutation-types";
+
+export default {
+  name: "StatusInfoPanel",
+  setup() {
+    const store = useStore();
+    const handleStatusInfoPanelClick = () => {
+      store.state.isShowSystemStatusControlBoard ?
+       store.commit(HIDDEN_SYSTEM_STATUS_CONTROL_BOARD) :
+       store.commit(SHOW_SYSTEM_STATUS_CONTROL_BOARD);
+    };
+
+    return {
+      handleStatusInfoPanelClick
+    };
+  },
+}
+</script>
 
 <style lang="scss" scoped>
 .status-info-panel-container {
