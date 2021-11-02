@@ -21,7 +21,7 @@ export default {
   },
 
   [SHOW_DESKTOP_CONTEXT_MENU] (state, pos) {
-    this.commit('hiddenTaskbarContextMenu');
+    this.commit(HIDDEN_ALL_SINGLE_BOARD);
 
     state.isShowDesktopContextMenu = true;
     state.desktopContextMenuPosX = pos.x || 0;
