@@ -13,6 +13,21 @@
   user-select: none; /* Non-prefixed version, currently not supported by any browser */
 }
 
+@mixin no-scroll {
+  scrollbar-width: none; /* firefox */
+  -ms-overflow-style: none; /* IE 10+ */
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 @mixin animation-slide-up {
   animation: slide-up;
   animation-duration: .25s;
