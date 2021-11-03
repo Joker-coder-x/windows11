@@ -17,6 +17,8 @@ import {
   SHOW_SYSTEM_SEARCH_BOARD,
   SHOW_SYSTEM_STATUS_CONTROL_BOARD,
   SHOW_TASKBAR_CONTEXT_MENU,
+  SHOW_VS_CODE_WIDGET,
+  HIDDEN_VS_CODE_WIDGET,
 } from "./mutation-types";
 
 export default {
@@ -99,6 +101,14 @@ export default {
 
   [HIDDEN_SYSTEM_STATUS_CONTROL_BOARD] (state) {
     state.isShowSystemStatusControlBoard = false;
+  },
+
+  [SHOW_VS_CODE_WIDGET] (state) {
+    state.isShowVsCodeWidget = true;
+  },
+
+  [HIDDEN_VS_CODE_WIDGET] (state) {
+    state.isShowVsCodeWidget = false;
   },
 
   // 关闭所有的非右键菜单的面板

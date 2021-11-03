@@ -25,6 +25,7 @@
     <system-recom-info-board></system-recom-info-board>
     <!-- 系统状态控制面板 -->
     <system-status-control-board></system-status-control-board>
+    <vs-code></vs-code>
   </div>
 </template>
 
@@ -44,6 +45,7 @@ import SystemMenuBoard from "../apps/SystemMenuBoard";
 import SystemSearchBoard from "../apps/SystemSearchBoard";
 import SystemRecomInfoBoard from "../apps/SystemRecomInfoBoard";
 import SystemStatusControlBoard from "../apps/SystemStatusControlBoard";
+import VsCode from "../apps/VsCode";
 
 // 组合API模块
 import initLayOut from "@/composables/layout";
@@ -56,7 +58,8 @@ export default {
     SystemMenuBoard,
     SystemSearchBoard,
     SystemRecomInfoBoard,
-    SystemStatusControlBoard
+    SystemStatusControlBoard,
+    VsCode
   },
   setup () {
     const desktopRef = ref(null);

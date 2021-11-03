@@ -21,6 +21,8 @@ import {
   SHOW_SYSTEM_SEARCH_BOARD,
   HIDDEN_SYSTEM_RECOM_INFO_BOARD,
   SHOW_SYSTEM_RECOM_INFO_BOARD,
+  HIDDEN_VS_CODE_WIDGET,
+  SHOW_VS_CODE_WIDGET,
 } from "store/mutation-types";
 
 const tasks = [
@@ -61,7 +63,12 @@ const tasks = [
   },
   {
     img: require("assets/icons/code.png"),
-    name: 'vscode'
+    name: 'vscode',
+    handler: (store) => {
+      store.state.isShowVsCodeWidget ?
+        store.commit(HIDDEN_VS_CODE_WIDGET) :
+        store.commit(SHOW_VS_CODE_WIDGET);
+    }
   }
 ];
 
