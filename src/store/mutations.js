@@ -8,23 +8,37 @@ import {
   HIDDEN_SYSTEM_STATUS_CONTROL_BOARD,
   HIDDEN_TASKBAR_CONTEXT_MENU,
   SET_APP_ITEM_SIZE,
+  SET_AUDIO_VALUE,
   SET_LIGHT_VALUE,
+  SET_EYE_CARE_MODE,
   SHOW_DESKTOP_CONTEXT_MENU,
   SHOW_SYSTEM_MENU_BOARD,
   SHOW_SYSTEM_RECOM_INFO_BOARD,
   SHOW_SYSTEM_SEARCH_BOARD,
   SHOW_SYSTEM_STATUS_CONTROL_BOARD,
-  SHOW_TASKBAR_CONTEXT_MENU
+  SHOW_TASKBAR_CONTEXT_MENU,
 } from "./mutation-types";
 
 export default {
+  // 设置桌面图标大小
   [SET_APP_ITEM_SIZE] (state, sizeInfo) {
     state.appGridLayoutItemWidth = sizeInfo.width;
     state.appGridLayoutItemHeight = sizeInfo.height;
   },
 
+  // 设置亮度
   [SET_LIGHT_VALUE] (state, value) {
     state.lightValue = value < 10 ? 10 : value;
+  },
+
+  // 设置音量
+  [SET_AUDIO_VALUE] (state, value) {
+    state.audioValue = value;
+  },
+
+  // 设置护眼模式
+  [SET_EYE_CARE_MODE] (state, value) {
+    state.eyeCareMode = value;
   },
 
   [SHOW_DESKTOP_CONTEXT_MENU] (state, pos) {
@@ -100,5 +114,6 @@ export default {
     state.isShowDesktopContextMenu = false;
     state.isShowTaskbarContextMenu = false;
     state.isShowSystemRecomInfoBoard = false;
+    state.isShowSystemStatusControlBoard = false;
   },
 }

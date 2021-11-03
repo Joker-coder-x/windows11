@@ -32,10 +32,7 @@ import {
   onMounted,
   watch,
   computed,
-  warn
 } from 'vue';
-
-import { useStore } from 'vuex';
 
 export default {
   name: 'InputRange',
@@ -78,8 +75,7 @@ export default {
           inputRangeRef = ref(null),
           inputSliderRef = ref(null),
           offsetLeft = ref(0),
-          value = ref(props.modelValue),
-          store = useStore();
+          value = ref(props.modelValue);
 
     let lastX = 0,
         wrapWidth = 0,
@@ -91,6 +87,7 @@ export default {
       newVal => {
         if (value.value !== newVal) {
           value.value = newVal;
+          setSliderPos();
         }
       }
     );
@@ -99,14 +96,6 @@ export default {
       newVal => {
         value.value = Math.round(props.min + ((props.max - props.min) * (newVal / maxSliderLeft)));
         emit('update:modelValue', value.value);
-      }
-    );
-    watch(
-      computed(() => store.state.isShowSystemStatusControlBoard),
-      newVal => {
-        if (newVal) {
-          setTimeout(setSliderPos);
-        }
       }
     );
 
@@ -159,6 +148,7 @@ export default {
     onMounted(() => {
       bindEvent();
       setSizeInfo();
+      setSliderPos();
     });
     onUnmounted(() => {
       document.body.removeEventListener('mousemove', handleMouseMove, false);

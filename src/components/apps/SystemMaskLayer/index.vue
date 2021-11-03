@@ -18,7 +18,7 @@ export default {
           opacity = computed(() => 1 - (store.state.lightValue / 100));
 
     return {
-      opacity
+      opacity,
     };
   },
 }

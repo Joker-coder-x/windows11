@@ -1,8 +1,9 @@
 <template>
   <transition name="slide-horizontal">
     <div
-      v-show="isShowSystemStatusControlBoard"
+      v-if="isShowSystemStatusControlBoard"
       class="system-status-control-panel"
+      @mousedown.stop
     >
       <div class="control-list">
         <control-item
@@ -24,10 +25,9 @@
         ></input-range>
       </div>
       <div class="panel">
-        <img
-          class="icon"
-          src="~assets/icons/ui/audio.png" />
+        <system-audio-icon class="icon"></system-audio-icon>
         <input-range
+          v-model="audioValue"
           class="range"
           slider-class="slider"
           bg-color="#868686"
@@ -38,13 +38,21 @@
 </template>
 
 <script>
-import { computed, reactive } from 'vue';
+import {
+  computed,
+  reactive
+} from 'vue';
 import { useStore } from 'vuex';
 
 import ControlItem from "./ControlItem";
 import InputRange from "../../common/InputRange";
+import SystemAudioIcon from "../SystemAudioIcon";
 
-import { SET_LIGHT_VALUE } from "store/mutation-types";
+import {
+  SET_AUDIO_VALUE,
+  SET_LIGHT_VALUE,
+  SET_EYE_CARE_MODE
+} from "store/mutation-types";
 
 const controlList = [
   {
@@ -65,7 +73,12 @@ const controlList = [
   {
     icon: require('assets/icons/ui/saver.png'),
     name: '省电模式',
-    active: false
+    active: false,
+    handler (store) {
+      if (this.active) {
+        store.commit(SET_LIGHT_VALUE, 40);
+      }
+    }
   },
   {
     icon: require('assets/icons/ui/moon.png'),
@@ -73,9 +86,14 @@ const controlList = [
     active: false
   },
   {
-    icon: require('assets/icons/ui/nightlight.png'),
-    name: '夜间模式',
-    active: false
+    icon: require('assets/icons/ui/eye_care.png'),
+    name: '护眼模式',
+    active: false,
+    handler (store) {
+      this.active ?
+        store.commit(SET_EYE_CARE_MODE, true) :
+        store.commit(SET_EYE_CARE_MODE, false);
+    }
   },
   {
     icon: require('assets/icons/ui/location.png'),
@@ -98,24 +116,31 @@ export default {
   name: 'SystemStatusControlBoard',
   components: {
     ControlItem,
-    InputRange
+    InputRange,
+    SystemAudioIcon
   },
   setup () {
     const store = useStore();
-    const handleSetActiveItem = (item) => item.active = !item.active;
+
     const isShowSystemStatusControlBoard = computed(() => store.state.isShowSystemStatusControlBoard);
     const lightValue = computed({
-      get () {
-        return store.state.lightValue;
-      },
-      set (newVal) {
-        store.commit(SET_LIGHT_VALUE, newVal);
-      }
+      get: () => store.state.lightValue,
+      set: (newVal) => store.commit(SET_LIGHT_VALUE, newVal)
     });
+    const audioValue = computed({
+      get: () => store.state.audioValue,
+      set: (newVal) => store.commit(SET_AUDIO_VALUE, newVal)
+    });
+
+    const handleSetActiveItem = (item) => {
+      item.active = !item.active;
+      item.handler && item.handler(store);
+    }
 
     return {
       controlList: reactive(controlList),
       lightValue,
+      audioValue,
       isShowSystemStatusControlBoard,
       handleSetActiveItem
     };
