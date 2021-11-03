@@ -21,5 +21,8 @@ export const HIDDEN_SYSTEM_RECOM_INFO_BOARD = "hiddenSystemRecomInfoBoard";
 export const SHOW_SYSTEM_STATUS_CONTROL_BOARD = "showSystemStatusControlBoard";
 export const HIDDEN_SYSTEM_STATUS_CONTROL_BOARD = "hiddenSystemStatusControlBoard";
 
+export const SHOW_VS_CODE_WIDGET = "showVsCodeWidget";
+export const HIDDEN_VS_CODE_WIDGET = "hiddenVsCodeWidget";
+
 export const HIDDEN_ALL_NOT_CONTEXT_MENU_BOARD = "hiddenAllNotContextMenuBoard";
 export const HIDDEN_ALL_SINGLE_BOARD = "hiddenAllSingleBoard";
