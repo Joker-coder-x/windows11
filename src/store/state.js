@@ -1,4 +1,5 @@
 export default {
+  eyeCareMode: false,
   appGridLayoutItemWidth: 0,
   appGridLayoutItemHeight: 0,
   isShowDesktopContextMenu: false,
@@ -11,5 +12,6 @@ export default {
   desktopContextMenuPosY: 0,
   taskbarContextMenuPosX: 0,
   taskbarContextMenuPosY: 0,
-  lightValue: 100, // 范围： 0-100
+  lightValue: 100, // 范围：0-100
+  audioValue: 100, // 范围: 0-100
 };

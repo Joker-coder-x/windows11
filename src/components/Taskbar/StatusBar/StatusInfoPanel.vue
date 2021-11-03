@@ -2,10 +2,11 @@
   <div
     class="status-info-panel-container"
     @click="handleStatusInfoPanelClick"
+    @mousedown.stop
   >
     <div class="status-info-panel">
       <img src="~assets/icons/wifi.png" class="img" />
-      <img src="~assets/icons/audio3.png" class="img" />
+      <system-audio-icon class="img"></system-audio-icon>
       <img src="~assets/icons/ui/battery.png" class="img" />
     </div>
   </div>
@@ -14,6 +15,8 @@
 <script>
 import { useStore } from 'vuex';
 
+import SystemAudioIcon from "../../apps/SystemAudioIcon";
+
 import {
   SHOW_SYSTEM_STATUS_CONTROL_BOARD,
   HIDDEN_SYSTEM_STATUS_CONTROL_BOARD
@@ -21,6 +24,9 @@ import {
 
 export default {
   name: "StatusInfoPanel",
+  components: {
+    SystemAudioIcon
+  },
   setup() {
     const store = useStore();
     const handleStatusInfoPanelClick = () => {

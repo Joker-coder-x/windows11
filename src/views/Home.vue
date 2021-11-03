@@ -1,6 +1,7 @@
 <template>
   <div class="home">
     <system-mask-layer></system-mask-layer>
+    <system-eye-care-layer></system-eye-care-layer>
     <desktop></desktop>
     <taskbar></taskbar>
   </div>
@@ -10,13 +11,15 @@
 import Desktop from "components/Desktop";
 import Taskbar from "components/Taskbar";
 import SystemMaskLayer from "components/apps/SystemMaskLayer";
+import SystemEyeCareLayer from "components/apps/SystemEyeCareLayer";
 
 export default {
   name: 'Home',
   components: {
     Desktop,
     Taskbar,
-    SystemMaskLayer
+    SystemMaskLayer,
+    SystemEyeCareLayer
   }
 }
 </script>
