@@ -3,7 +3,10 @@
  */
 
 
+
+// 阻止默认鼠标右键点击的菜单栏弹出
 document.oncontextmenu = function (e){
   e = e || window.event;
   e.preventDefault();
 }
+

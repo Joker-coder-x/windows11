@@ -34,6 +34,11 @@ import {
   computed,
 } from 'vue';
 
+import {
+  $on,
+  $off
+} from "utils";
+
 export default {
   name: 'InputRange',
   props: {
@@ -140,9 +145,9 @@ export default {
 
     const handleMouseUp = () => isDown.value = false;
     const bindEvent = () => {
-      document.body.addEventListener('mousemove', handleMouseMove, false);
-      document.body.addEventListener('mouseup', handleMouseUp, false);
-      window.addEventListener('resize', setSizeInfo, false);
+      $on(document.body, 'mousemove', handleMouseMove, false);
+      $on(document.body, 'mouseup', handleMouseUp, false);
+      $on(window, 'mousemove', setSizeInfo, false);
     };
 
     onMounted(() => {
@@ -151,9 +156,9 @@ export default {
       setSliderPos();
     });
     onUnmounted(() => {
-      document.body.removeEventListener('mousemove', handleMouseMove, false);
-      document.body.removeEventListener('mouseup', handleMouseUp, false);
-      window.removeEventListener('resize', setSizeInfo, false);
+      $off(document.body, 'mousemove', handleMouseMove, false);
+      $off(document.body, 'mouseup', handleMouseUp, false);
+      $off(window, 'mousemove', setSizeInfo, false);
     });
 
     return {

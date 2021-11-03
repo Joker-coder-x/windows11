@@ -1,7 +1,7 @@
 export default {
-  eyeCareMode: false,
-  appGridLayoutItemWidth: 0,
-  appGridLayoutItemHeight: 0,
+  eyeCareMode: false, // 护眼模式
+  appGridLayoutItemWidth: 0, // app栅格的宽度
+  appGridLayoutItemHeight: 0, // app栅格的高度
   isShowDesktopContextMenu: false,
   isShowTaskbarContextMenu: false,
   isShowSystemMenuBoard: false,
@@ -12,6 +12,6 @@ export default {
   desktopContextMenuPosY: 0,
   taskbarContextMenuPosX: 0,
   taskbarContextMenuPosY: 0,
-  lightValue: 100, // 范围：0-100
-  audioValue: 100, // 范围: 0-100
+  lightValue: 100, // 亮度值 范围：0-100
+  audioValue: 100, // 音量值 范围: 0-100
 };

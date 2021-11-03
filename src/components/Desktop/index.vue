@@ -78,14 +78,14 @@ export default {
         appid: null
       },
       {
-        icon: require("assets/images/app/vscode.png"),
+        icon: require("assets/icons/code.png"),
         name: 'VSCode',
         x: 0,
         y: 0,
         appid: null
       },
       {
-        icon: require("assets/images/app/cloud-music.png"),
+        icon: require("assets/icons/cloud-music.png"),
         name: '网易云音乐',
         x: 0,
         y: 0,

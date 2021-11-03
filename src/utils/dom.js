@@ -1,3 +1,58 @@
+/**
+ * 绑定事件处理程序兼容版API
+ * @param {*} el
+ * @param {*} type
+ * @param {*} fn
+ * @param {*} useCapture
+ */
+export function $on (el, type, fn, useCapture) {
+  var useCapture = arguments.length > 3 && arguments[3] !== undefined ? useCapture : false;
+  if (el.addEventListener) {
+    $on = function (el, type, fn, useCapture){
+      el.addEventListener(type, fn, useCapture);
+    };
+  } else if(el.attachEvent) {
+    $on = function (el, type, fn){
+      el.attachEvent('on' + type, function _() {
+        fn.__warpperFn__ = _;
+        fn.call(el);
+      });
+    };
+  } else {
+    $on = function (el, type, fn) {
+      el['on' + type] = fn;
+    };
+  }
+
+  $on(el, type, fn, useCapture);
+}
+
+/**
+ * 移除绑定事件处理程序兼容版API
+ * @param {*} el
+ * @param {*} type
+ * @param {*} fn
+ * @param {*} useCapture
+ */
+export function $off (el, type, fn, useCapture) {
+  var useCapture = arguments.length > 3 && arguments[3] !== undefined ? useCapture : false;
+  if (el.removeEventListener) {
+    $off = function (el, type, fn, useCapture) {
+      el.removeEventListener(type, fn, useCapture);
+    };
+  } else if(el.detachEvent) {
+    $off = function (el, type, fn) {
+      el.detachEvent('on' + type, fn.__warpperFn__ ? fn.__warpperFn__ : fn);
+    };
+  } else {
+    $off = function (el, type, fn){
+      el['on' + type] = null;
+    };
+  }
+
+  $off(el, type, fn, useCapture);
+}
+
 export function getStyles (elem, prop) {
   if (window.getComputedStyle) {
     return prop ? window.getComputedStyle(elem, null)[prop] : window.getComputedStyle(elem, null);
@@ -52,4 +107,14 @@ export function getElemDocPosition(node){
     offsetLeft: offsetLeft,
     offsetTop: offsetTop
   };
+}
+
+
+/**
+ * 获取电池状态的API
+ * @notice  该API不支持IE
+ * @returns {Promise}
+ */
+export function getBatteryManager () {
+  return navigator.getBattery();
 }

@@ -1,7 +1,7 @@
 <template>
   <div class="footer-panel">
     <div class="account-wrap">
-      <img src="~assets/images/xifan.jpg" class="img" />
+      <img src="~assets/icons/xifan.jpg" class="img" />
       <span>稀饭</span>
     </div>
     <div class="btn-shutdown">
