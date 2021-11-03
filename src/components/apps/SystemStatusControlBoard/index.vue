@@ -75,9 +75,9 @@ const controlList = [
     name: '省电模式',
     active: false,
     handler (store) {
-      if (this.active) {
-        store.commit(SET_LIGHT_VALUE, 40);
-      }
+      this.active ?
+        (this.lastLightValue = store.state.lightValue, store.commit(SET_LIGHT_VALUE, 40)) :
+        store.commit(SET_LIGHT_VALUE, this.lastLightValue);
     }
   },
   {

@@ -7,7 +7,7 @@
     <div class="status-info-panel">
       <img src="~assets/icons/wifi.png" class="img" />
       <system-audio-icon class="img"></system-audio-icon>
-      <img src="~assets/icons/ui/battery.png" class="img" />
+      <system-battery-icon class="img"></system-battery-icon>
     </div>
   </div>
 </template>
@@ -16,6 +16,7 @@
 import { useStore } from 'vuex';
 
 import SystemAudioIcon from "../../apps/SystemAudioIcon";
+import SystemBatteryIcon from "../../apps/SystemBatteryIcon";
 
 import {
   SHOW_SYSTEM_STATUS_CONTROL_BOARD,
@@ -25,7 +26,8 @@ import {
 export default {
   name: "StatusInfoPanel",
   components: {
-    SystemAudioIcon
+    SystemAudioIcon,
+    SystemBatteryIcon
   },
   setup() {
     const store = useStore();
@@ -62,6 +64,10 @@ export default {
       width: 16px;
       height: 16px;
       margin-right: 8px;
+
+      &.iconfont {
+        font-size: 14px;
+      }
     }
   }
 }
