@@ -9,6 +9,7 @@ export default {
   isShowSystemRecomInfoBoard: false,
   isShowSystemStatusControlBoard: false,
   isShowVsCodeWidget: false,
+  isShowEdgeBrowserWidget: false,
   desktopContextMenuPosX: 0,
   desktopContextMenuPosY: 0,
   taskbarContextMenuPosX: 0,

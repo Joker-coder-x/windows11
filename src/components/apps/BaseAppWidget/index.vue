@@ -113,7 +113,7 @@ export default {
   left: 50%;
   top: 50%;
   width: 60vw;
-  height: 70vh;
+  height: 75vh;
   transform: translate(-50%, -50%);
   border-radius: 6px;
   transition: width .25s, height .25s;
@@ -132,6 +132,7 @@ export default {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    border: none;
 
     .logo-panel {
       display: flex;

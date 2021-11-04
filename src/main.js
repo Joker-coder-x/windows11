@@ -6,7 +6,11 @@ import store from './store';
 import "styles/index.scss";
 import "utils/common.js";
 
-createApp(App)
-  .use(store)
+import appWidgetController from './app-widget-controller';
+
+const app = createApp(App);
+
+app.use(store)
+  .use(appWidgetController)
   .use(router)
   .mount('#app');

@@ -1,5 +1,5 @@
 <template>
-  <transition name="slide">
+  <transition name="slide"  mode="out-in">
     <div
       class="system-search-board"
       v-show="isShowSystemSearchBoard"

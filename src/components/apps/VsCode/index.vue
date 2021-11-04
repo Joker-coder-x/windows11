@@ -1,7 +1,7 @@
 <template>
   <transition name="scale-slide">
     <base-app-widget
-      v-show="isShowVsCodeWidget"
+      v-if="isShowVsCodeWidget"
       class="vscode"
       name="VS Code"
       :icon="require('assets/icons/code.png')"
@@ -10,7 +10,7 @@
     >
       <iframe
         class="iframe"
-        src="https://github1s.com/Joker-coder-x/windows11"
+        src="https://github1s.com/Joker-coder-x/windows11/blob/HEAD/README.md"
         frameborder="0"
       ></iframe>
     </base-app-widget>
@@ -18,22 +18,22 @@
 </template>
 
 <script>
-import { computed } from 'vue';
 import { useStore } from 'vuex';
 
 import { HIDDEN_VS_CODE_WIDGET } from "store/mutation-types";
 
 import BaseAppWidget from "../BaseAppWidget";
 
-
 export default {
   name: 'VsCode',
+  _appConfig: {
+    storeControlPropName: "isShowVsCodeWidget",
+  },
   components: {
     BaseAppWidget
   },
   setup() {
     const store = useStore();
-    const isShowVsCodeWidget = computed(() => store.state.isShowVsCodeWidget);
 
     const hiddenVsCodeWidget = () => store.commit(HIDDEN_VS_CODE_WIDGET);
 
@@ -41,7 +41,6 @@ export default {
     const handleClose = () => hiddenVsCodeWidget();
 
     return {
-      isShowVsCodeWidget,
       handleMinimize,
       handleClose
     };
@@ -65,6 +64,10 @@ export default {
     opacity: 0;
     top: 100%;
   }
+}
+
+.vscode {
+  @include disabled-selected;
 }
 
 .iframe {

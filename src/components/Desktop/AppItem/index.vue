@@ -4,6 +4,7 @@
     :style="getStyle"
     draggable="true"
     @dragstart="handleDrag"
+    @dblclick="handleDbClick"
   >
     <div class="app-logo">
       <img
@@ -20,6 +21,7 @@
 <script>
 import { computed } from 'vue';
 import { useStore } from 'vuex';
+
 let uid = 0;
 
 export default {
@@ -47,13 +49,13 @@ export default {
       };
     });
 
-    function handleDrag (e) {
-      e.dataTransfer.setData("appid", appid);
-    }
+    const handleDrag = (e) =>  e.dataTransfer.setData("appid", appid);
+    const handleDbClick = () => props.item.handler && props.item.handler(store);
 
     return {
       getStyle,
-      handleDrag
+      handleDrag,
+      handleDbClick
     };
   },
 }
@@ -77,8 +79,8 @@ export default {
 
   .app-logo {
     .img {
-      width: 48px;
-      height: 48px;
+      width: 42px;
+      height: 42px;
     }
   }
 

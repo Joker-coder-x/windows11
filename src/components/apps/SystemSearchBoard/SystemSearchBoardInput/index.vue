@@ -6,6 +6,7 @@
       class="input"
       :placeholder="placeholder"
       ref="inputRef"
+      :autofocus="autofocus"
     />
   </div>
 </template>
@@ -20,6 +21,10 @@ export default {
     placeholder: {
       type: String,
       default: '在此键入已搜索'
+    },
+    autofocus: {
+      type: Boolean,
+      default: true
     }
   },
   setup () {

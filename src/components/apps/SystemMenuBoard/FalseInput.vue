@@ -1,15 +1,29 @@
 <template>
-  <div class="false-input">
+  <div
+    class="false-input"
+    @click="handleFalseInputClick"
+  >
     <span class="iconfont icon-search"></span>
     <span class="placeholder">在此键入已搜索</span>
   </div>
 </template>
 
 <script>
+import { useStore } from 'vuex';
+
+import { SHOW_SYSTEM_SEARCH_BOARD } from "store/mutation-types";
+
 export default {
   name: 'FalseInput',
-  setup() {
+  setup () {
+    const store = useStore();
+    const handleFalseInputClick = () => {
+      store.commit(SHOW_SYSTEM_SEARCH_BOARD);
+    };
 
+    return {
+      handleFalseInputClick
+    };
   },
 }
 </script>
