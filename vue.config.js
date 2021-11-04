@@ -14,6 +14,13 @@ module.exports={
       .set('router', resolve('./src/router'))
       .set('store', resolve('./src/store'))
 
+    // 处理.ico文件
+    config.module
+      .rule('image')
+      .test(/\.ico$/)
+      .use('url-loader')
+      .loader('url-loader')
+
     // 每个单文件组件 scss 中导入 ./src/styles/variables.scss
     const types = ['vue-modules', 'vue', 'normal-modules', 'normal'];
     types.forEach(type => addStyleResource(config.module.rule('scss').oneOf(type)));

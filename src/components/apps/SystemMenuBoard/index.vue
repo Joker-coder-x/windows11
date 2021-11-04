@@ -1,7 +1,7 @@
 <template>
   <transition name="slide">
     <div
-      v-show="isShowSystemMenuBoard"
+      v-if="isShowSystemMenuBoard"
       class="system-menu-board"
       @mousedown.stop
     >
@@ -19,12 +19,14 @@
 </template>
 
 <script>
+import { computed } from 'vue';
+import { useStore } from 'vuex';
+
+
 import FalseInput from "./FalseInput.vue";
 import AppListPanel from "./AppListPanel/index.vue";
 import RecommendProjectPanel from "./RecommendProjectPanel/index.vue";
 import FooterPanel from "./FooterPanel/index.vue";
-import { useStore } from 'vuex';
-import { computed } from '@vue/reactivity';
 
 const apps = [
   {

@@ -26,6 +26,7 @@ export default {
 
 <style lang="scss" scoped>
 .home {
+  overflow: hidden;
   background-image: url("~assets/icons/bg/img20.jpg");
   background-repeat: no-repeat;
   background-position: 0 0;

@@ -19,6 +19,8 @@ import {
   SHOW_TASKBAR_CONTEXT_MENU,
   SHOW_VS_CODE_WIDGET,
   HIDDEN_VS_CODE_WIDGET,
+  SHOW_EDGE_BROWSER_WIDGET,
+  HIDDEN_EDGE_BROWSER_WIDGET,
 } from "./mutation-types";
 
 export default {
@@ -109,6 +111,14 @@ export default {
 
   [HIDDEN_VS_CODE_WIDGET] (state) {
     state.isShowVsCodeWidget = false;
+  },
+
+  [SHOW_EDGE_BROWSER_WIDGET] (state) {
+    state.isShowEdgeBrowserWidget = true;
+  },
+
+  [HIDDEN_EDGE_BROWSER_WIDGET] (state) {
+    state.isShowEdgeBrowserWidget = false;
   },
 
   // 关闭所有的非右键菜单的面板
