@@ -4,10 +4,10 @@
     @click="handleTaskItemClick"
     @mousedown.stop
   >
-    <template v-if="item.img">
+    <template v-if="item.logo">
       <img
         class="img"
-        :src="item.img" />
+        :src="item.logo" />
     </template>
     <template v-else-if="item.iconClass">
       <span :class="['iconfont', item.iconClass]"></span>

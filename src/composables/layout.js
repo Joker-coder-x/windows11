@@ -42,7 +42,6 @@ export default function initLayout (apps, oDesktop, store) {
     setLayout(layoutInfo, apps, layoutConfig.row, layoutConfig.column);
   });
 
-
   const handleDragOver = (e) => e.preventDefault();
   const handleDrop = (e) => {
     e.preventDefault();

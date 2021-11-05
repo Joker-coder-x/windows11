@@ -23,9 +23,14 @@ export const HIDDEN_SYSTEM_STATUS_CONTROL_BOARD = "hiddenSystemStatusControlBoar
 
 export const SHOW_VS_CODE_WIDGET = "showVsCodeWidget";
 export const HIDDEN_VS_CODE_WIDGET = "hiddenVsCodeWidget";
+export const CLOSE_VS_CODE_WIDGET = "closeVsCodeWidget";
 
 export const SHOW_EDGE_BROWSER_WIDGET = "showEdgeBrowserWidget";
 export const HIDDEN_EDGE_BROWSER_WIDGET = "hiddenEdgeBrowserWidget";
+export const CLOSE_EDGE_BROWSER_WIDGET = "closeEdgeBrowserWidget";
 
 export const HIDDEN_ALL_NOT_CONTEXT_MENU_BOARD = "hiddenAllNotContextMenuBoard";
 export const HIDDEN_ALL_SINGLE_BOARD = "hiddenAllSingleBoard";
+
+export const ADD_TASK = "addTask";
+export const REMOVE_TASK = "removeTask";
