@@ -1,6 +1,7 @@
 <template>
   <div
-    :class="['task-list-item', item.builtIn ? '':  'action' ]"
+    :class="[
+      'task-list-item', item.builtIn ? '':  'action', item.active ? 'active' : '']"
     @click="handleTaskItemClick"
     @mousedown.stop
   >
@@ -59,6 +60,23 @@ export default {
     }
   }
 
+  &.action::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    width: 18%;
+    height: 3px;
+    border-radius: 1.5px;
+    background-color: #888;
+    transform: translateX(-50%);
+  }
+
+  &.active.action::after {
+    width: 40%;
+    background-color: #0078D7;
+  }
+
   .img {
     width: 23px;
     height: 23px;
@@ -72,17 +90,5 @@ export default {
   .iconfont.windows {
     color: #00ADEF;
   }
-}
-
-.task-list-item.action::after {
-  content: '';
-  position: absolute;
-  left: 50%;
-  bottom: 0;
-  width: 18%;
-  height: 3px;
-  border-radius: 1.5px;
-  background-color: #888;
-  transform: translateX(-50%);
 }
 </style>

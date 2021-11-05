@@ -14,7 +14,8 @@ $taskbarContextMenuHoverColor: #cec8c8b2;
 // z-index 层级相关
 $desktopContextMenuZIndex: 1000;
 $taskbarContextMenuZIndex: 1000;
-
+$inactiveAppWidgetZIndex: 1000;
+$activeAppWidgetZIndex: 1100;
 
 // box-shadow相关
 $systemRecomInfoBoardItemShadow: 0 0 10px #bdbdbb;

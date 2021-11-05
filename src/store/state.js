@@ -19,5 +19,5 @@ export default {
   taskbarContextMenuPosY: 0,
   lightValue: 100, // 亮度值 范围：0-100
   audioValue: 100, // 音量值 范围: 0-100
-  tasks: config.tasks
+  tasks: config.tasks.map(item => ({...item , active: false}))
 };

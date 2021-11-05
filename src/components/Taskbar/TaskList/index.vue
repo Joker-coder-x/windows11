@@ -10,10 +10,13 @@
 </template>
 
 <script>
-import { computed } from 'vue';
+import { computed, unref} from 'vue';
 import { useStore } from 'vuex';
 
 import TaskListItem from "./TaskListItem.vue";
+
+import { ADD_TASK } from "store/mutation-types";
+import { APP_STATUS_MAP } from "utils";
 
 export default {
   name: 'TaskList',
@@ -22,8 +25,20 @@ export default {
   },
   setup() {
     const store = useStore();
-    const handleTaskItemClick = (taskInfo) => taskInfo.handler && taskInfo.handler(store);
+    const handleTaskItemClick = (task) =>{
+      const curActiveTask = unref(store.getters.curActiveTask);
 
+      if (
+        curActiveTask &&
+        curActiveTask.name !== task.name &&
+        task.status === APP_STATUS_MAP.SHOW
+      ) {
+        store.commit(ADD_TASK, task);
+        return;
+      }
+
+      task.handler && task.handler(store, task)
+    };
     const tasks = computed(() => store.state.tasks);
 
     return {
