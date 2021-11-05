@@ -4,7 +4,14 @@
 
 import {
   SHOW_VS_CODE_WIDGET,
-  SHOW_EDGE_BROWSER_WIDGET
+  SHOW_EDGE_BROWSER_WIDGET,
+  HIDDEN_SYSTEM_MENU_BOARD,
+  SHOW_SYSTEM_MENU_BOARD,
+  HIDDEN_SYSTEM_SEARCH_BOARD,
+  SHOW_SYSTEM_SEARCH_BOARD,
+  HIDDEN_SYSTEM_RECOM_INFO_BOARD,
+  SHOW_SYSTEM_RECOM_INFO_BOARD,
+  HIDDEN_VS_CODE_WIDGET
 } from "./store/mutation-types";
 
 export default {
@@ -41,6 +48,43 @@ export default {
       handler (store) {
         store.commit(SHOW_EDGE_BROWSER_WIDGET);
       }
+    },
+  ],
+  tasks: [
+    {
+      logo: require("assets/icons/home.png"),
+      name: 'windows',
+      builtIn: true, // 内置的,
+      handler: (store) => {
+        store.state.isShowSystemMenuBoard ?
+          store.commit(HIDDEN_SYSTEM_MENU_BOARD) :
+          store.commit(SHOW_SYSTEM_MENU_BOARD);
+      }
+    },
+    {
+      iconClass: 'icon-search search',
+      name: 'search',
+      builtIn: true, // 内置的
+      handler: (store) => {
+        store.state.isShowSystemSearchBoard ?
+          store.commit(HIDDEN_SYSTEM_SEARCH_BOARD) :
+          store.commit(SHOW_SYSTEM_SEARCH_BOARD);
+      }
+    },
+    {
+      logo: require("assets/icons/widget.png"),
+      name: 'widget',
+      builtIn: true, // 内置的
+      handler: (store) => {
+        store.state.isShowSystemRecomInfoBoard ?
+          store.commit(HIDDEN_SYSTEM_RECOM_INFO_BOARD) :
+          store.commit(SHOW_SYSTEM_RECOM_INFO_BOARD);
+      }
+    },
+    {
+      logo: require("assets/icons/settings.png"),
+      name: 'setting',
+      builtIn: true // 内置的
     },
   ]
 };

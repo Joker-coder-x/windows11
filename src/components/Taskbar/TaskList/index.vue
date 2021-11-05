@@ -10,67 +10,10 @@
 </template>
 
 <script>
+import { computed } from 'vue';
 import { useStore } from 'vuex';
 
 import TaskListItem from "./TaskListItem.vue";
-
-import {
-  HIDDEN_SYSTEM_MENU_BOARD,
-  SHOW_SYSTEM_MENU_BOARD,
-  HIDDEN_SYSTEM_SEARCH_BOARD,
-  SHOW_SYSTEM_SEARCH_BOARD,
-  HIDDEN_SYSTEM_RECOM_INFO_BOARD,
-  SHOW_SYSTEM_RECOM_INFO_BOARD,
-  HIDDEN_VS_CODE_WIDGET,
-  SHOW_VS_CODE_WIDGET,
-} from "store/mutation-types";
-
-const tasks = [
-  {
-    img: require("assets/icons/home.png"),
-    name: 'windows',
-    builtIn: true, // 内置的,
-    handler: (store) => {
-      store.state.isShowSystemMenuBoard ?
-        store.commit(HIDDEN_SYSTEM_MENU_BOARD) :
-        store.commit(SHOW_SYSTEM_MENU_BOARD);
-    }
-  },
-  {
-    iconClass: 'icon-search search',
-    name: 'search',
-    builtIn: true, // 内置的
-    handler: (store) => {
-      store.state.isShowSystemSearchBoard ?
-        store.commit(HIDDEN_SYSTEM_SEARCH_BOARD) :
-        store.commit(SHOW_SYSTEM_SEARCH_BOARD);
-    }
-  },
-  {
-    img: require("assets/icons/widget.png"),
-    name: 'widget',
-    builtIn: true, // 内置的
-    handler: (store) => {
-      store.state.isShowSystemRecomInfoBoard ?
-        store.commit(HIDDEN_SYSTEM_RECOM_INFO_BOARD) :
-        store.commit(SHOW_SYSTEM_RECOM_INFO_BOARD);
-    }
-  },
-  {
-    img: require("assets/icons/settings.png"),
-    name: 'setting',
-    builtIn: true // 内置的
-  },
-  {
-    img: require("assets/icons/code.png"),
-    name: 'vscode',
-    handler: (store) => {
-      store.state.isShowVsCodeWidget ?
-        store.commit(HIDDEN_VS_CODE_WIDGET) :
-        store.commit(SHOW_VS_CODE_WIDGET);
-    }
-  }
-];
 
 export default {
   name: 'TaskList',
@@ -80,6 +23,8 @@ export default {
   setup() {
     const store = useStore();
     const handleTaskItemClick = (taskInfo) => taskInfo.handler && taskInfo.handler(store);
+
+    const tasks = computed(() => store.state.tasks);
 
     return {
       tasks,

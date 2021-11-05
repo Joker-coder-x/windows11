@@ -20,7 +20,11 @@
 <script>
 import { useStore } from 'vuex';
 
-import { HIDDEN_VS_CODE_WIDGET } from "store/mutation-types";
+import {
+  SHOW_VS_CODE_WIDGET,
+  HIDDEN_VS_CODE_WIDGET,
+  CLOSE_VS_CODE_WIDGET
+} from "store/mutation-types";
 
 import BaseAppWidget from "../BaseAppWidget";
 
@@ -28,6 +32,15 @@ export default {
   name: 'VsCode',
   _appConfig: {
     storeControlPropName: "isShowVsCodeWidget",
+    info: {
+      logo: require("assets/icons/code.png"),
+      name: 'Vs Code',
+      handler: (store) => {
+        store.getters.isShowVsCodeWidget ?
+          store.commit(HIDDEN_VS_CODE_WIDGET) :
+          store.commit(SHOW_VS_CODE_WIDGET);
+      }
+    }
   },
   components: {
     BaseAppWidget
@@ -35,10 +48,8 @@ export default {
   setup() {
     const store = useStore();
 
-    const hiddenVsCodeWidget = () => store.commit(HIDDEN_VS_CODE_WIDGET);
-
-    const handleMinimize = () => hiddenVsCodeWidget();
-    const handleClose = () => hiddenVsCodeWidget();
+    const handleMinimize = () => store.commit(HIDDEN_VS_CODE_WIDGET);
+    const handleClose = () => store.commit(CLOSE_VS_CODE_WIDGET);
 
     return {
       handleMinimize,

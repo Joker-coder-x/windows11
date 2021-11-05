@@ -71,7 +71,11 @@
 import { ref } from 'vue';
 import { useStore } from 'vuex';
 
-import { HIDDEN_EDGE_BROWSER_WIDGET } from "store/mutation-types";
+import {
+  HIDDEN_EDGE_BROWSER_WIDGET,
+  SHOW_EDGE_BROWSER_WIDGET,
+  CLOSE_EDGE_BROWSER_WIDGET
+} from "store/mutation-types";
 
 import BaseAppWidget from "../BaseAppWidget";
 import BrowserBookmarkItem from "./BrowserBookmarkItem";
@@ -105,6 +109,15 @@ export default {
   name: "EdgeBrowser",
   _appConfig: {
     storeControlPropName: "isShowEdgeBrowserWidget",
+    info: {
+      logo: require("assets/icons/edge.png"),
+      name: 'Edge浏览器',
+      handler: (store) => {
+        store.getters.isShowEdgeBrowserWidget ?
+          store.commit(HIDDEN_EDGE_BROWSER_WIDGET) :
+          store.commit(SHOW_EDGE_BROWSER_WIDGET);
+      }
+    }
   },
   components: {
     BaseAppWidget,
@@ -117,14 +130,10 @@ export default {
           isFull = ref(false),
           curUrl = ref("http://cn.bing.com");
 
-    const hiddenEdgeBrowserWidget = (store) => store.commit(HIDDEN_EDGE_BROWSER_WIDGET);
-
     const handleChangeUrl = (url) => curUrl.value = url;
-    const handleMinimize = () => hiddenEdgeBrowserWidget(store);
-    const handleMaximize = () => {
-      isFull.value = !isFull.value;
-    };
-    const handleClose = () => hiddenEdgeBrowserWidget(store);
+    const handleMinimize = () => store.commit(HIDDEN_EDGE_BROWSER_WIDGET);
+    const handleMaximize = () => isFull.value = !isFull.value;
+    const handleClose = () => store.commit(CLOSE_EDGE_BROWSER_WIDGET);
 
     return {
       isFull,

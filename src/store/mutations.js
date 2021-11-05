@@ -1,3 +1,4 @@
+import { APP_STATUS_MAP } from "../utils";
 import {
   HIDDEN_ALL_NOT_CONTEXT_MENU_BOARD,
   HIDDEN_ALL_SINGLE_BOARD,
@@ -21,6 +22,10 @@ import {
   HIDDEN_VS_CODE_WIDGET,
   SHOW_EDGE_BROWSER_WIDGET,
   HIDDEN_EDGE_BROWSER_WIDGET,
+  ADD_TASK,
+  REMOVE_TASK,
+  CLOSE_VS_CODE_WIDGET,
+  CLOSE_EDGE_BROWSER_WIDGET,
 } from "./mutation-types";
 
 export default {
@@ -106,19 +111,28 @@ export default {
   },
 
   [SHOW_VS_CODE_WIDGET] (state) {
-    state.isShowVsCodeWidget = true;
+    console.log('show');
+    state.isShowVsCodeWidget = APP_STATUS_MAP.SHOW;
   },
 
   [HIDDEN_VS_CODE_WIDGET] (state) {
-    state.isShowVsCodeWidget = false;
+    state.isShowVsCodeWidget = APP_STATUS_MAP.HIDDEN;
+  },
+
+  [CLOSE_VS_CODE_WIDGET] (state) {
+    state.isShowVsCodeWidget = APP_STATUS_MAP.CLOSE;
   },
 
   [SHOW_EDGE_BROWSER_WIDGET] (state) {
-    state.isShowEdgeBrowserWidget = true;
+    state.isShowEdgeBrowserWidget = APP_STATUS_MAP.SHOW;
   },
 
   [HIDDEN_EDGE_BROWSER_WIDGET] (state) {
-    state.isShowEdgeBrowserWidget = false;
+    state.isShowEdgeBrowserWidget = APP_STATUS_MAP.HIDDEN;
+  },
+
+  [CLOSE_EDGE_BROWSER_WIDGET] (state) {
+    state.isShowEdgeBrowserWidget = APP_STATUS_MAP.CLOSE;
   },
 
   // 关闭所有的非右键菜单的面板
@@ -136,4 +150,17 @@ export default {
     state.isShowSystemRecomInfoBoard = false;
     state.isShowSystemStatusControlBoard = false;
   },
+
+  [ADD_TASK] (state, payload) {
+    const tasks = state.tasks;
+    const isFind = tasks.find(t => t.name === payload.name);
+
+    if (!isFind) {
+      tasks.push(payload);
+    }
+  },
+
+  [REMOVE_TASK] (state, payload) {
+    state.tasks = state.tasks.filter(t => t.name !== payload.name);
+  }
 }
