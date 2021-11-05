@@ -10,8 +10,7 @@ import {
   HIDDEN_SYSTEM_SEARCH_BOARD,
   SHOW_SYSTEM_SEARCH_BOARD,
   HIDDEN_SYSTEM_RECOM_INFO_BOARD,
-  SHOW_SYSTEM_RECOM_INFO_BOARD,
-  HIDDEN_VS_CODE_WIDGET
+  SHOW_SYSTEM_RECOM_INFO_BOARD
 } from "./store/mutation-types";
 
 export default {
@@ -81,10 +80,10 @@ export default {
           store.commit(SHOW_SYSTEM_RECOM_INFO_BOARD);
       }
     },
-    {
-      logo: require("assets/icons/settings.png"),
-      name: 'setting',
-      builtIn: true // 内置的
-    },
+    // {
+    //   logo: require("assets/icons/settings.png"),
+    //   name: 'setting',
+    //   builtIn: true // 内置的
+    // },
   ]
 };

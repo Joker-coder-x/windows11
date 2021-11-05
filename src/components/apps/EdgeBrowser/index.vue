@@ -1,8 +1,8 @@
 <template>
   <transition name="scale-slide">
     <base-app-widget
-      v-if="isShowEdgeBrowserWidget"
-      :class="['edge-browser', isFull ? 'full' : '']"
+      v-show="isShowEdgeBrowserWidget"
+      :class="['edge-browser', isFull ? 'full' : '', appIsActive ? 'active' : '']"
       name="Edge"
       :icon="require('assets/icons/edge.png')"
       toolbarBgColor="#E8E8E8"
@@ -175,6 +175,10 @@ $topColor: #F7F7F7;
 .edge-browser {
   @include disabled-selected;
   box-shadow: 0 0 25px #00000085;
+
+  &.active {
+    z-index: $activeAppWidgetZIndex;
+  }
 }
 
 .toolbar-content {

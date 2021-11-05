@@ -1,8 +1,8 @@
 <template>
   <transition name="scale-slide">
     <base-app-widget
-      v-if="isShowVsCodeWidget"
-      class="vscode"
+      v-show="isShowVsCodeWidget"
+      :class="['vscode', appIsActive ? 'active' : '']"
       name="VS Code"
       :icon="require('assets/icons/code.png')"
       @on-minimize="handleMinimize"
@@ -18,13 +18,17 @@
 </template>
 
 <script>
+import { unref } from 'vue';
 import { useStore } from 'vuex';
 
 import {
   SHOW_VS_CODE_WIDGET,
   HIDDEN_VS_CODE_WIDGET,
-  CLOSE_VS_CODE_WIDGET
+  CLOSE_VS_CODE_WIDGET,
+  ADD_TASK
 } from "store/mutation-types";
+
+import { APP_STATUS_MAP } from "utils";
 
 import BaseAppWidget from "../BaseAppWidget";
 
@@ -79,6 +83,10 @@ export default {
 
 .vscode {
   @include disabled-selected;
+
+  &.active {
+    z-index: $activeAppWidgetZIndex;
+  }
 }
 
 .iframe {

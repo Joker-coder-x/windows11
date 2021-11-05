@@ -34,3 +34,5 @@ export const HIDDEN_ALL_SINGLE_BOARD = "hiddenAllSingleBoard";
 
 export const ADD_TASK = "addTask";
 export const REMOVE_TASK = "removeTask";
+export const SET_TASK_ACTIVE = "setTaskActive";
+export const DELETE_TASK_ACTIVE = "deleteTaskActive";

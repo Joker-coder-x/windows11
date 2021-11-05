@@ -15,6 +15,7 @@
       :item="item"
       @set-app-id="handleSetAppId"
     ></app-item>
+
     <!-- 鼠标右键点击显示的菜单栏面板 -->
     <context-menu ref="contextMenuRef"></context-menu>
     <!-- 系统菜单面板 -->
