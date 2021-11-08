@@ -41,7 +41,7 @@ export default {
 
     const todaySolayDateText = computed(() => `${date.getMonth() + 1}月${date.getDate()}日，${getChsWeekday(date.getDay())}`);
     const todayLunarDateText = computed(() => {
-      const lunarData = solarLunar.solar2lunar(2015, 10, 8);
+      const lunarData = solarLunar.solar2lunar(date.getFullYear(), date.getMonth() + 1, date.getDate());
       return lunarData['monthCn'] + lunarData['dayCn'];
     });
     return {
