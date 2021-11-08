@@ -26,6 +26,8 @@
     <system-recom-info-board></system-recom-info-board>
     <!-- 系统状态控制面板 -->
     <system-status-control-board></system-status-control-board>
+    <!-- 系统日历面板 -->
+    <system-calendar-board></system-calendar-board>
     <!-- vscode -->
     <vs-code></vs-code>
     <!-- edge浏览器 -->
@@ -49,6 +51,7 @@ import SystemMenuBoard from "../apps/SystemMenuBoard";
 import SystemSearchBoard from "../apps/SystemSearchBoard";
 import SystemRecomInfoBoard from "../apps/SystemRecomInfoBoard";
 import SystemStatusControlBoard from "../apps/SystemStatusControlBoard";
+import SystemCalendarBoard from "../apps/SystemCalendarBoard";
 import VsCode from "../apps/VsCode";
 import EdgeBrowser from "../apps/EdgeBrowser";
 
@@ -66,6 +69,7 @@ export default {
     SystemSearchBoard,
     SystemRecomInfoBoard,
     SystemStatusControlBoard,
+    SystemCalendarBoard,
     VsCode,
     EdgeBrowser
   },
