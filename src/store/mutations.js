@@ -28,6 +28,8 @@ import {
   CLOSE_EDGE_BROWSER_WIDGET,
   SET_TASK_ACTIVE,
   DELETE_TASK_ACTIVE,
+  SHOW_SYSTEM_CALENDAR_BOARD,
+  HIDDEN_SYSTEM_CALENDAR_BOARD,
 } from "./mutation-types";
 
 export default {
@@ -112,6 +114,15 @@ export default {
     state.isShowSystemStatusControlBoard = false;
   },
 
+  [SHOW_SYSTEM_CALENDAR_BOARD] (state) {
+    this.commit(HIDDEN_ALL_SINGLE_BOARD);
+    state.isShowSystemCalendarBoard = true;
+  },
+
+  [HIDDEN_SYSTEM_CALENDAR_BOARD] (state) {
+    state.isShowSystemCalendarBoard = false;
+  },
+
   [SHOW_VS_CODE_WIDGET] (state) {
     state.isShowVsCodeWidget = APP_STATUS_MAP.SHOW;
   },
@@ -150,6 +161,7 @@ export default {
     state.isShowTaskbarContextMenu = false;
     state.isShowSystemRecomInfoBoard = false;
     state.isShowSystemStatusControlBoard = false;
+    state.isShowSystemCalendarBoard = false;
   },
 
   [ADD_TASK] (state, payload) {

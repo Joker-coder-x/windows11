@@ -11,6 +11,7 @@ export default {
   isShowSystemSearchBoard: false,
   isShowSystemRecomInfoBoard: false,
   isShowSystemStatusControlBoard: false,
+  isShowSystemCalendarBoard: false,
   isShowVsCodeWidget: APP_STATUS_MAP.HIDDEN,
   isShowEdgeBrowserWidget: APP_STATUS_MAP.HIDDEN,
   desktopContextMenuPosX: 0,

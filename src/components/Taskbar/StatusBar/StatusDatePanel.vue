@@ -1,5 +1,9 @@
 <template>
-  <div class="date-panel-container">
+  <div
+    class="date-panel-container"
+    @click="handleClick"
+    @mousedown.stop
+  >
     <div class="date-panel">
       <div class="date-info">
         <div class="label-time">{{ time }}</div>
@@ -14,6 +18,12 @@
 
 <script>
 import { computed, onUnmounted, reactive } from 'vue';
+import { useStore } from 'vuex';
+
+import {
+  HIDDEN_SYSTEM_CALENDAR_BOARD,
+  SHOW_SYSTEM_CALENDAR_BOARD
+} from "store/mutation-types";
 
 function getDateInfo () {
   const date = new Date();
@@ -29,6 +39,7 @@ function getDateInfo () {
 
 export default {
   setup() {
+    const store = useStore();
     const dateInfo = reactive(getDateInfo());
     const time = computed(() => {
       const minute = dateInfo.minute;
@@ -53,9 +64,16 @@ export default {
       t = null;
     });
 
+    const handleClick = () => {
+      store.state.isShowSystemCalendarBoard ?
+        store.commit(HIDDEN_SYSTEM_CALENDAR_BOARD) :
+        store.commit(SHOW_SYSTEM_CALENDAR_BOARD)
+    }
+
     return {
       time,
-      date
+      date,
+      handleClick
     };
   },
 }
