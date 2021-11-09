@@ -26,7 +26,10 @@
         ></base-app-widget-operate-panel>
       </slot>
     </div>
-    <div class="main">
+    <div
+      class="main"
+      ref="mainRef"
+    >
       <slot></slot>
     </div>
   </div>
@@ -34,7 +37,7 @@
 
 
 <script>
-import { ref } from 'vue';
+import { onMounted, ref, toRef, toRefs, watch } from 'vue';
 
 import BaseAppWidgetOperatePanel from "./BaseAppWidgetOperatePanel";
 
@@ -85,7 +88,9 @@ export default {
     onClose: null,
   },
   setup (props, { emit }) {
-    const isFull = ref(false);
+    const isFull = ref(false),
+          mainRef = ref(null),
+          toolbarHeightRef = toRef(props, 'toolbarHeight');
 
     const handleMinimize = () => emit('onMinimize');
     const handleMaximize = () => {
@@ -93,9 +98,18 @@ export default {
       emit('onMaximize');
     };
     const handleClose = () => emit('onClose');
+    const setCssVariables = () => {
+      mainRef.value.style.setProperty('--toolbar-height', toolbarHeightRef.value);
+    };
+
+    onMounted(() => {
+      setCssVariables();
+    });
+    watch(toolbarHeightRef, (newVal) => setCssVariables());
 
     return {
       isFull,
+      mainRef,
       handleMinimize,
       handleMaximize,
       handleClose
@@ -106,6 +120,7 @@ export default {
 
 <style lang="scss" scoped>
 .base-app-widget {
+  --toolbar-height: 30px;
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -126,6 +141,10 @@ export default {
     border-radius: 0px;
     transform: translate(0%, 0%);
     transition: width .25s, height .25s;
+
+    .main {
+      height: calc(100vh - var(--toolbar-height));
+    }
   }
 
   .toolbar {
@@ -152,7 +171,7 @@ export default {
   }
 
   .main {
-    flex: auto;
+    height: calc(75vh - var(--toolbar-height));
     width: 100%;
   }
 }

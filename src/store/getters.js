@@ -7,6 +7,9 @@ export default {
   isShowEdgeBrowserWidget (state) {
     return state.isShowEdgeBrowserWidget === APP_STATUS_MAP.SHOW;
   },
+  isShowSystemTerminal (state) {
+    return state.isShowSystemTerminal === APP_STATUS_MAP.SHOW;
+  },
   curActiveTask (state) {
     return state.tasks.find(t => t.active === true);
   }

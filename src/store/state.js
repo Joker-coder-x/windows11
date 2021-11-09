@@ -14,6 +14,7 @@ export default {
   isShowSystemCalendarBoard: false,
   isShowVsCodeWidget: APP_STATUS_MAP.HIDDEN,
   isShowEdgeBrowserWidget: APP_STATUS_MAP.HIDDEN,
+  isShowSystemTerminal: APP_STATUS_MAP.HIDDEN,
   desktopContextMenuPosX: 0,
   desktopContextMenuPosY: 0,
   taskbarContextMenuPosX: 0,

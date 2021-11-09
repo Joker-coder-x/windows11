@@ -1,6 +1,8 @@
 const path = require('path');
 
-module.exports={
+module.exports = {
+  publicPath: process.env.NODE_ENV === 'production' ? './' : '/',
+
   chainWebpack:(config)=>{
     // 配置目录别名
     config.resolve.alias

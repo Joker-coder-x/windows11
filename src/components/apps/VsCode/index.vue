@@ -1,7 +1,7 @@
 <template>
   <transition name="scale-slide">
     <base-app-widget
-      v-show="isShowVsCodeWidget"
+      v-if="isShowVsCodeWidget"
       :class="['vscode', appIsActive ? 'active' : '']"
       name="VS Code"
       :icon="require('assets/icons/code.png')"
@@ -10,7 +10,7 @@
     >
       <iframe
         class="iframe"
-        src="https://github1s.com/Joker-coder-x/windows11/blob/HEAD/README.md"
+        src="https://github1s.com/Joker-coder-x/windows11/"
         frameborder="0"
       ></iframe>
     </base-app-widget>
@@ -18,17 +18,13 @@
 </template>
 
 <script>
-import { unref } from 'vue';
 import { useStore } from 'vuex';
 
 import {
   SHOW_VS_CODE_WIDGET,
   HIDDEN_VS_CODE_WIDGET,
   CLOSE_VS_CODE_WIDGET,
-  ADD_TASK
 } from "store/mutation-types";
-
-import { APP_STATUS_MAP } from "utils";
 
 import BaseAppWidget from "../BaseAppWidget";
 
