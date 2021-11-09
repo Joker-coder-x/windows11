@@ -32,6 +32,10 @@ export const SHOW_EDGE_BROWSER_WIDGET = "showEdgeBrowserWidget";
 export const HIDDEN_EDGE_BROWSER_WIDGET = "hiddenEdgeBrowserWidget";
 export const CLOSE_EDGE_BROWSER_WIDGET = "closeEdgeBrowserWidget";
 
+export const SHOW_SYSTEM_TERMINAL = "showSystemTerminal";
+export const HIDDEN_SYSTEM_TERMINAL = "hiddenSystemTerminal";
+export const CLOSE_SYSTEM_TERMINAL = "closeSystemTerminal";
+
 export const HIDDEN_ALL_NOT_CONTEXT_MENU_BOARD = "hiddenAllNotContextMenuBoard";
 export const HIDDEN_ALL_SINGLE_BOARD = "hiddenAllSingleBoard";
 

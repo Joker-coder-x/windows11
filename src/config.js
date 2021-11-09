@@ -10,7 +10,8 @@ import {
   HIDDEN_SYSTEM_SEARCH_BOARD,
   SHOW_SYSTEM_SEARCH_BOARD,
   HIDDEN_SYSTEM_RECOM_INFO_BOARD,
-  SHOW_SYSTEM_RECOM_INFO_BOARD
+  SHOW_SYSTEM_RECOM_INFO_BOARD,
+  SHOW_SYSTEM_TERMINAL
 } from "./store/mutation-types";
 
 export default {
@@ -46,6 +47,13 @@ export default {
       name: 'Edge浏览器',
       handler (store) {
         store.commit(SHOW_EDGE_BROWSER_WIDGET);
+      }
+    },
+    {
+      icon: require("assets/icons/terminal.png"),
+      name: '系统终端',
+      handler (store) {
+        store.commit(SHOW_SYSTEM_TERMINAL);
       }
     },
   ],

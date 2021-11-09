@@ -30,6 +30,9 @@ import {
   DELETE_TASK_ACTIVE,
   SHOW_SYSTEM_CALENDAR_BOARD,
   HIDDEN_SYSTEM_CALENDAR_BOARD,
+  SHOW_SYSTEM_TERMINAL,
+  HIDDEN_SYSTEM_TERMINAL,
+  CLOSE_SYSTEM_TERMINAL,
 } from "./mutation-types";
 
 export default {
@@ -145,6 +148,18 @@ export default {
 
   [CLOSE_EDGE_BROWSER_WIDGET] (state) {
     state.isShowEdgeBrowserWidget = APP_STATUS_MAP.CLOSE;
+  },
+
+  [SHOW_SYSTEM_TERMINAL] (state) {
+    state.isShowSystemTerminal = APP_STATUS_MAP.SHOW;
+  },
+
+  [HIDDEN_SYSTEM_TERMINAL] (state) {
+    state.isShowSystemTerminal = APP_STATUS_MAP.HIDDEN;
+  },
+
+  [CLOSE_SYSTEM_TERMINAL] (state) {
+    state.isShowSystemTerminal = APP_STATUS_MAP.CLOSE;
   },
 
   // 关闭所有的非右键菜单的面板
