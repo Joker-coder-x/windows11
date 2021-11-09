@@ -13,6 +13,7 @@ module.exports={
       .set('utils', resolve('./src/utils'))
       .set('router', resolve('./src/router'))
       .set('store', resolve('./src/store'))
+      .set('transition', resolve('./src/transition'))
 
     // 处理.ico文件
     config.module

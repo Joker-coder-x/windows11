@@ -11,31 +11,45 @@
           <span class="lunar-date">{{ todayLunarDateText }}</span>
         </div>
         <div class="icon-wrap">
-          <span class="iconfont icon-arrow-down"></span>
+          <span
+            v-if="isShowCalendar"
+            class="iconfont icon-arrow-down"
+            @click="handleHiddenCalendar"
+          ></span>
+          <span
+            v-else
+            class="iconfont icon-arrow-up"
+            @click="handleShowCalendar"
+          ></span>
         </div>
       </div>
       <div class="bd">
-        <calendar></calendar>
+        <collapse-transition>
+          <calendar v-show="isShowCalendar"></calendar>
+        </collapse-transition>
       </div>
     </div>
   </transition>
 </template>
 
 <script>
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 import { useStore } from 'vuex';
 
 import Calendar from "../../common/Calendar";
+import CollapseTransition from "@/transition/CollapseTransition";
 
 import solarLunar from 'solarlunar';
 
 export default {
   name: 'SystemCalendarBoard',
   components: {
-    Calendar
+    Calendar,
+    CollapseTransition
   },
   setup() {
     const store = useStore(),
+      isShowCalendar = ref(true),
       isShowSystemCalendarBoard = computed(() => store.state.isShowSystemCalendarBoard),
       date = new Date();
 
@@ -44,10 +58,16 @@ export default {
       const lunarData = solarLunar.solar2lunar(date.getFullYear(), date.getMonth() + 1, date.getDate());
       return lunarData['monthCn'] + lunarData['dayCn'];
     });
+
+    const handleShowCalendar = () => isShowCalendar.value = true;
+    const handleHiddenCalendar = () => isShowCalendar.value = false;
     return {
+      isShowCalendar,
       isShowSystemCalendarBoard,
       todaySolayDateText,
-      todayLunarDateText
+      todayLunarDateText,
+      handleShowCalendar,
+      handleHiddenCalendar
     };
   },
 }
@@ -72,6 +92,7 @@ function getChsWeekday (weekday) {
   position: absolute;
   right: 1%;
   bottom: 2%;
+  width: 340px;
   background-color: #eee;
   border-radius: 8px;
 
