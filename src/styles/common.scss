@@ -11,3 +11,9 @@ body {
   overflow: hidden;
 }
 
+.collapse-transition {
+  transition:.25s height ease-in-out,
+    .25s padding-top ease-in-out,
+    .25s padding-bottom ease-in-out;
+}
+

@@ -41,6 +41,7 @@ CSS预处理器: scss
     - index.scss 入口样式文件
   - utils 工具库目录
     - common.js 该文件存放一些页面加载初始化之前的逻辑
+  - transitioin 存放封装好的过渡动画组件
   - App.vue 入口根组件
   - main.js 入口文件
   - config.js 项目内部配置文件
