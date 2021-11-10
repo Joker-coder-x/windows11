@@ -10,6 +10,9 @@ export default {
   isShowSystemTerminal (state) {
     return state.isShowSystemTerminal === APP_STATUS_MAP.SHOW;
   },
+  isShowCalculator (state) {
+    return state.isShowCalculator === APP_STATUS_MAP.SHOW;
+  },
   curActiveTask (state) {
     return state.tasks.find(t => t.active === true);
   }

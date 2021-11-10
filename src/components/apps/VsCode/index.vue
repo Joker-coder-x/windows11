@@ -68,21 +68,8 @@ export default {
   animation: scale-slide .25s;
 }
 
-@keyframes scale-slide {
-  to {
-    width: 0vw;
-    height: 0vh;
-    opacity: 0;
-    top: 100%;
-  }
-}
-
 .vscode {
   @include disabled-selected;
-
-  &.active {
-    z-index: $activeAppWidgetZIndex;
-  }
 }
 
 .iframe {

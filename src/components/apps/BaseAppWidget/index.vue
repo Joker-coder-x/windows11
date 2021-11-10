@@ -1,12 +1,18 @@
 <template>
-  <div :class="['base-app-widget', isFull ? 'full' : '']">
+  <div
+    :class="['base-app-widget', isFull ? 'full' : '']"
+    :style="{
+      width: isFull ? '100vw' : width,
+      height: isFull ? '100vh' : height
+    }"
+  >
     <div
       class="toolbar"
       v-if="showToolBar"
       :style="{
         height: toolbarHeight,
         backgroundColor: toolbarBgColor,
-        color: toolbarTextColor
+        color: toolbarTextColor,
       }"
     >
       <slot name="toolbar">
@@ -49,6 +55,16 @@ export default {
   props: {
     name: String,
     icon: String,
+    // widget的宽度
+    width: {
+      type: [String, Number],
+      default: '60vw'
+    },
+    // widget的高度
+    height: {
+      type: [String, Number],
+      default: '75vh'
+    },
     // 是否显示顶部工具栏
     showToolBar: {
       type: Boolean,
@@ -100,12 +116,13 @@ export default {
     const handleClose = () => emit('onClose');
     const setCssVariables = () => {
       mainRef.value.style.setProperty('--toolbar-height', toolbarHeightRef.value);
+      mainRef.value.style.setProperty('--height', props.height);
     };
 
     onMounted(() => {
       setCssVariables();
     });
-    watch(toolbarHeightRef, (newVal) => setCssVariables());
+    watch(toolbarHeightRef, () => setCssVariables());
 
     return {
       isFull,
@@ -121,14 +138,12 @@ export default {
 <style lang="scss" scoped>
 .base-app-widget {
   --toolbar-height: 30px;
+  --height: 75vh;
+
   overflow: hidden;
-  display: flex;
-  flex-direction: column;
   position: absolute;
   left: 50%;
   top: 50%;
-  width: 60vw;
-  height: 75vh;
   transform: translate(-50%, -50%);
   border-radius: 6px;
   transition: width .25s, height .25s;
@@ -136,22 +151,25 @@ export default {
   &.full {
     left: 0;
     top: 0;
-    width: 100vw;
-    height: 100vh;
     border-radius: 0px;
     transform: translate(0%, 0%);
     transition: width .25s, height .25s;
 
     .main {
-      height: calc(100vh - var(--toolbar-height));
+      height: calc(100vh - var(--toolbar-height))!important;
     }
   }
 
+  &.active {
+    z-index: $activeAppWidgetZIndex;
+  }
+
   .toolbar {
+    overflow: hidden;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border: none;
+    line-height: 12px;
 
     .logo-panel {
       display: flex;
@@ -171,7 +189,9 @@ export default {
   }
 
   .main {
-    height: calc(75vh - var(--toolbar-height));
+    position: relative;
+    top: -1px;
+    height: calc(var(--height) - var(--toolbar-height));
     width: 100%;
   }
 }

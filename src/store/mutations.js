@@ -33,6 +33,9 @@ import {
   SHOW_SYSTEM_TERMINAL,
   HIDDEN_SYSTEM_TERMINAL,
   CLOSE_SYSTEM_TERMINAL,
+  SHOW_CALCULATOR,
+  HIDDEN_CALCULATOR,
+  CLOSE_CALCULATOR,
 } from "./mutation-types";
 
 export default {
@@ -160,6 +163,18 @@ export default {
 
   [CLOSE_SYSTEM_TERMINAL] (state) {
     state.isShowSystemTerminal = APP_STATUS_MAP.CLOSE;
+  },
+
+  [SHOW_CALCULATOR] (state) {
+    state.isShowCalculator = APP_STATUS_MAP.SHOW;
+  },
+
+  [HIDDEN_CALCULATOR] (state) {
+    state.isShowCalculator = APP_STATUS_MAP.HIDDEN;
+  },
+
+  [CLOSE_CALCULATOR] (state) {
+    state.isShowCalculator = APP_STATUS_MAP.CLOSE;
   },
 
   // 关闭所有的非右键菜单的面板
