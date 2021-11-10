@@ -34,6 +34,8 @@
     <vs-code></vs-code>
     <!-- edge浏览器 -->
     <edge-browser></edge-browser>
+    <!-- 计算器 -->
+    <calculator></calculator>
   </div>
 </template>
 
@@ -57,6 +59,7 @@ import SystemCalendarBoard from "../apps/SystemCalendarBoard";
 import SystemTerminal from "../apps/SystemTerminal";
 import VsCode from "../apps/VsCode";
 import EdgeBrowser from "../apps/EdgeBrowser";
+import Calculator from "../apps/Calculator";
 
 // 组合API模块
 import initLayOut from "@/composables/layout";
@@ -76,6 +79,7 @@ export default {
     SystemTerminal,
     VsCode,
     EdgeBrowser,
+    Calculator
   },
   setup () {
     const desktopRef = ref(null);

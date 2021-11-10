@@ -95,17 +95,20 @@ export default {
 
 <style lang="scss" scoped>
 .operate-panel {
+  overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: space-between;
   height: 100%;
 
   .operate-item {
+    overflow: hidden;
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 0 15px;
     height: 100%;
+    box-sizing: border-box;
 
     &.close {
       &:hover {

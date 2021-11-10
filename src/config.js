@@ -11,7 +11,8 @@ import {
   SHOW_SYSTEM_SEARCH_BOARD,
   HIDDEN_SYSTEM_RECOM_INFO_BOARD,
   SHOW_SYSTEM_RECOM_INFO_BOARD,
-  SHOW_SYSTEM_TERMINAL
+  SHOW_SYSTEM_TERMINAL,
+  SHOW_CALCULATOR
 } from "./store/mutation-types";
 
 export default {
@@ -54,6 +55,13 @@ export default {
       name: '系统终端',
       handler (store) {
         store.commit(SHOW_SYSTEM_TERMINAL);
+      }
+    },
+    {
+      icon: require("assets/icons/calculator.png"),
+      name: '计算器',
+      handler (store) {
+        store.commit(SHOW_CALCULATOR);
       }
     },
   ],

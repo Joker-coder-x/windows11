@@ -1,27 +1,29 @@
 <template>
-  <base-app-widget
-    v-if="isShowSystemTerminal"
-    name="系统终端"
-    :icon="require('assets/icons/terminal.png')"
-    class="system-terminal"
-    @on-minimize="handleMinimize"
-    @on-close="handleClose"
-    @mousedown.stop
-  >
-    <div class="system-terminal-bd">
-      <div>Microsoft Windows [版本 10.0.22478.1012]</div>
-      <div>(c) Xifan Corporation。保留所有权利。</div>
-      <command-line
-        v-for="(command, index) of commandList"
-        :key="index"
-        :gap="command.gap"
-      >{{ command.text }}</command-line>
-      <command-input
-        ref="commandInputRef"
-        @on-submit-command="handleSubmitCommand"
-      ></command-input>
-    </div>
-  </base-app-widget>
+  <transition name="scale-slide">
+    <base-app-widget
+      v-if="isShowSystemTerminal"
+      name="系统终端"
+      :icon="require('assets/icons/terminal.png')"
+      :class="['system-terminal', appIsActive ? 'active' : '']"
+      @on-minimize="handleMinimize"
+      @on-close="handleClose"
+      @mousedown.stop
+    >
+      <div class="system-terminal-bd">
+        <div>Microsoft Windows [版本 10.0.22478.1012]</div>
+        <div>(c) Xifan Corporation。保留所有权利。</div>
+        <command-line
+          v-for="(command, index) of commandList"
+          :key="index"
+          :gap="command.gap"
+        >{{ command.text }}</command-line>
+        <command-input
+          ref="commandInputRef"
+          @on-submit-command="handleSubmitCommand"
+        ></command-input>
+      </div>
+    </base-app-widget>
+  </transition>
 </template>
 
 <script>
@@ -37,7 +39,6 @@ import {
   HIDDEN_SYSTEM_TERMINAL,
   CLOSE_SYSTEM_TERMINAL
 } from "store/mutation-types";
-
 
 export default {
   name: "SystemTerminal",
@@ -187,5 +188,13 @@ function parseCommand (opts) {
   line-height: 1.3;
   letter-spacing: .1em;
   color: #1eff00;
+}
+
+.scale-slide-enter-active {
+  animation: scale-slide .25s reverse;
+}
+
+.scale-slide-leave-active {
+  animation: scale-slide .25s;
 }
 </style>

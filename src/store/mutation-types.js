@@ -36,6 +36,10 @@ export const SHOW_SYSTEM_TERMINAL = "showSystemTerminal";
 export const HIDDEN_SYSTEM_TERMINAL = "hiddenSystemTerminal";
 export const CLOSE_SYSTEM_TERMINAL = "closeSystemTerminal";
 
+export const SHOW_CALCULATOR = "showCalculator";
+export const HIDDEN_CALCULATOR = "hiddenCalculator";
+export const CLOSE_CALCULATOR = "closeCalculator";
+
 export const HIDDEN_ALL_NOT_CONTEXT_MENU_BOARD = "hiddenAllNotContextMenuBoard";
 export const HIDDEN_ALL_SINGLE_BOARD = "hiddenAllSingleBoard";
 

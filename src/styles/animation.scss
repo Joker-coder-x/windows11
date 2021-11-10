@@ -43,3 +43,15 @@
     opacity: 1;
   }
 }
+
+@keyframes scale-slide {
+  from {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+  }
+
+  to {
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0;
+  }
+}

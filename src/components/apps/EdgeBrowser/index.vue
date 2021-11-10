@@ -149,7 +149,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
 $topColor: #F7F7F7;
 
 .scale-slide-enter-active {
@@ -160,25 +159,14 @@ $topColor: #F7F7F7;
   animation: scale-slide .25s;
 }
 
-@keyframes scale-slide {
-  from {
-    transform: translate(-50%, -50%) scale(1);
-    opacity: 1;
-  }
-
-  to {
-    transform: translate(-50%, -50%) scale(0);
-    opacity: 0;
-  }
-}
-
 .edge-browser {
   @include disabled-selected;
   box-shadow: 0 0 25px #00000085;
+}
 
-  &.active {
-    z-index: $activeAppWidgetZIndex;
-  }
+.full {
+  width: 100vw!important;
+  height: 100vh!important;
 }
 
 .toolbar-content {
