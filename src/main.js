@@ -8,6 +8,14 @@ import "utils/common.js";
 
 import appWidgetController from './app-widget-controller';
 
+router.beforeEach((to, from, next) => {
+  if (to.name !== 'Setup' && !store.state.setup) {
+    next({ name: 'Setup' });
+  } else {
+    next();
+  }
+});
+
 const app = createApp(App);
 
 app.use(store)

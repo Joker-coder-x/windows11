@@ -36,9 +36,14 @@ import {
   SHOW_CALCULATOR,
   HIDDEN_CALCULATOR,
   CLOSE_CALCULATOR,
+  SETUP,
 } from "./mutation-types";
 
 export default {
+  [SETUP] (state) {
+    state.setup = true;
+  },
+
   // 设置桌面图标大小
   [SET_APP_ITEM_SIZE] (state, sizeInfo) {
     state.appGridLayoutItemWidth = sizeInfo.width;
