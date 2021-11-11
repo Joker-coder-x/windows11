@@ -1,3 +1,5 @@
+export const SETUP = "setup";
+
 export const SET_APP_ITEM_SIZE = "setAppItemSize";
 export const SET_LIGHT_VALUE = "setLightValue";
 export const SET_AUDIO_VALUE = "setAudioValue";

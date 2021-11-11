@@ -9,4 +9,3 @@ document.oncontextmenu = function (e){
   e = e || window.event;
   e.preventDefault();
 }
-
