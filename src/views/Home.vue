@@ -4,6 +4,9 @@
     <system-eye-care-layer></system-eye-care-layer>
     <desktop></desktop>
     <taskbar></taskbar>
+
+    <!-- 屏保组件 -->
+    <screen-saver></screen-saver>
   </div>
 </template>
 
@@ -12,6 +15,7 @@ import Desktop from "components/Desktop";
 import Taskbar from "components/Taskbar";
 import SystemMaskLayer from "components/apps/SystemMaskLayer";
 import SystemEyeCareLayer from "components/apps/SystemEyeCareLayer";
+import ScreenSaver from "../components/apps/ScreenSaver";
 
 export default {
   name: 'Home',
@@ -19,7 +23,8 @@ export default {
     Desktop,
     Taskbar,
     SystemMaskLayer,
-    SystemEyeCareLayer
+    SystemEyeCareLayer,
+    ScreenSaver
   }
 }
 </script>
