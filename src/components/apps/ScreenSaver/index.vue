@@ -3,7 +3,9 @@
     <div
       v-if="isShow"
       class="screen-saver"
-      @mousedown="handlePageMouseDown"
+      :style="{ top: `${y}px` }"
+      ref="saverRef"
+      @mousedown.stop="handlePageMouseDown"
     >
       <div class="date-info">
         <div class="time">{{ timeText }}</div>
@@ -37,54 +39,149 @@
           </div>
         </a>
       </div>
-
     </div>
   </transition>
 </template>
 
 <script>
-import { computed, onUnmounted, ref } from 'vue';
-import { WEEK_DAY_MAP } from "utils";
+import {
+  computed,
+  onMounted,
+  onUnmounted,
+  ref,
+  watch
+} from 'vue';
+import { useStore } from 'vuex';
+
+import {
+  WEEK_DAY_MAP,
+  $on,
+  $off,
+  leadingZeroFill
+} from "utils";
+
+import { HIDDEN_SCREEN_SAVER } from "store/mutation-types";
 
 export default {
   name: "ScreenSaver",
   setup () {
-    const d = new Date(),
-          isShow = ref(true),
-          month = ref(d.getMonth()),
-          date = ref(d.getDate()),
-          day = ref(d.getDay()),
-          hour = ref(d.getHours()),
-          minute = ref(d.getMinutes());
+    const store = useStore(),
+          saverRef = ref(null);
 
-    const timeText = computed(() => `${hour.value}:${minute.value}`);
-    const dateText = computed(() => `${month.value + 1}月${date.value}日，${WEEK_DAY_MAP[day.value]}`);
-
-    const setDateInfo = () => {
-      const _d = new Date();
-      month.value = _d.getMonth();
-      date.value = _d.getDate();
-      day.value = _d.getDay();
-      hour.value = _d.getHours();
-      minute.value = _d.getMinutes();
-    };
-
-    let t = setInterval(() => setDateInfo, 1000);
-
-    onUnmounted(() => {
-      clearInterval(t);
-      t = null;
-    });
-
-    const handlePageMouseDown = () => isShow.value = false;
+    const { timeText, dateText } = getTimeModuleState();
+    const isShow = computed(() => store.state.isShowScreenSaver);
+    const { y, handlePageMouseDown } = getSlideModule(store, isShow, saverRef);
 
     return {
       isShow,
       timeText,
       dateText,
-      handlePageMouseDown
+      y,
+      saverRef,
+      handlePageMouseDown,
     };
   },
+}
+
+function getTimeModuleState () {
+  const d = new Date(),
+        month = ref(d.getMonth()),
+        date = ref(d.getDate()),
+        day = ref(d.getDay()),
+        hour = ref(d.getHours()),
+        minute = ref(d.getMinutes());
+
+  const timeText = computed(() => `${hour.value}:${leadingZeroFill(minute.value)}`);
+  const dateText = computed(() => `${month.value + 1}月${date.value}日，${WEEK_DAY_MAP[day.value]}`);
+
+  const setDateInfo = () => {
+    const _d = new Date();
+    month.value = _d.getMonth();
+    date.value = _d.getDate();
+    day.value = _d.getDay();
+    hour.value = _d.getHours();
+    minute.value = _d.getMinutes();
+  };
+
+  let t = setInterval(() => setDateInfo, 1000);
+
+  onUnmounted(() => {
+    clearInterval(t);
+    t = null;
+  });
+
+  return {
+    timeText,
+    dateText
+  };
+}
+
+function getSlideModule (store, isShow, saverRef) {
+  let isMouseDown = false,
+      timer = null,
+      y =  ref(0),
+      offsetY = 0,
+      saverOffsetHeight = 0;
+
+  const resetSlide = () => {
+    y.value = 0;
+  };
+  const hiddenSlide = () => {
+    store.commit(HIDDEN_SCREEN_SAVER);
+  }
+
+  watch(isShow, newVal => {
+    if (newVal) {
+      resetSlide();
+    }
+  });
+
+  const handlePageMouseDown = (e) => {
+    isMouseDown = true;
+    timer = setTimeout(() => {
+      isMouseDown = false;
+      hiddenSlide();
+    }, 100);
+    offsetY = e.offsetY;
+  };
+  const handlePageMouseMove = (e) => {
+    clearTimeout(timer);
+
+    if (isMouseDown) {
+      const top = (offsetY - e.pageY) * -1;
+      y.value  = (top > 0 ? 0 : top);
+    }
+  };
+  const handlePageMouseUp = () => {
+    if (isMouseDown && saverRef) {
+      isMouseDown = false;
+
+      if (Math.abs(y.value) >= ((saverOffsetHeight || saverRef.value.offsetHeight) / 2)) {
+        hiddenSlide();
+      } else {
+        resetSlide();
+      }
+    }
+  };
+  const handleKeyDown = () => hiddenSlide();
+
+  onMounted(() => {
+    saverOffsetHeight = (saverRef.value && saverRef.value.offsetHeight) || 0;
+    $on(document, 'mousemove', handlePageMouseMove, false);
+    $on(document, 'mouseup', handlePageMouseUp, false);
+    $on(document, 'keydown', handleKeyDown, false);
+  });
+
+  onUnmounted(() => {
+    $off(document, 'mousemove', handlePageMouseMove, false);
+    $off(document, 'mouseup', handlePageMouseUp, false);
+    $off(document, 'keydown', handleKeyDown, false);
+  });
+
+  return {
+    y,
+    handlePageMouseDown
+  };
 }
 </script>
 
@@ -129,7 +226,6 @@ export default {
       margin-bottom: 15px;
       font-size: 5em;
       font-weight: bold;
-
     }
 
     .date {

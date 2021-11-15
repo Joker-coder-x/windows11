@@ -1,4 +1,8 @@
 export const SETUP = "setup";
+export const SHUTDOWN = "shutdown";
+
+export const SHOW_SCREEN_SAVER = "showScreenSaver";
+export const HIDDEN_SCREEN_SAVER = "hiddenScreenSaver";
 
 export const SET_APP_ITEM_SIZE = "setAppItemSize";
 export const SET_LIGHT_VALUE = "setLightValue";

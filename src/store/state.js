@@ -3,6 +3,7 @@ import { APP_STATUS_MAP } from "../utils";
 
 export default {
   isSetup: false,
+  isShowScreenSaver: true,
   eyeCareMode: false, // 护眼模式
   appGridLayoutItemWidth: 0, // app栅格的宽度
   appGridLayoutItemHeight: 0, // app栅格的高度
