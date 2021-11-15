@@ -37,11 +37,19 @@ import {
   HIDDEN_CALCULATOR,
   CLOSE_CALCULATOR,
   SETUP,
+  SHOW_SCREEN_SAVER,
+  HIDDEN_SCREEN_SAVER,
+  SHUTDOWN,
 } from "./mutation-types";
 
 export default {
   [SETUP] (state) {
     state.setup = true;
+    this.commit(SHOW_SCREEN_SAVER);
+  },
+
+  [SHUTDOWN] (state) {
+    state.setup = false;
   },
 
   // 设置桌面图标大小
@@ -231,5 +239,13 @@ export default {
 
   [REMOVE_TASK] (state, taskName) {
     state.tasks = state.tasks.filter(t => t.name !== taskName);
+  },
+
+  [SHOW_SCREEN_SAVER] (state) {
+    state.isShowScreenSaver = true;
+  },
+
+  [HIDDEN_SCREEN_SAVER] (state) {
+    state.isShowScreenSaver = false;
   }
 }
