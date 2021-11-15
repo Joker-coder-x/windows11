@@ -40,9 +40,14 @@ import {
   SHOW_SCREEN_SAVER,
   HIDDEN_SCREEN_SAVER,
   SHUTDOWN,
+  RESOURCES_LOADED,
 } from "./mutation-types";
 
 export default {
+  [RESOURCES_LOADED] (state) {
+    state.resourcesPreload = true;
+  },
+
   [SETUP] (state) {
     state.setup = true;
     this.commit(SHOW_SCREEN_SAVER);

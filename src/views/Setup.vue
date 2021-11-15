@@ -1,38 +1,107 @@
 <template>
-  <div class="setup">
-    <span class="iconfont icon-shut-down" @click="handleSetUp"></span>
-    <span class="text">点击启动计算机</span>
-  </div>
+  <template v-if="resourcesPreload">
+    <div class="setup" >
+      <span class="iconfont icon-shut-down" @click="handleSetUp"></span>
+      <span class="text">点击启动计算机</span>
+    </div>
+  </template>
+  <template v-else>
+    <loading-mask></loading-mask>
+  </template>
 </template>
 
 <script>
-
+import { computed } from 'vue';
+import { useStore } from 'vuex';
 import { useRouter } from 'vue-router';
 
 import { setFullScreen } from "utils";
-import { useStore } from 'vuex';
 
 import {
-  SETUP
+  SETUP,
+  RESOURCES_LOADED
 } from "store/mutation-types";
+
+import LoadingMask from "../components/Setup/LoadingMask";
 
 export default {
   name: "SetUp",
+  components: {
+    LoadingMask
+  },
   setup() {
     const router = useRouter(),
           store = useStore();
 
-    const handleSetUp = () => {
-      router.replace("/startingup");
-      store.commit(SETUP);
-
-      setTimeout(() => setFullScreen());
-    };
+    const { handleSetUp } = useSetup(store, router);
+    const { resourcesPreload } = useResourcesPreload(store);
 
     return {
+      resourcesPreload,
       handleSetUp
     };
   },
+}
+
+function useSetup (store, router) {
+  const handleSetUp = () => {
+    router.replace("/startingup");
+    store.commit(SETUP);
+
+    setTimeout(() => setFullScreen());
+  };
+
+  return {
+    handleSetUp
+  };
+}
+
+function useResourcesPreload (store) {
+  const resourcesPreload = computed(() => store.state.resourcesPreload);
+
+  if (!resourcesPreload.value) {
+    preloadResource()
+      .then(() => {
+        store.commit(RESOURCES_LOADED);
+      })
+      .catch(res => {
+        alert('资源加载失败');
+        console.error('预资源加载失败:', res);
+      });
+  }
+
+  return {
+    resourcesPreload
+  };
+}
+
+/**
+ * 预加载资源
+ */
+function preloadResource () {
+  const imgs = [
+    require('assets/icons/bg/img106.jpg'),
+    require('assets/icons/bg/img20.jpg')
+  ];
+
+  const arr = [];
+  imgs.forEach(img => {
+    const p = new Promise((resolve, reject) => {
+      const oImg = new Image();
+
+      oImg.onload = () => resolve(img);
+      oImg.onerror = () => reject(img);
+      oImg.src = img;
+
+      if (oImg.complete) {
+        resolve(img);
+      }
+    });
+
+    arr.push(p);
+  });
+
+  return Promise.all(arr);
 }
 </script>
 
