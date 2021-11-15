@@ -2,6 +2,7 @@ import config from "../config";
 import { APP_STATUS_MAP } from "../utils";
 
 export default {
+  resourcesPreload: false, // 标识是否已经预加载资源
   isSetup: false,
   isShowScreenSaver: true,
   eyeCareMode: false, // 护眼模式

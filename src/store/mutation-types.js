@@ -1,3 +1,4 @@
+export const RESOURCES_LOADED = "resourcesLoaded";
 export const SETUP = "setup";
 export const SHUTDOWN = "shutdown";
 
