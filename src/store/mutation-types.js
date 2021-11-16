@@ -47,6 +47,10 @@ export const SHOW_CALCULATOR = "showCalculator";
 export const HIDDEN_CALCULATOR = "hiddenCalculator";
 export const CLOSE_CALCULATOR = "closeCalculator";
 
+export const SHOW_NOTEPAD = "showNotepad";
+export const HIDDEN_NOTEPAD = "hiddenNotepad";
+export const CLOSE_NOTEPAD = "closeNotepad";
+
 export const HIDDEN_ALL_NOT_CONTEXT_MENU_BOARD = "hiddenAllNotContextMenuBoard";
 export const HIDDEN_ALL_SINGLE_BOARD = "hiddenAllSingleBoard";
 
