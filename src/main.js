@@ -2,14 +2,14 @@ import { createApp } from 'vue';
 import App from './App.vue';
 import router from './router';
 import store from './store';
+import appWidgetController from './app-widget-controller';
+import { systemNamespaceSymbol } from 'utils';
 
 import "styles/index.scss";
 import "utils/common.js";
 
-import appWidgetController from './app-widget-controller';
-
 router.beforeEach((to, from, next) => {
-  if ((to.name !== 'Setup' && to.name !== 'Shutdown') && !store.state.setup) {
+  if ((to.name !== 'Setup' && to.name !== 'Shutdown') && !store.state[systemNamespaceSymbol].setup) {
     next({ name: 'Setup' });
   } else {
     next();

@@ -22,6 +22,8 @@
 import { computed } from 'vue';
 import { useStore } from 'vuex';
 
+import { viewNamespaceSymbol } from "utils";
+
 import TimePanel from "./TimePanel";
 import SmallComponentsPanel from "./SmallComponentsPanel";
 import HotRecommends from "./HotRecommends";
@@ -38,8 +40,9 @@ export default {
     RecommendItem
   },
   setup() {
-    const store = useStore();
-    const isShowSystemRecomInfoBoard = computed(() => store.state.isShowSystemRecomInfoBoard);
+    const store = useStore(),
+          viewNamespaceState = store.state[viewNamespaceSymbol],
+          isShowSystemRecomInfoBoard = computed(() => viewNamespaceState.isShowSystemRecomInfoBoard);
 
     return {
       isShowSystemRecomInfoBoard,

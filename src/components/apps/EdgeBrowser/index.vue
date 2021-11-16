@@ -77,6 +77,8 @@ import {
   CLOSE_EDGE_BROWSER_WIDGET
 } from "store/mutation-types";
 
+import { viewNamespace } from "utils";
+
 import BaseAppWidget from "../BaseAppWidget";
 import BrowserBookmarkItem from "./BrowserBookmarkItem";
 import BaseAppWidgetOperatePanel from "../BaseAppWidget/BaseAppWidgetOperatePanel";
@@ -113,9 +115,9 @@ export default {
       logo: require("assets/icons/edge.png"),
       name: 'Edge浏览器',
       handler: (store) => {
-        store.getters.isShowEdgeBrowserWidget ?
-          store.commit(HIDDEN_EDGE_BROWSER_WIDGET) :
-          store.commit(SHOW_EDGE_BROWSER_WIDGET);
+        store.getters[viewNamespace("isShowEdgeBrowserWidget")] ?
+          store.commit(viewNamespace(HIDDEN_EDGE_BROWSER_WIDGET)) :
+          store.commit(viewNamespace(SHOW_EDGE_BROWSER_WIDGET));
       }
     }
   },
@@ -131,9 +133,9 @@ export default {
           curUrl = ref("http://cn.bing.com");
 
     const handleChangeUrl = (url) => curUrl.value = url;
-    const handleMinimize = () => store.commit(HIDDEN_EDGE_BROWSER_WIDGET);
+    const handleMinimize = () => store.commit(viewNamespace(HIDDEN_EDGE_BROWSER_WIDGET));
     const handleMaximize = () => isFull.value = !isFull.value;
-    const handleClose = () => store.commit(CLOSE_EDGE_BROWSER_WIDGET);
+    const handleClose = () => store.commit(viewNamespace(CLOSE_EDGE_BROWSER_WIDGET));
 
     return {
       isFull,

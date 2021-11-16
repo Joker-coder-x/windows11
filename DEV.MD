@@ -1,7 +1,7 @@
 # windows11 in web
 
-开发框架:vue3.2
-CSS预处理器: scss
+- 开发框架:vue3.2
+- CSS预处理器: scss
 
 
 ## 需求目标：
@@ -30,6 +30,11 @@ CSS预处理器: scss
   - composables 组合式API模块目录
   - router 存放路由目录
   - store 状态管理目录
+    - modules 子模块目录
+      - task 任务模块
+      - view 视图管理模块
+      - system 系统模块
+      - layout 布局模块
   - views 存放视图目录
   - styles 样式文件目录
     - iconfont 字体图标库文件夹
@@ -41,17 +46,11 @@ CSS预处理器: scss
     - index.scss 入口样式文件
   - utils 工具库目录
     - common.js 该文件存放一些页面加载初始化之前的逻辑
+    - namespace.js 该文件命名空间工具函数
+    - constant.js 该文件存放一些常量
+    - dom.js 该文件存放操作dom的工具方法
   - transitioin 存放封装好的过渡动画组件
   - App.vue 入口根组件
   - main.js 入口文件
-  - config.js 项目内部配置文件
-
-## 更新日志
-- 2021/10/27 增加布局模块、时间面板组件、app图标拖拽算法模块
-- 2021/10/28 增加桌面右键菜单和任务栏右键菜单模块
-- 2021/10/29 增加系统菜单面板应用
-- 2021/10/30 增加系统搜索面板应用
-- 2021/11/2  增加系统推荐资讯面板模块
-- 2021/11/3  增加系统状态控制面板、增加护眼模式、省点模式、亮度调节、音量调节等逻辑代码
-
-## issue
+  - config 项目内部配置文件目录
+    - config.js 主配置文件

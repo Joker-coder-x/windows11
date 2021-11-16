@@ -22,9 +22,12 @@
 import { computed } from 'vue';
 import { useStore } from 'vuex';
 
+import { layoutNamespaceSymbol } from "utils";
+
 let uid = 0;
 
 export default {
+  name: "AppItem",
   props: {
     item: Object
   },
@@ -32,12 +35,14 @@ export default {
     setAppId: null
   },
   setup (props, { emit }) {
-    const store = useStore();
-    // 设置appid
-    const appid = ++ uid;
+    const store = useStore(),
+          layoutNamespaceState = store.state[layoutNamespaceSymbol],
+          appid = ++ uid;  // 设置appid
+
     emit("setAppId", { item: props.item, appid });
-    const appItemWidth = computed(() => store.state.appGridLayoutItemWidth),
-          appItemHeight = computed(() => store.state.appGridLayoutItemHeight);
+
+    const appItemWidth = computed(() => layoutNamespaceState.appGridLayoutItemWidth),
+          appItemHeight = computed(() => layoutNamespaceState.appGridLayoutItemHeight);
 
     const getStyle = computed(() => {
       const item = props.item;
@@ -86,6 +91,7 @@ export default {
 
   .app-info {
     @include ellipsis;
+
     .app-name {
       font-size: 12px;
     }

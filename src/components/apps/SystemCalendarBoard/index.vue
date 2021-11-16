@@ -35,11 +35,12 @@
 <script>
 import { computed, ref } from 'vue';
 import { useStore } from 'vuex';
+import solarLunar from 'solarlunar';
+
+import { viewNamespaceSymbol } from "utils";
 
 import Calendar from "../../common/Calendar";
 import CollapseTransition from "@/transition/CollapseTransition";
-
-import solarLunar from 'solarlunar';
 
 export default {
   name: 'SystemCalendarBoard',
@@ -49,8 +50,9 @@ export default {
   },
   setup() {
     const store = useStore(),
+      viewNamespaceState = store.state[viewNamespaceSymbol],
       isShowCalendar = ref(true),
-      isShowSystemCalendarBoard = computed(() => store.state.isShowSystemCalendarBoard),
+      isShowSystemCalendarBoard = computed(() => viewNamespaceState.isShowSystemCalendarBoard),
       date = new Date();
 
     const todaySolayDateText = computed(() => `${date.getMonth() + 1}月${date.getDate()}日，${getChsWeekday(date.getDay())}`);

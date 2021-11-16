@@ -1,4 +1,8 @@
-import { APP_STATUS_MAP } from "../utils";
+import {
+  APP_STATUS_MAP,
+  makeNamespace
+} from "utils";
+
 import {
   HIDDEN_ALL_NOT_CONTEXT_MENU_BOARD,
   HIDDEN_ALL_SINGLE_BOARD,
@@ -8,10 +12,6 @@ import {
   HIDDEN_SYSTEM_SEARCH_BOARD,
   HIDDEN_SYSTEM_STATUS_CONTROL_BOARD,
   HIDDEN_TASKBAR_CONTEXT_MENU,
-  SET_APP_ITEM_SIZE,
-  SET_AUDIO_VALUE,
-  SET_LIGHT_VALUE,
-  SET_EYE_CARE_MODE,
   SHOW_DESKTOP_CONTEXT_MENU,
   SHOW_SYSTEM_MENU_BOARD,
   SHOW_SYSTEM_RECOM_INFO_BOARD,
@@ -22,12 +22,8 @@ import {
   HIDDEN_VS_CODE_WIDGET,
   SHOW_EDGE_BROWSER_WIDGET,
   HIDDEN_EDGE_BROWSER_WIDGET,
-  ADD_TASK,
-  REMOVE_TASK,
   CLOSE_VS_CODE_WIDGET,
   CLOSE_EDGE_BROWSER_WIDGET,
-  SET_TASK_ACTIVE,
-  DELETE_TASK_ACTIVE,
   SHOW_SYSTEM_CALENDAR_BOARD,
   HIDDEN_SYSTEM_CALENDAR_BOARD,
   SHOW_SYSTEM_TERMINAL,
@@ -36,50 +32,34 @@ import {
   SHOW_CALCULATOR,
   HIDDEN_CALCULATOR,
   CLOSE_CALCULATOR,
-  SETUP,
   SHOW_SCREEN_SAVER,
   HIDDEN_SCREEN_SAVER,
-  SHUTDOWN,
-  RESOURCES_LOADED,
-} from "./mutation-types";
+} from "store/mutation-types";
 
-export default {
-  [RESOURCES_LOADED] (state) {
-    state.resourcesPreload = true;
-  },
+const _namespace = makeNamespace('view');
 
-  [SETUP] (state) {
-    state.setup = true;
-    this.commit(SHOW_SCREEN_SAVER);
-  },
+const state = () => ({
+  isShowScreenSaver: true,
+  isShowDesktopContextMenu: false,
+  isShowTaskbarContextMenu: false,
+  isShowSystemMenuBoard: false,
+  isShowSystemSearchBoard: false,
+  isShowSystemRecomInfoBoard: false,
+  isShowSystemStatusControlBoard: false,
+  isShowSystemCalendarBoard: false,
+  isShowVsCodeWidget: APP_STATUS_MAP.HIDDEN,
+  isShowEdgeBrowserWidget: APP_STATUS_MAP.HIDDEN,
+  isShowSystemTerminal: APP_STATUS_MAP.HIDDEN,
+  isShowCalculator: APP_STATUS_MAP.HIDDEN,
+  desktopContextMenuPosX: 0,
+  desktopContextMenuPosY: 0,
+  taskbarContextMenuPosX: 0,
+  taskbarContextMenuPosY: 0,
+});
 
-  [SHUTDOWN] (state) {
-    state.setup = false;
-  },
-
-  // 设置桌面图标大小
-  [SET_APP_ITEM_SIZE] (state, sizeInfo) {
-    state.appGridLayoutItemWidth = sizeInfo.width;
-    state.appGridLayoutItemHeight = sizeInfo.height;
-  },
-
-  // 设置亮度
-  [SET_LIGHT_VALUE] (state, value) {
-    state.lightValue = value < 10 ? 10 : value;
-  },
-
-  // 设置音量
-  [SET_AUDIO_VALUE] (state, value) {
-    state.audioValue = value;
-  },
-
-  // 设置护眼模式
-  [SET_EYE_CARE_MODE] (state, value) {
-    state.eyeCareMode = value;
-  },
-
+const mutations = {
   [SHOW_DESKTOP_CONTEXT_MENU] (state, pos) {
-    this.commit(HIDDEN_ALL_SINGLE_BOARD);
+    this.commit(_namespace(HIDDEN_ALL_SINGLE_BOARD));
 
     state.isShowDesktopContextMenu = true;
     state.desktopContextMenuPosX = pos.x || 0;
@@ -91,7 +71,7 @@ export default {
   },
 
   [SHOW_TASKBAR_CONTEXT_MENU] (state, pos) {
-    this.commit(HIDDEN_DESKTOP_CONTEXT_MENU);
+    this.commit(_namespace(HIDDEN_DESKTOP_CONTEXT_MENU));
 
     state.isShowTaskbarContextMenu = true;
     state.taskbarContextMenuPosX = pos.x || 0;
@@ -103,7 +83,7 @@ export default {
   },
 
   [SHOW_SYSTEM_MENU_BOARD] (state) {
-    this.commit(HIDDEN_ALL_SINGLE_BOARD);
+    this.commit(_namespace(HIDDEN_ALL_SINGLE_BOARD));
     state.isShowSystemMenuBoard = true;
   },
 
@@ -112,7 +92,7 @@ export default {
   },
 
   [SHOW_SYSTEM_SEARCH_BOARD] (state) {
-    this.commit(HIDDEN_ALL_SINGLE_BOARD);
+    this.commit(_namespace(HIDDEN_ALL_SINGLE_BOARD));
     state.isShowSystemSearchBoard = true;
   },
 
@@ -121,7 +101,7 @@ export default {
   },
 
   [SHOW_SYSTEM_RECOM_INFO_BOARD] (state) {
-    this.commit(HIDDEN_ALL_SINGLE_BOARD);
+    this.commit(_namespace(HIDDEN_ALL_SINGLE_BOARD));
     state.isShowSystemRecomInfoBoard = true;
   },
 
@@ -130,7 +110,7 @@ export default {
   },
 
   [SHOW_SYSTEM_STATUS_CONTROL_BOARD] (state) {
-    this.commit(HIDDEN_ALL_SINGLE_BOARD);
+    this.commit(_namespace(HIDDEN_ALL_SINGLE_BOARD));
     state.isShowSystemStatusControlBoard = true;
   },
 
@@ -139,7 +119,7 @@ export default {
   },
 
   [SHOW_SYSTEM_CALENDAR_BOARD] (state) {
-    this.commit(HIDDEN_ALL_SINGLE_BOARD);
+    this.commit(_namespace(HIDDEN_ALL_SINGLE_BOARD));
     state.isShowSystemCalendarBoard = true;
   },
 
@@ -212,40 +192,6 @@ export default {
     state.isShowSystemCalendarBoard = false;
   },
 
-  [ADD_TASK] (state, payload) {
-    const tasks = state.tasks,
-          isFind = tasks.find(t => t.name === payload.name);
-
-    if (!isFind) {
-      tasks.push(payload);
-    }
-
-    this.commit(SET_TASK_ACTIVE, payload.name);
-  },
-
-  [SET_TASK_ACTIVE] (state, taskName) {
-    const tasks = state.tasks;
-    tasks.map(t => t.active = false);
-    const idx = tasks.findIndex(t => t.name === taskName);
-
-    if (idx !== -1) {
-      tasks.splice(idx, 1, { ...tasks[idx], active: true, status: APP_STATUS_MAP.SHOW });
-    }
-  },
-
-  [DELETE_TASK_ACTIVE] (state, payload) {
-    const tasks = state.tasks,
-          idx = tasks.findIndex(t => t.name === payload.name);
-
-    if (idx !== -1) {
-      tasks.splice(idx, 1, payload);
-    }
-  },
-
-  [REMOVE_TASK] (state, taskName) {
-    state.tasks = state.tasks.filter(t => t.name !== taskName);
-  },
-
   [SHOW_SCREEN_SAVER] (state) {
     state.isShowScreenSaver = true;
   },
@@ -253,4 +199,26 @@ export default {
   [HIDDEN_SCREEN_SAVER] (state) {
     state.isShowScreenSaver = false;
   }
-}
+};
+
+const getters = {
+  isShowVsCodeWidget (state) {
+    return state.isShowVsCodeWidget === APP_STATUS_MAP.SHOW;
+  },
+  isShowEdgeBrowserWidget (state) {
+    return state.isShowEdgeBrowserWidget === APP_STATUS_MAP.SHOW;
+  },
+  isShowSystemTerminal (state) {
+    return state.isShowSystemTerminal === APP_STATUS_MAP.SHOW;
+  },
+  isShowCalculator (state) {
+    return state.isShowCalculator === APP_STATUS_MAP.SHOW;
+  },
+};
+
+export default {
+  namespaced: true,
+  state,
+  mutations,
+  getters
+};

@@ -44,73 +44,18 @@ import {
 } from 'vue';
 import { useStore } from 'vuex';
 
-import ControlItem from "./ControlItem";
-import InputRange from "../../common/InputRange";
-import SystemAudioIcon from "../SystemAudioIcon";
-
 import {
   SET_AUDIO_VALUE,
   SET_LIGHT_VALUE,
   SET_EYE_CARE_MODE
 } from "store/mutation-types";
 
-const controlList = [
-  {
-    icon: require('assets/icons/ui/wifi.png'),
-    name: 'WIFI',
-    active: true
-  },
-  {
-    icon: require('assets/icons/ui/airplane.png'),
-    name: '飞行模式',
-    active: false
-  },
-  {
-    icon: require('assets/icons/ui/bluetooth.png'),
-    name: '蓝牙',
-    active: false
-  },
-  {
-    icon: require('assets/icons/ui/saver.png'),
-    name: '省电模式',
-    active: false,
-    handler (store) {
-      this.active ?
-        (this.lastLightValue = store.state.lightValue, store.commit(SET_LIGHT_VALUE, 40)) :
-        store.commit(SET_LIGHT_VALUE, this.lastLightValue);
-    }
-  },
-  {
-    icon: require('assets/icons/ui/moon.png'),
-    name: '专注助手',
-    active: false
-  },
-  {
-    icon: require('assets/icons/ui/eye_care.png'),
-    name: '护眼模式',
-    active: false,
-    handler (store) {
-      this.active ?
-        store.commit(SET_EYE_CARE_MODE, true) :
-        store.commit(SET_EYE_CARE_MODE, false);
-    }
-  },
-  {
-    icon: require('assets/icons/ui/location.png'),
-    name: '位置',
-    active: false
-  },
-  {
-    icon: require('assets/icons/ui/connect.png'),
-    name: '连接',
-    active: false
-  },
-  {
-    icon: require('assets/icons/ui/project.png'),
-    name: '投放',
-    active: false
-  },
-];
+import { systemControlList } from "@/config";
+import { viewNamespaceSymbol, systemNamespace, systemNamespaceSymbol } from "utils";
+
+import ControlItem from "./ControlItem";
+import InputRange from "../../common/InputRange";
+import SystemAudioIcon from "../SystemAudioIcon";
 
 export default {
   name: 'SystemStatusControlBoard',
@@ -120,16 +65,18 @@ export default {
     SystemAudioIcon
   },
   setup () {
-    const store = useStore();
+    const store = useStore(),
+          viewNamespaceState = store.state[viewNamespaceSymbol],
+          systemNamespaceState = store.state[systemNamespaceSymbol];
 
-    const isShowSystemStatusControlBoard = computed(() => store.state.isShowSystemStatusControlBoard);
+    const isShowSystemStatusControlBoard = computed(() => viewNamespaceState.isShowSystemStatusControlBoard);
     const lightValue = computed({
-      get: () => store.state.lightValue,
-      set: (newVal) => store.commit(SET_LIGHT_VALUE, newVal)
+      get: () => systemNamespaceState.lightValue,
+      set: (newVal) => store.commit(systemNamespace(SET_LIGHT_VALUE), newVal)
     });
     const audioValue = computed({
-      get: () => store.state.audioValue,
-      set: (newVal) => store.commit(SET_AUDIO_VALUE, newVal)
+      get: () => systemNamespaceState.audioValue,
+      set: (newVal) => store.commit(systemNamespace(SET_AUDIO_VALUE), newVal)
     });
 
     const handleSetActiveItem = (item) => {
@@ -138,7 +85,7 @@ export default {
     }
 
     return {
-      controlList: reactive(controlList),
+      controlList: reactive(systemControlList),
       lightValue,
       audioValue,
       isShowSystemStatusControlBoard,

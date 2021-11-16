@@ -27,39 +27,15 @@
 import { computed, ref } from 'vue';
 import { useStore } from 'vuex';
 
+import { tabsData } from "./data";
+import { viewNamespaceSymbol } from "utils";
+
 import SystemSearchBoardInput from "./SystemSearchBoardInput";
 import Tabs from "./Tabs";
 import AllPanel from "./SubPanel/AllPanel";
 import AppPanel from "./SubPanel/AppPanel";
 import DocumentPanel from "./SubPanel/DocumentPanel";
 import WebPagePanel from "./SubPanel/WebPagePanel";
-
-const tabsData = [
-  {
-    key: 'all',
-    label: '全部',
-    component: 'AllPanel'
-  },
-  {
-    key: 'app',
-    label: '应用',
-    component: 'AppPanel'
-  },
-  {
-    key: 'document',
-    label: '文档',
-    component: 'DocumentPanel'
-  },
-  {
-    key: 'webpage',
-    label: '网页',
-    component: 'WebPagePanel'
-  },
-  {
-    key: 'more',
-    label: '更多'
-  },
-];
 
 export default {
   name: 'SystemSearchBoard',
@@ -76,9 +52,10 @@ export default {
           placeholder = ref("在此键入已搜索"),
           searchInputRef = ref(null),
           panelComponentName = ref(tabsData[activeIndex.value].component),
-          store = useStore();
+          store = useStore(),
+          viewNamespaceState = store.state[viewNamespaceSymbol];
 
-    const isShowSystemSearchBoard = computed(() => store.state.isShowSystemSearchBoard);
+    const isShowSystemSearchBoard = computed(() => viewNamespaceState.isShowSystemSearchBoard);
 
     const handleUpdateActiveIndex = (index) => {
       const item = tabsData[index],

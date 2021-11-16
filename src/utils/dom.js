@@ -109,7 +109,6 @@ export function getElemDocPosition(node){
   };
 }
 
-
 /**
  * 获取电池状态的API
  * @notice  该API不支持IE
@@ -118,7 +117,6 @@ export function getElemDocPosition(node){
 export function getBatteryManager () {
   return navigator.getBattery();
 }
-
 
 export function setFullScreen () {
   var elem = document.body;
@@ -132,5 +130,18 @@ export function setFullScreen () {
   } else {
     //浏览器不支持全屏API或已被禁用
     console.warn('浏览器不支持全屏API或已被禁用!!!');
+  }
+}
+
+//退出全屏
+export function exitFullscreen() {
+  if (document.exitFullscreen) {
+      document.exitFullscreen();
+  } else if (document.msExitFullscreen) {
+      document.msExitFullscreen();
+  } else if (document.mozCancelFullScreen) {
+      document.mozCancelFullScreen();
+  } else if (document.webkitExitFullscreen) {
+      document.webkitExitFullscreen();
   }
 }

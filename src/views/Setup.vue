@@ -15,14 +15,18 @@ import { computed } from 'vue';
 import { useStore } from 'vuex';
 import { useRouter } from 'vue-router';
 
-import { setFullScreen } from "utils";
+import {
+  setFullScreen,
+  systemNamespace,
+  systemNamespaceSymbol
+} from "utils";
 
 import {
   SETUP,
   RESOURCES_LOADED
 } from "store/mutation-types";
 
-import LoadingMask from "../components/Setup/LoadingMask";
+import LoadingMask from "components/Setup/LoadingMask";
 
 export default {
   name: "SetUp",
@@ -46,7 +50,7 @@ export default {
 function useSetup (store, router) {
   const handleSetUp = () => {
     router.replace("/startingup");
-    store.commit(SETUP);
+    store.commit(systemNamespace(SETUP));
 
     setTimeout(() => setFullScreen());
   };
@@ -57,12 +61,13 @@ function useSetup (store, router) {
 }
 
 function useResourcesPreload (store) {
-  const resourcesPreload = computed(() => store.state.resourcesPreload);
+  const systemNamespaceState = store.state[systemNamespaceSymbol],
+        resourcesPreload = computed(() => systemNamespaceState.resourcesPreload);
 
   if (!resourcesPreload.value) {
     preloadResource()
       .then(() => {
-        store.commit(RESOURCES_LOADED);
+        store.commit(systemNamespace(RESOURCES_LOADED));
       })
       .catch(res => {
         alert('资源加载失败');
@@ -73,6 +78,25 @@ function useResourcesPreload (store) {
   return {
     resourcesPreload
   };
+}
+
+// 加载图片
+function loadImage (url, resolve, reject) {
+  const oImg = new Image(); //创建一个Image对象，实现图片的预下载
+
+  oImg.onload = function (e) {
+    oImg.onload = null;
+    resolve(e);
+  };
+  oImg.onerror = function (e) {
+    oImg.onerror = null;
+    reject(e);
+  };
+  oImg.src = url;
+
+  if (oImg.complete) {
+    resolve(img);
+  }
 }
 
 /**
@@ -86,18 +110,7 @@ function preloadResource () {
 
   const arr = [];
   imgs.forEach(img => {
-    const p = new Promise((resolve, reject) => {
-      const oImg = new Image();
-
-      oImg.onload = () => resolve(img);
-      oImg.onerror = () => reject(img);
-      oImg.src = img;
-
-      if (oImg.complete) {
-        resolve(img);
-      }
-    });
-
+    const p = new Promise((resolve, reject) => loadImage(img, resolve, reject));
     arr.push(p);
   });
 

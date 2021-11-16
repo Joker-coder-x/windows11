@@ -19,6 +19,7 @@
 
 <script>
 export default {
+  name: "DesktopContextMenuItem",
   props: {
     item: Object
   },

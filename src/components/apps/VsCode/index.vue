@@ -26,6 +26,8 @@ import {
   CLOSE_VS_CODE_WIDGET,
 } from "store/mutation-types";
 
+import { viewNamespace } from "utils";
+
 import BaseAppWidget from "../BaseAppWidget";
 
 export default {
@@ -36,9 +38,9 @@ export default {
       logo: require("assets/icons/code.png"),
       name: 'Vs Code',
       handler: (store) => {
-        store.getters.isShowVsCodeWidget ?
-          store.commit(HIDDEN_VS_CODE_WIDGET) :
-          store.commit(SHOW_VS_CODE_WIDGET);
+        store.getters[viewNamespace('isShowVsCodeWidget')] ?
+          store.commit(viewNamespace(HIDDEN_VS_CODE_WIDGET)) :
+          store.commit(viewNamespace(SHOW_VS_CODE_WIDGET));
       }
     }
   },
@@ -48,8 +50,8 @@ export default {
   setup() {
     const store = useStore();
 
-    const handleMinimize = () => store.commit(HIDDEN_VS_CODE_WIDGET);
-    const handleClose = () => store.commit(CLOSE_VS_CODE_WIDGET);
+    const handleMinimize = () => store.commit(viewNamespace(HIDDEN_VS_CODE_WIDGET));
+    const handleClose = () => store.commit(viewNamespace(CLOSE_VS_CODE_WIDGET));
 
     return {
       handleMinimize,

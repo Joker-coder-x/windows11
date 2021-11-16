@@ -17,43 +17,14 @@
 <script>
 import RecommendProjectItem from "./RecommendProjectItem.vue";
 
-const projects = [
-   {
-    img: require("assets/icons/edge.png"),
-    name: 'Edge'
-  },
-  {
-    img: require("assets/icons/winWord.png"),
-    name: 'Word'
-  },
-  {
-    img: require("assets/icons/excel.png"),
-    name: 'Excel'
-  },
-  {
-    img: require("assets/icons/powerpoint.png"),
-    name: 'PowerPoint'
-  },
-  {
-    img: require("assets/icons/mail.png"),
-    name: '邮件'
-  },
-  {
-    img: require("assets/icons/calender.png"),
-    name: '日历'
-  },
-];
-
 export default {
   name: "RecommendProjectPanel",
+  props: {
+    projects: Array
+  },
   components: {
     RecommendProjectItem
-  },
-  setup() {
-    return {
-      projects
-    };
-  },
+  }
 }
 </script>
 

@@ -8,6 +8,8 @@
 import { onUnmounted } from 'vue';
 import { useRouter } from 'vue-router';
 
+import { exitFullscreen } from "utils";
+
 export default {
   name: "Shutdown",
   setup () {
@@ -15,6 +17,7 @@ export default {
 
     let t = setTimeout(() => {
       router.replace('/');
+      setTimeout(() => exitFullscreen());
     }, 3000);
 
     onUnmounted(() => {

@@ -11,11 +11,14 @@
 import { computed } from 'vue';
 import { useStore } from 'vuex';
 
+import { systemNamespaceSymbol } from "utils";
+
 export default {
   name: "SystemMaskLayer",
   setup() {
     const store = useStore(),
-          opacity = computed(() => 1 - (store.state.lightValue / 100));
+          systemNamespaceState = store.state[systemNamespaceSymbol],
+          opacity = computed(() => 1 - (systemNamespaceState.lightValue / 100));
 
     return {
       opacity,
