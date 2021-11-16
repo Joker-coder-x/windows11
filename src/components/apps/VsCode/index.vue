@@ -62,14 +62,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.scale-slide-enter-active {
-  animation: scale-slide .25s reverse;
-}
-
-.scale-slide-leave-active {
-  animation: scale-slide .25s;
-}
-
 .vscode {
   @include disabled-selected;
 }

@@ -106,12 +106,4 @@ export default {
   letter-spacing: .1em;
   color: #1eff00;
 }
-
-.scale-slide-enter-active {
-  animation: scale-slide .25s reverse;
-}
-
-.scale-slide-leave-active {
-  animation: scale-slide .25s;
-}
 </style>

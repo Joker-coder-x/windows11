@@ -153,14 +153,6 @@ export default {
 <style lang="scss" scoped>
 $topColor: #F7F7F7;
 
-.scale-slide-enter-active {
-  animation: scale-slide .25s reverse;
-}
-
-.scale-slide-leave-active {
-  animation: scale-slide .25s;
-}
-
 .edge-browser {
   @include disabled-selected;
   box-shadow: 0 0 25px #00000085;

@@ -1,6 +1,6 @@
 import {
   APP_STATUS_MAP,
-  makeNamespace
+  viewNamespace
 } from "utils";
 
 import {
@@ -35,8 +35,7 @@ import {
   SHOW_SCREEN_SAVER,
   HIDDEN_SCREEN_SAVER,
 } from "store/mutation-types";
-
-const _namespace = makeNamespace('view');
+import { CLOSE_NOTEPAD, HIDDEN_NOTEPAD, SHOW_NOTEPAD } from "../../mutation-types";
 
 const state = () => ({
   isShowScreenSaver: true,
@@ -51,6 +50,7 @@ const state = () => ({
   isShowEdgeBrowserWidget: APP_STATUS_MAP.HIDDEN,
   isShowSystemTerminal: APP_STATUS_MAP.HIDDEN,
   isShowCalculator: APP_STATUS_MAP.HIDDEN,
+  isShowNotepad: APP_STATUS_MAP.HIDDEN,
   desktopContextMenuPosX: 0,
   desktopContextMenuPosY: 0,
   taskbarContextMenuPosX: 0,
@@ -59,7 +59,7 @@ const state = () => ({
 
 const mutations = {
   [SHOW_DESKTOP_CONTEXT_MENU] (state, pos) {
-    this.commit(_namespace(HIDDEN_ALL_SINGLE_BOARD));
+    this.commit(viewNamespace(HIDDEN_ALL_SINGLE_BOARD));
 
     state.isShowDesktopContextMenu = true;
     state.desktopContextMenuPosX = pos.x || 0;
@@ -71,7 +71,7 @@ const mutations = {
   },
 
   [SHOW_TASKBAR_CONTEXT_MENU] (state, pos) {
-    this.commit(_namespace(HIDDEN_DESKTOP_CONTEXT_MENU));
+    this.commit(viewNamespace(HIDDEN_DESKTOP_CONTEXT_MENU));
 
     state.isShowTaskbarContextMenu = true;
     state.taskbarContextMenuPosX = pos.x || 0;
@@ -83,7 +83,7 @@ const mutations = {
   },
 
   [SHOW_SYSTEM_MENU_BOARD] (state) {
-    this.commit(_namespace(HIDDEN_ALL_SINGLE_BOARD));
+    this.commit(viewNamespace(HIDDEN_ALL_SINGLE_BOARD));
     state.isShowSystemMenuBoard = true;
   },
 
@@ -92,7 +92,7 @@ const mutations = {
   },
 
   [SHOW_SYSTEM_SEARCH_BOARD] (state) {
-    this.commit(_namespace(HIDDEN_ALL_SINGLE_BOARD));
+    this.commit(viewNamespace(HIDDEN_ALL_SINGLE_BOARD));
     state.isShowSystemSearchBoard = true;
   },
 
@@ -101,7 +101,7 @@ const mutations = {
   },
 
   [SHOW_SYSTEM_RECOM_INFO_BOARD] (state) {
-    this.commit(_namespace(HIDDEN_ALL_SINGLE_BOARD));
+    this.commit(viewNamespace(HIDDEN_ALL_SINGLE_BOARD));
     state.isShowSystemRecomInfoBoard = true;
   },
 
@@ -110,7 +110,7 @@ const mutations = {
   },
 
   [SHOW_SYSTEM_STATUS_CONTROL_BOARD] (state) {
-    this.commit(_namespace(HIDDEN_ALL_SINGLE_BOARD));
+    this.commit(viewNamespace(HIDDEN_ALL_SINGLE_BOARD));
     state.isShowSystemStatusControlBoard = true;
   },
 
@@ -119,7 +119,7 @@ const mutations = {
   },
 
   [SHOW_SYSTEM_CALENDAR_BOARD] (state) {
-    this.commit(_namespace(HIDDEN_ALL_SINGLE_BOARD));
+    this.commit(viewNamespace(HIDDEN_ALL_SINGLE_BOARD));
     state.isShowSystemCalendarBoard = true;
   },
 
@@ -175,6 +175,18 @@ const mutations = {
     state.isShowCalculator = APP_STATUS_MAP.CLOSE;
   },
 
+  [SHOW_NOTEPAD] (state) {
+    state.isShowNotepad = APP_STATUS_MAP.SHOW;
+  },
+
+  [HIDDEN_NOTEPAD] (state) {
+    state.isShowNotepad = APP_STATUS_MAP.HIDDEN;
+  },
+
+  [CLOSE_NOTEPAD] (state) {
+    state.isShowNotepad = APP_STATUS_MAP.CLOSE;
+  },
+
   // 关闭所有的非右键菜单的面板
   [HIDDEN_ALL_NOT_CONTEXT_MENU_BOARD] (state) {
     state.isShowSystemMenuBoard = false;
@@ -213,6 +225,9 @@ const getters = {
   },
   isShowCalculator (state) {
     return state.isShowCalculator === APP_STATUS_MAP.SHOW;
+  },
+  isShowNotepad (state) {
+    return state.isShowNotepad === APP_STATUS_MAP.SHOW;
   },
 };
 

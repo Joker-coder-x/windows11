@@ -36,6 +36,8 @@
     <edge-browser></edge-browser>
     <!-- 计算器 -->
     <calculator></calculator>
+    <!-- 记事本 -->
+    <notepad></notepad>
   </div>
 </template>
 
@@ -65,6 +67,7 @@ import SystemTerminal from "components/apps/SystemTerminal";
 import VsCode from "components/apps/VsCode";
 import EdgeBrowser from "components/apps/EdgeBrowser";
 import Calculator from "components/apps/Calculator";
+import Notepad from "components/apps/Notepad";
 
 export default {
   components: {
@@ -78,15 +81,14 @@ export default {
     SystemTerminal,
     VsCode,
     EdgeBrowser,
-    Calculator
+    Calculator,
+    Notepad
   },
   setup () {
-    const desktopRef = ref(null);
-    const contextMenuRef = ref(null);
-    const store = useStore();
-    const apps = reactive(
-      config.apps.map(item => ({...item, x: 0, y: 0, appid: null}))
-    );
+    const desktopRef = ref(null),
+          contextMenuRef = ref(null),
+          store = useStore(),
+          apps = reactive(config.apps.map(item => ({...item, x: 0, y: 0, appid: null})));
 
     const {
       handleDragOver,
