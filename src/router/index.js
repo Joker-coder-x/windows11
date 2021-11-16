@@ -1,8 +1,8 @@
-import { createRouter, createWebHashHistory } from 'vue-router'
-import Home from '../views/Home.vue';
+import { createRouter, createWebHashHistory } from 'vue-router';
 import Setup from "../views/Setup.vue";
-import StartingUp from "../views/StartingUp";
-import Shutdown from "../views/Shutdown";
+const Home = () => import("../views/Home.vue");
+const StartingUp = () => import("../views/StartingUp");
+const Shutdown = () => import("../views/Shutdown");
 
 const routes = [
   {

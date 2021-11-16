@@ -12,6 +12,7 @@ import {
   SHOW_NOTEPAD,
  } from "store/mutation-types";
  import { viewNamespace } from "utils";
+import { sendEmail } from "../utils";
 
 export default {
   // 桌面图标布局
@@ -67,6 +68,13 @@ export default {
       name: '记事本',
       handler (store) {
         store.commit(viewNamespace(SHOW_NOTEPAD));
+      }
+    },
+    {
+      icon: require("assets/icons/mail.png"),
+      name: '邮件',
+      handler () {
+        sendEmail("3014375877@qq.com");
       }
     },
   ],
