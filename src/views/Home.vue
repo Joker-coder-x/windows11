@@ -11,11 +11,11 @@
 </template>
 
 <script>
-import Desktop from "components/Desktop";
-import Taskbar from "components/Taskbar";
+import Desktop from "components/Home/Desktop";
+import Taskbar from "components/Home/Taskbar";
 import SystemMaskLayer from "components/apps/SystemMaskLayer";
 import SystemEyeCareLayer from "components/apps/SystemEyeCareLayer";
-import ScreenSaver from "../components/apps/ScreenSaver";
+import ScreenSaver from "components/apps/ScreenSaver";
 
 export default {
   name: 'Home',

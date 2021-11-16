@@ -4,7 +4,6 @@ export const APP_STATUS_MAP = {
   SHOW: "show"
 };
 
-
 export const WEEK_DAY_MAP = {
   0: '星期日',
   1: '星期一',

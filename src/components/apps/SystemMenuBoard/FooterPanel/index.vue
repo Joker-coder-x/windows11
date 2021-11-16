@@ -32,6 +32,11 @@ import { useRouter } from 'vue-router';
 
 import { SHOW_SCREEN_SAVER, SHUTDOWN } from "store/mutation-types";
 
+import {
+  viewNamespace,
+  systemNamespace
+} from "utils";
+
 import Popover from "components/common/Popover";
 
 export default {
@@ -40,14 +45,14 @@ export default {
     Popover
   },
   setup() {
-    const store = useStore();
-    const router = useRouter();
+    const store = useStore(),
+          router = useRouter();
 
     const handleSleepClick = () => {
-      store.commit(SHOW_SCREEN_SAVER);
+      store.commit(viewNamespace(SHOW_SCREEN_SAVER));
     };
     const handleShutDownClick = () => {
-      store.commit(SHUTDOWN);
+      store.commit(systemNamespace(SHUTDOWN));
       router.replace('/shutdown');
     };
 

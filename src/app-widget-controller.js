@@ -8,11 +8,15 @@ import {
   ADD_TASK,
   DELETE_TASK_ACTIVE,
   REMOVE_TASK
-} from "./store/mutation-types";
+} from "store/mutation-types";
 
 import {
   APP_STATUS_MAP,
-  isObject
+  isObject,
+  taskNamespace,
+  taskNamespaceSymbol,
+  viewNamespace,
+  viewNamespaceSymbol
 } from "./utils";
 
 export default function (app) {
@@ -35,7 +39,8 @@ export default function (app) {
 
         const appInfo = appConfig.info,
           appIsActive = ref(false),
-          storeControlPropNameRef = computed(() => store.state[storeControlPropName]);
+          viewNamespaceState = store.state[viewNamespaceSymbol],
+          storeControlPropNameRef = computed(() => viewNamespaceState[storeControlPropName]);
 
         watch(
           storeControlPropNameRef,
@@ -44,15 +49,15 @@ export default function (app) {
 
             switch (newVal) {
               case APP_STATUS_MAP.SHOW:
-                appInfo && store.commit(ADD_TASK, { ...appInfo, active: true, status: newVal });
+                appInfo && store.commit(taskNamespace(ADD_TASK), { ...appInfo, active: true, status: newVal });
                 onShow && onShow.call(vm, vm);
                 break;
               case APP_STATUS_MAP.HIDDEN:
-                appInfo && store.commit(DELETE_TASK_ACTIVE, { ...appInfo, active: false, status: newVal });
+                appInfo && store.commit(taskNamespace(DELETE_TASK_ACTIVE), { ...appInfo, active: false, status: newVal });
                 onHidden && onHidden.call(vm, vm);
                 break;
               case APP_STATUS_MAP.CLOSE:
-                appInfo && store.commit(REMOVE_TASK, appInfo.name);
+                appInfo && store.commit(taskNamespace(REMOVE_TASK), appInfo.name);
                 onClose && onClose.call(vm, vm);
                 break;
               default:
@@ -62,8 +67,10 @@ export default function (app) {
         );
 
         if (appInfo) {
+          const taskNamespaceState = store.state[taskNamespaceSymbol];
+
           watch(
-            computed(() => store.state.tasks),
+            computed(() => taskNamespaceState.tasks),
             (tasks) => {
               tasks.map(t => {
                 if (t.name === appInfo.name) {
@@ -76,7 +83,7 @@ export default function (app) {
                 for (let i = tasks.length - 1; i >= 0; i --) {
                   t = tasks[i];
                   if (t.status === APP_STATUS_MAP.SHOW && !t.builtIn) {
-                    store.commit(ADD_TASK, {...t, active: true });
+                    store.commit(taskNamespace(ADD_TASK), {...t, active: true });
                     break;
                   }
                 }
@@ -87,7 +94,7 @@ export default function (app) {
         }
 
         return {
-          [storeControlPropName]: computed(() => store.getters[storeControlPropName]),
+          [storeControlPropName]: computed(() => store.getters[viewNamespace(storeControlPropName)]),
           appIsActive
         };
       } else {

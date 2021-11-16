@@ -16,14 +16,10 @@
 import { computed } from 'vue';
 import { useStore } from 'vuex';
 
-import TaskbarContextMenuItem from "./TaskbarContextMenuItem.vue";
+import { taskbarContextMenus } from "@/config";
+import { viewNamespaceSymbol } from "utils";
 
-const taskMenus = [
-  {
-    iconClass: 'icon-setting',
-    label: '任务栏设置'
-  }
-];
+import TaskbarContextMenuItem from "./TaskbarContextMenuItem.vue";
 
 export default {
   name: 'TaskbarContextMenu',
@@ -32,17 +28,18 @@ export default {
   },
   setup() {
     const store = useStore(),
-          state = store.state;
+          viewNamespaceState = store.state[viewNamespaceSymbol];
+
     const setMenuPos = computed(() => {
       return {
-        left: state.taskbarContextMenuPosX + 'px',
-        top: state.taskbarContextMenuPosY + 'px',
+        left: viewNamespaceState.taskbarContextMenuPosX + 'px',
+        top: viewNamespaceState.taskbarContextMenuPosY + 'px',
       };
     });
-    const isShow = computed(() => state.isShowTaskbarContextMenu);
+    const isShow = computed(() => viewNamespaceState.isShowTaskbarContextMenu);
 
     return {
-      taskMenus,
+      taskMenus: taskbarContextMenus,
       setMenuPos,
       isShow
     };

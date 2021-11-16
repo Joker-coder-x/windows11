@@ -25,11 +25,11 @@ const routes = [
     name: 'Shutdown',
     component: Shutdown
   },
-]
+];
 
 const router = createRouter({
   history: createWebHashHistory(),
   routes
-})
+});
 
 export default router;

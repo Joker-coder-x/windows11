@@ -54,8 +54,7 @@ import {
   computed,
   reactive,
   ref,
-  unref,
-  watch
+  unref
 } from 'vue';
 import { useStore } from 'vuex';
 
@@ -64,6 +63,8 @@ import {
   HIDDEN_CALCULATOR,
   CLOSE_CALCULATOR
 } from "store/mutation-types";
+
+import { viewNamespace } from "utils";
 
 import BaseAppWidget from "../BaseAppWidget";
 import CalculatorInputBtnList from "./CalculatorInputBtnList";
@@ -84,9 +85,9 @@ export default {
       logo: require("assets/icons/calculator.png"),
       name: '计算器',
       handler: (store) => {
-        store.getters.isShowCalculator ?
-          store.commit(HIDDEN_CALCULATOR) :
-          store.commit(SHOW_CALCULATOR);
+        store.getters[viewNamespace("isShowCalculator")] ?
+          store.commit(viewNamespace(HIDDEN_CALCULATOR)) :
+          store.commit(viewNamespace(SHOW_CALCULATOR));
       }
     },
   },
@@ -178,8 +179,8 @@ export default {
         mathValue
       );
     };
-    const handleMinimize = () => store.commit(HIDDEN_CALCULATOR);
-    const handleClose = () => store.commit(CLOSE_CALCULATOR);
+    const handleMinimize = () => store.commit(viewNamespace(HIDDEN_CALCULATOR));
+    const handleClose = () => store.commit(viewNamespace(CLOSE_CALCULATOR));
 
     return {
       result,

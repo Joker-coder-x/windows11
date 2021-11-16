@@ -16,7 +16,6 @@ export function $once (cb) {
   }
 }
 
-
 // 前导零填充
 export function leadingZeroFill (num, targetNum = 10) {
   return num < targetNum ? '0' + num : num;

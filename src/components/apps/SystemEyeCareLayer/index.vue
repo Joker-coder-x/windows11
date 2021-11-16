@@ -4,12 +4,16 @@
 
 <script>
 import { computed } from '@vue/reactivity';
-import { useStore } from 'vuex'
+import { useStore } from 'vuex';
+
+import { systemNamespaceSymbol } from "utils";
+
 export default {
   name: "SystemEyeCareLayer",
   setup() {
-    const store = useStore();
-    const eyeCareMode = computed(() => store.state.eyeCareMode);
+    const store = useStore(),
+          systemNamespaceState = store.state[systemNamespaceSymbol],
+          eyeCareMode = computed(() => systemNamespaceState.eyeCareMode);
 
     return {
       eyeCareMode

@@ -15,13 +15,18 @@
 <script>
 import { useStore } from 'vuex';
 
-import SystemAudioIcon from "../../apps/SystemAudioIcon";
-import SystemBatteryIcon from "../../apps/SystemBatteryIcon";
+import SystemAudioIcon from "components/apps/SystemAudioIcon";
+import SystemBatteryIcon from "components/apps/SystemBatteryIcon";
 
 import {
   SHOW_SYSTEM_STATUS_CONTROL_BOARD,
   HIDDEN_SYSTEM_STATUS_CONTROL_BOARD
 } from "store/mutation-types";
+
+import {
+  viewNamespace,
+  viewNamespaceSymbol
+} from "utils";
 
 export default {
   name: "StatusInfoPanel",
@@ -30,11 +35,13 @@ export default {
     SystemBatteryIcon
   },
   setup() {
-    const store = useStore();
+    const store = useStore(),
+          viewNamespaceState = store.state[viewNamespaceSymbol];
+
     const handleStatusInfoPanelClick = () => {
-      store.state.isShowSystemStatusControlBoard ?
-       store.commit(HIDDEN_SYSTEM_STATUS_CONTROL_BOARD) :
-       store.commit(SHOW_SYSTEM_STATUS_CONTROL_BOARD);
+      viewNamespaceState.isShowSystemStatusControlBoard ?
+       store.commit(viewNamespace(HIDDEN_SYSTEM_STATUS_CONTROL_BOARD)) :
+       store.commit(viewNamespace(SHOW_SYSTEM_STATUS_CONTROL_BOARD));
     };
 
     return {

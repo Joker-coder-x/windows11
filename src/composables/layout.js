@@ -4,10 +4,11 @@ import config from "@/config";
 
 import {
   getStyles,
-  pagePos
+  pagePos,
+  layoutNamespace
 } from "utils";
 
-import { SET_APP_ITEM_SIZE } from "../store/mutation-types";
+import { SET_APP_ITEM_SIZE } from "store/mutation-types";
 
 const layoutConfig = config.layout;
 
@@ -27,7 +28,7 @@ export default function initLayout (apps, oDesktop, store) {
 
     appItemWidth = width;
     appItemHeight = height;
-    store.commit(SET_APP_ITEM_SIZE, { width, height });
+    store.commit(layoutNamespace(SET_APP_ITEM_SIZE), { width, height });
 
     // 初始化布局信息
     layoutInfo = initLayOutInfo(

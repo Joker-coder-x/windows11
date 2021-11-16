@@ -17,7 +17,7 @@
     ></app-item>
 
     <!-- 鼠标右键点击显示的菜单栏面板 -->
-    <context-menu ref="contextMenuRef"></context-menu>
+    <desktop-context-menu ref="contextMenuRef"></desktop-context-menu>
     <!-- 系统菜单面板 -->
     <system-menu-board></system-menu-board>
     <!-- 系统搜索面板 -->
@@ -45,32 +45,31 @@ import {
   ref,
   reactive
 } from 'vue';
-
 import { useStore } from 'vuex';
+
+import config from "@/config";
+
+// 组合API模块
+import initLayOut from "composables/layout";
+import  { getDesktopContextMenuBehavior } from "composables/contextMenuBehavior";
 
 // 导入子组件
 import AppItem from "./AppItem/index.vue";
-import ContextMenu from "./ContextMenu/index.vue";
-import SystemMenuBoard from "../apps/SystemMenuBoard";
-import SystemSearchBoard from "../apps/SystemSearchBoard";
-import SystemRecomInfoBoard from "../apps/SystemRecomInfoBoard";
-import SystemStatusControlBoard from "../apps/SystemStatusControlBoard";
-import SystemCalendarBoard from "../apps/SystemCalendarBoard";
-import SystemTerminal from "../apps/SystemTerminal";
-import VsCode from "../apps/VsCode";
-import EdgeBrowser from "../apps/EdgeBrowser";
-import Calculator from "../apps/Calculator";
-
-// 组合API模块
-import initLayOut from "@/composables/layout";
-import  { getDesktopContextMenuBehavior } from "composables/contextMenuBehavior";
-
-import config from "@/config";
+import DesktopContextMenu from "./DesktopContextMenu/index.vue";
+import SystemMenuBoard from "components/apps/SystemMenuBoard";
+import SystemSearchBoard from "components/apps/SystemSearchBoard";
+import SystemRecomInfoBoard from "components/apps/SystemRecomInfoBoard";
+import SystemStatusControlBoard from "components/apps/SystemStatusControlBoard";
+import SystemCalendarBoard from "components/apps/SystemCalendarBoard";
+import SystemTerminal from "components/apps/SystemTerminal";
+import VsCode from "components/apps/VsCode";
+import EdgeBrowser from "components/apps/EdgeBrowser";
+import Calculator from "components/apps/Calculator";
 
 export default {
   components: {
     AppItem,
-    ContextMenu,
+    DesktopContextMenu,
     SystemMenuBoard,
     SystemSearchBoard,
     SystemRecomInfoBoard,

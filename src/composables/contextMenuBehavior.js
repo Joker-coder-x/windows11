@@ -8,8 +8,9 @@ import {
 import {
   getElemDocPosition,
   getStyles,
-  pagePos
-} from "../utils";
+  pagePos,
+  viewNamespace
+} from "utils";
 
 export function getDesktopContextMenuBehavior (store, desktopRef, contextMenuRef) {
   const handleShowContextMenu = (e) => {
@@ -17,7 +18,7 @@ export function getDesktopContextMenuBehavior (store, desktopRef, contextMenuRef
     e.preventDefault();
 
     store.commit(
-      SHOW_DESKTOP_CONTEXT_MENU,
+      viewNamespace(SHOW_DESKTOP_CONTEXT_MENU),
       computedElementShowPos(e, contextMenuRef.value.$el, desktopRef.value)
     );
   }
@@ -25,7 +26,7 @@ export function getDesktopContextMenuBehavior (store, desktopRef, contextMenuRef
   const handleHiddenContextMenu = (e) => {
     e = e || window.event;
     if (!contextMenuRef.value.$el.contains(e.target)) {
-      store.commit(HIDDEN_DESKTOP_CONTEXT_MENU);
+      store.commit(viewNamespace(HIDDEN_DESKTOP_CONTEXT_MENU));
     }
   };
 
@@ -40,7 +41,7 @@ export function getTaskbarContextMenuBehavior (store, tarbarRef, contextMenuRef)
     e = e || window.event;
     e.preventDefault();
     store.commit(
-      SHOW_TASKBAR_CONTEXT_MENU,
+      viewNamespace(SHOW_TASKBAR_CONTEXT_MENU),
       computedElementShowPos(e, contextMenuRef.value.$el, tarbarRef.value)
     );
   }
@@ -49,7 +50,7 @@ export function getTaskbarContextMenuBehavior (store, tarbarRef, contextMenuRef)
     e = e || window.event;
 
     if (!contextMenuRef.value.$el.contains(e.target)) {
-      store.commit(HIDDEN_TASKBAR_CONTEXT_MENU);
+      store.commit(viewNamespace(HIDDEN_TASKBAR_CONTEXT_MENU));
     }
   };
 

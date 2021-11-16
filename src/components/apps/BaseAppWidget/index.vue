@@ -43,7 +43,12 @@
 
 
 <script>
-import { onMounted, ref, toRef,  watch } from 'vue';
+import {
+  onMounted,
+  ref,
+  toRef,
+  watch
+} from 'vue';
 
 import BaseAppWidgetOperatePanel from "./BaseAppWidgetOperatePanel";
 

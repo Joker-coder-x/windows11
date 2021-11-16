@@ -57,7 +57,9 @@ import {
   WEEK_DAY_MAP,
   $on,
   $off,
-  leadingZeroFill
+  leadingZeroFill,
+  viewNamespaceSymbol,
+  viewNamespace
 } from "utils";
 
 import { HIDDEN_SCREEN_SAVER } from "store/mutation-types";
@@ -66,10 +68,11 @@ export default {
   name: "ScreenSaver",
   setup () {
     const store = useStore(),
+          viewNamespaceState = store.state[viewNamespaceSymbol],
           saverRef = ref(null);
 
     const { timeText, dateText } = getTimeModuleState();
-    const isShow = computed(() => store.state.isShowScreenSaver);
+    const isShow = computed(() => viewNamespaceState.isShowScreenSaver);
     const { y, handlePageMouseDown } = getSlideModule(store, isShow, saverRef);
 
     return {
@@ -123,12 +126,8 @@ function getSlideModule (store, isShow, saverRef) {
       offsetY = 0,
       saverOffsetHeight = 0;
 
-  const resetSlide = () => {
-    y.value = 0;
-  };
-  const hiddenSlide = () => {
-    store.commit(HIDDEN_SCREEN_SAVER);
-  }
+  const resetSlide = () => y.value = 0;
+  const hiddenSlide = () => store.commit(viewNamespace(HIDDEN_SCREEN_SAVER));
 
   watch(isShow, newVal => {
     if (newVal) {

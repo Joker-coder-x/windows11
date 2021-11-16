@@ -6,6 +6,8 @@
 import { computed } from 'vue';
 import { useStore } from 'vuex';
 
+import { systemNamespaceSymbol } from "utils";
+
 const audioPaths = {
   high: require('assets/icons/audio/audio_high.png'),
   mid: require('assets/icons/audio/audio_mid.png'),
@@ -16,9 +18,11 @@ const audioPaths = {
 export default {
   name: 'SystemAudioIcon',
   setup() {
-    const store = useStore();
+    const store = useStore(),
+          systemNamespaceState = store.state[systemNamespaceSymbol];
+
     const filename = computed(() => {
-      const audioValue = store.state.audioValue;
+      const audioValue = systemNamespaceState.audioValue;
 
       let filename = '';
       if (audioValue >= 80) {

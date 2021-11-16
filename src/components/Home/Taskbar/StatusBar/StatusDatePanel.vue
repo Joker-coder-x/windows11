@@ -17,7 +17,11 @@
 </template>
 
 <script>
-import { computed, onUnmounted, reactive } from 'vue';
+import {
+  computed,
+  onUnmounted,
+  reactive
+} from 'vue';
 import { useStore } from 'vuex';
 
 import {
@@ -25,22 +29,17 @@ import {
   SHOW_SYSTEM_CALENDAR_BOARD
 } from "store/mutation-types";
 
-function getDateInfo () {
-  const date = new Date();
-
-  return {
-    year: date.getFullYear(),
-    month: date.getMonth() + 1,
-    day: date.getDate(),
-    hour: date.getHours(),
-    minute: date.getMinutes()
-  };
-};
+import {
+  viewNamespace,
+  viewNamespaceSymbol
+} from "utils";
 
 export default {
   setup() {
-    const store = useStore();
-    const dateInfo = reactive(getDateInfo());
+    const store = useStore(),
+          viewNamespaceState = store.state[viewNamespaceSymbol],
+          dateInfo = reactive(getDateInfo());
+
     const time = computed(() => {
       const minute = dateInfo.minute;
 
@@ -65,9 +64,9 @@ export default {
     });
 
     const handleClick = () => {
-      store.state.isShowSystemCalendarBoard ?
-        store.commit(HIDDEN_SYSTEM_CALENDAR_BOARD) :
-        store.commit(SHOW_SYSTEM_CALENDAR_BOARD)
+      viewNamespaceState.isShowSystemCalendarBoard ?
+        store.commit(viewNamespace(HIDDEN_SYSTEM_CALENDAR_BOARD)) :
+        store.commit(viewNamespace(SHOW_SYSTEM_CALENDAR_BOARD))
     }
 
     return {
@@ -77,6 +76,18 @@ export default {
     };
   },
 }
+
+function getDateInfo () {
+  const date = new Date();
+
+  return {
+    year: date.getFullYear(),
+    month: date.getMonth() + 1,
+    day: date.getDate(),
+    hour: date.getHours(),
+    minute: date.getMinutes()
+  };
+};
 </script>
 
 <style lang="scss" scoped>
