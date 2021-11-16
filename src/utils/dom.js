@@ -323,3 +323,4 @@ export function sendEmail (emailAddress) {
   link.href = `mailto:${emailAddress}`;
   link.click();
 }
+
