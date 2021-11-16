@@ -16,9 +16,7 @@ import {
   HIDDEN_ALL_SINGLE_BOARD
 } from "store/mutation-types";
 
-import { makeNamespace } from "utils";
-
-const viewNamespace = makeNamespace('view');
+import { viewNamespace } from "utils";
 
 export default {
   setup() {

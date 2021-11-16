@@ -1,7 +1,7 @@
 import config from "@/config";
 import {
   APP_STATUS_MAP,
-  makeNamespace
+  taskNamespace
 } from "utils";
 
 import {
@@ -10,8 +10,6 @@ import {
   DELETE_TASK_ACTIVE,
   REMOVE_TASK
 } from "store/mutation-types";
-
-const _namespace = makeNamespace('task');
 
 const state = () => ({
   tasks: config.tasks.map(item => ({...item , active: false})),
@@ -26,7 +24,7 @@ const mutations = {
       tasks.push(payload);
     }
 
-    this.commit(_namespace(SET_TASK_ACTIVE), payload.name);
+    this.commit(taskNamespace(SET_TASK_ACTIVE), payload.name);
   },
 
   [SET_TASK_ACTIVE] (state, taskName) {
