@@ -1,25 +1,19 @@
 <template>
-  <transition name="scale-slide">
-    <base-app-widget
-      v-if="isShowVsCodeWidget"
-      :class="['vscode', appIsActive ? 'active' : '']"
-      name="VS Code"
-      :icon="require('assets/icons/code.png')"
-      @on-minimize="handleMinimize"
-      @on-close="handleClose"
-    >
-      <iframe
-        class="iframe"
-        src="https://github1s.com/Joker-coder-x/windows11/"
-        frameborder="0"
-      ></iframe>
-    </base-app-widget>
-  </transition>
+  <base-app-widget
+    :show="isShowVsCodeWidget"
+    :app-is-active="appIsActive"
+    :app-config="appConfig"
+    class="vscode"
+  >
+    <iframe
+      class="iframe"
+      src="https://github1s.com/Joker-coder-x/windows11/"
+      frameborder="0"
+    ></iframe>
+  </base-app-widget>
 </template>
 
 <script>
-import { useStore } from 'vuex';
-
 import {
   SHOW_VS_CODE_WIDGET,
   HIDDEN_VS_CODE_WIDGET,
@@ -34,30 +28,18 @@ export default {
   name: 'VsCode',
   _appConfig: {
     storeControlPropName: "isShowVsCodeWidget",
+    showEventMutationType: viewNamespace(SHOW_VS_CODE_WIDGET),
+    hiddenEventMutationType: viewNamespace(HIDDEN_VS_CODE_WIDGET),
+    closeEventMutationType: viewNamespace(CLOSE_VS_CODE_WIDGET),
     info: {
       logo: require("assets/icons/code.png"),
       name: 'Vs Code',
-      handler: (store) => {
-        store.getters[viewNamespace('isShowVsCodeWidget')] ?
-          store.commit(viewNamespace(HIDDEN_VS_CODE_WIDGET)) :
-          store.commit(viewNamespace(SHOW_VS_CODE_WIDGET));
-      }
     }
   },
   components: {
     BaseAppWidget
   },
-  setup() {
-    const store = useStore();
-
-    const handleMinimize = () => store.commit(viewNamespace(HIDDEN_VS_CODE_WIDGET));
-    const handleClose = () => store.commit(viewNamespace(CLOSE_VS_CODE_WIDGET));
-
-    return {
-      handleMinimize,
-      handleClose
-    };
-  },
+  setup() { },
 }
 </script>
 

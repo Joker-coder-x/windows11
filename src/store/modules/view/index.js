@@ -34,8 +34,17 @@ import {
   CLOSE_CALCULATOR,
   SHOW_SCREEN_SAVER,
   HIDDEN_SCREEN_SAVER,
+  CLOSE_NOTEPAD,
+  CLOSE_RECYCLE_BIN,
+  HIDDEN_NOTEPAD,
+  HIDDEN_RECYCLE_BIN,
+  SHOW_NOTEPAD,
+  SHOW_RECYCLE_BIN,
+  CLOSE_MY_COMPUTER,
+  HIDDEN_MY_COMPUTER,
+  SHOW_MY_COMPUTER
 } from "store/mutation-types";
-import { CLOSE_NOTEPAD, HIDDEN_NOTEPAD, SHOW_NOTEPAD } from "../../mutation-types";
+import { CLOSE_CLOUD_MUSIC, HIDDEN_CLOUD_MUSIC, SHOW_CLOUD_MUSIC } from "../../mutation-types";
 
 const state = () => ({
   isShowScreenSaver: true,
@@ -51,6 +60,9 @@ const state = () => ({
   isShowSystemTerminal: APP_STATUS_MAP.HIDDEN,
   isShowCalculator: APP_STATUS_MAP.HIDDEN,
   isShowNotepad: APP_STATUS_MAP.HIDDEN,
+  isShowRecycleBin: APP_STATUS_MAP.HIDDEN,
+  isShowMyComputer: APP_STATUS_MAP.HIDDEN,
+  isShowCloudMusic: APP_STATUS_MAP.HIDDEN,
   desktopContextMenuPosX: 0,
   desktopContextMenuPosY: 0,
   taskbarContextMenuPosX: 0,
@@ -187,6 +199,42 @@ const mutations = {
     state.isShowNotepad = APP_STATUS_MAP.CLOSE;
   },
 
+  [SHOW_RECYCLE_BIN] (state) {
+    state.isShowRecycleBin = APP_STATUS_MAP.SHOW;
+  },
+
+  [HIDDEN_RECYCLE_BIN] (state) {
+    state.isShowRecycleBin = APP_STATUS_MAP.HIDDEN;
+  },
+
+  [CLOSE_RECYCLE_BIN] (state) {
+    state.isShowRecycleBin = APP_STATUS_MAP.CLOSE;
+  },
+
+  [SHOW_MY_COMPUTER] (state) {
+    state.isShowMyComputer = APP_STATUS_MAP.SHOW;
+  },
+
+  [HIDDEN_MY_COMPUTER] (state) {
+    state.isShowMyComputer = APP_STATUS_MAP.HIDDEN;
+  },
+
+  [CLOSE_MY_COMPUTER] (state) {
+    state.isShowMyComputer = APP_STATUS_MAP.CLOSE;
+  },
+
+  [SHOW_CLOUD_MUSIC] (state) {
+    state.isShowCloudMusic = APP_STATUS_MAP.SHOW;
+  },
+
+  [HIDDEN_CLOUD_MUSIC] (state) {
+    state.isShowCloudMusic = APP_STATUS_MAP.HIDDEN;
+  },
+
+  [CLOSE_CLOUD_MUSIC] (state) {
+    state.isShowCloudMusic = APP_STATUS_MAP.CLOSE;
+  },
+
   // 关闭所有的非右键菜单的面板
   [HIDDEN_ALL_NOT_CONTEXT_MENU_BOARD] (state) {
     state.isShowSystemMenuBoard = false;
@@ -228,6 +276,15 @@ const getters = {
   },
   isShowNotepad (state) {
     return state.isShowNotepad === APP_STATUS_MAP.SHOW;
+  },
+  isShowRecycleBin (state) {
+    return state.isShowRecycleBin === APP_STATUS_MAP.SHOW;
+  },
+  isShowMyComputer (state) {
+    return state.isShowMyComputer === APP_STATUS_MAP.SHOW;
+  },
+  isShowCloudMusic (state) {
+    return state.isShowCloudMusic === APP_STATUS_MAP.SHOW;
   },
 };
 

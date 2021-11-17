@@ -38,6 +38,12 @@
     <calculator></calculator>
     <!-- 记事本 -->
     <notepad></notepad>
+    <!-- 回收站 -->
+    <recycle-bin></recycle-bin>
+    <!-- 我的电脑 -->
+    <my-computer></my-computer>
+    <!-- 网易云音乐 -->
+    <cloud-music></cloud-music>
   </div>
 </template>
 
@@ -68,6 +74,9 @@ import VsCode from "components/apps/VsCode";
 import EdgeBrowser from "components/apps/EdgeBrowser";
 import Calculator from "components/apps/Calculator";
 import Notepad from "components/apps/Notepad";
+import RecycleBin from "components/apps/RecycleBin";
+import MyComputer from "components/apps/MyComputer";
+import CloudMusic from "components/apps/CloudMusic";
 
 export default {
   components: {
@@ -82,7 +91,10 @@ export default {
     VsCode,
     EdgeBrowser,
     Calculator,
-    Notepad
+    Notepad,
+    RecycleBin,
+    MyComputer,
+    CloudMusic
   },
   setup () {
     const desktopRef = ref(null),

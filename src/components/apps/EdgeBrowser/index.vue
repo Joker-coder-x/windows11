@@ -1,70 +1,69 @@
 <template>
-  <transition name="scale-slide">
-    <base-app-widget
-      v-show="isShowEdgeBrowserWidget"
-      :class="['edge-browser', isFull ? 'full' : '', appIsActive ? 'active' : '']"
-      name="Edge"
-      :icon="require('assets/icons/edge.png')"
-      toolbarBgColor="#E8E8E8"
-      toolbarTextColor="#333"
-      @mousedown.stop
-    >
-      <template #toolbar>
-        <div class="toolbar-content">
-          <div class="left">
-            <div class="logo">
-              <img
-                class="img"
-                src="~assets/icons/edge.png" />
-            </div>
-            <browser-toolbar-tabs></browser-toolbar-tabs>
+  <base-app-widget
+    :show="isShowEdgeBrowserWidget"
+    :app-is-active="appIsActive"
+    :app-config="appConfig"
+    :class="['edge-browser', isFull ? 'full' : '']"
+    toolbarBgColor="#E8E8E8"
+    toolbarTextColor="#333"
+    @mousedown.stop
+  >
+    <template #toolbar>
+      <div class="toolbar-content">
+        <div class="left">
+          <div class="logo">
+            <img
+              class="img"
+              src="~assets/icons/edge.png" />
           </div>
-          <base-app-widget-operate-panel
-            iconColor="black"
-            hoverColor="#D4D6D8"
-            @on-minimize="handleMinimize"
-            @on-maximize="handleMaximize"
-            @on-close="handleClose"
-          ></base-app-widget-operate-panel>
-      </div>
-      </template>
-      <template #default>
-        <div class="browser-bd">
-          <div class="top">
-            <div class="address-bar">
-              <div class="address-operate-panel">
-                <span class="iconfont icon-direction-left"></span>
-                <span class="iconfont icon-direction-right"></span>
-                <span class="iconfont icon-refresh"></span>
-              </div>
-              <div class="input-wrap">
-                <span class="iconfont icon-lock"></span>
-                <input
-                  class="input"
-                  type="text"
-                  value="http://cn.bing.com" />
-              </div>
+          <browser-toolbar-tabs></browser-toolbar-tabs>
+        </div>
+        <base-app-widget-operate-panel
+          iconColor="black"
+          hoverColor="#D4D6D8"
+          :full="isFull"
+          @on-minimize="handleMinimize"
+          @on-maximize="handleMaximize"
+          @on-close="handleClose"
+        ></base-app-widget-operate-panel>
+    </div>
+    </template>
+    <template #default>
+      <div class="browser-bd">
+        <div class="top">
+          <div class="address-bar">
+            <div class="address-operate-panel">
+              <span class="iconfont icon-direction-left"></span>
+              <span class="iconfont icon-direction-right"></span>
+              <span class="iconfont icon-refresh"></span>
             </div>
-            <div class="bookmark-bar">
-              <browser-bookmark-item
-                v-for="(item, index) of bookmarks"
-                :key="index"
-                :item="item"
-                @on-click="handleChangeUrl"
-              ></browser-bookmark-item>
+            <div class="input-wrap">
+              <span class="iconfont icon-lock"></span>
+              <input
+                class="input"
+                type="text"
+                value="http://cn.bing.com" />
             </div>
           </div>
-          <div class="view">
-            <iframe
-              class="iframe"
-              :src="curUrl"
-              frameborder="0"
-            ></iframe>
+          <div class="bookmark-bar">
+            <browser-bookmark-item
+              v-for="(item, index) of bookmarks"
+              :key="index"
+              :item="item"
+              @on-click="handleChangeUrl"
+            ></browser-bookmark-item>
           </div>
         </div>
-      </template>
-    </base-app-widget>
-  </transition>
+        <div class="view">
+          <iframe
+            class="iframe"
+            :src="curUrl"
+            frameborder="0"
+          ></iframe>
+        </div>
+      </div>
+    </template>
+  </base-app-widget>
 </template>
 
 <script>
@@ -111,14 +110,12 @@ export default {
   name: "EdgeBrowser",
   _appConfig: {
     storeControlPropName: "isShowEdgeBrowserWidget",
+    showEventMutationType: viewNamespace(SHOW_EDGE_BROWSER_WIDGET),
+    hiddenEventMutationType: viewNamespace(HIDDEN_EDGE_BROWSER_WIDGET),
+    closeEventMutationType: viewNamespace(CLOSE_EDGE_BROWSER_WIDGET),
     info: {
       logo: require("assets/icons/edge.png"),
       name: 'Edge浏览器',
-      handler: (store) => {
-        store.getters[viewNamespace("isShowEdgeBrowserWidget")] ?
-          store.commit(viewNamespace(HIDDEN_EDGE_BROWSER_WIDGET)) :
-          store.commit(viewNamespace(SHOW_EDGE_BROWSER_WIDGET));
-      }
     }
   },
   components: {

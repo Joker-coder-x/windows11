@@ -1,44 +1,43 @@
 <template>
-  <div
-    :class="['base-app-widget', isFull ? 'full' : '']"
-    :style="{
-      width: isFull ? '100vw' : width,
-      height: isFull ? '100vh' : height
-    }"
-  >
+  <transition name="scale-slide">
     <div
-      class="toolbar"
-      v-if="showToolBar"
+      v-if="show"
+      :class="['base-app-widget', isFull ? 'full' : '', appIsActive ? 'active' : '']"
       :style="{
-        height: toolbarHeight,
-        backgroundColor: toolbarBgColor,
-        color: toolbarTextColor,
+        width: isFull ? '100vw' : width,
+        height: isFull ? '100vh' : height
       }"
     >
-      <slot name="toolbar">
-        <div class="logo-panel">
-          <img
-            class="icon"
-            :src="icon" />
-          <span class="name">{{ name }}</span>
-        </div>
-        <base-app-widget-operate-panel
-          :icon-color="toolbarOperatePanelIconColor"
-          :hover-color="toolbarOperatePanelHoverColor"
-          :close-hover-color="toolbarOperatePanelCloseHoverColor"
-          @on-minimize="handleMinimize"
-          @on-maximize="handleMaximize"
-          @on-close="handleClose"
-        ></base-app-widget-operate-panel>
-      </slot>
+      <div
+        class="toolbar"
+        v-if="showToolBar"
+        :style="{
+          height: toolbarHeight,
+          backgroundColor: toolbarBgColor,
+          color: toolbarTextColor,
+        }"
+      >
+        <slot name="toolbar">
+          <div class="logo-panel">
+            <img class="icon" :src="icon || appConfig.icon" />
+            <span class="name">{{ name || appConfig.name }}</span>
+          </div>
+          <base-app-widget-operate-panel
+            :icon-color="toolbarOperatePanelIconColor"
+            :hover-color="toolbarOperatePanelHoverColor"
+            :close-hover-color="toolbarOperatePanelCloseHoverColor"
+            :full="isFull"
+            @on-minimize="handleMinimize"
+            @on-maximize="handleMaximize"
+            @on-close="handleClose"
+          ></base-app-widget-operate-panel>
+        </slot>
+      </div>
+      <div class="main" ref="mainRef">
+        <slot></slot>
+      </div>
     </div>
-    <div
-      class="main"
-      ref="mainRef"
-    >
-      <slot></slot>
-    </div>
-  </div>
+  </transition>
 </template>
 
 
@@ -51,6 +50,7 @@ import {
 } from 'vue';
 
 import BaseAppWidgetOperatePanel from "./BaseAppWidgetOperatePanel";
+import { useStore } from 'vuex';
 
 export default {
   name: "BaseAppWidget",
@@ -58,12 +58,27 @@ export default {
     BaseAppWidgetOperatePanel
   },
   props: {
+    // app名称
     name: String,
+    // 显示控制
+    show: Boolean,
+    // app图标
     icon: String,
+    // app是否是出于最顶层显示
+    appIsActive: Boolean,
+    // 隐藏事件的Mutation名称
+    hiddenEventMutationType: String,
+    // 关闭事件的Mutation名称
+    closeEventMutationType: String,
+    // app配置信息
+    appConfig: {
+      type: Object,
+      default: () => ({})
+    },
     // widget的宽度
     width: {
       type: [String, Number],
-      default: '60vw'
+      default: '70vw'
     },
     // widget的高度
     height: {
@@ -109,24 +124,32 @@ export default {
     onClose: null,
   },
   setup (props, { emit }) {
-    const isFull = ref(false),
+    const store = useStore(),
+          isFull = ref(false),
           mainRef = ref(null),
-          toolbarHeightRef = toRef(props, 'toolbarHeight');
+          toolbarHeightRef = toRef(props, 'toolbarHeight'),
+          appConfig = props.appConfig;
 
-    const handleMinimize = () => emit('onMinimize');
+    const handleMinimize = () => {
+      store.commit(appConfig.hiddenEventMutationType || props.hiddenEventMutationType);
+      emit('onMinimize');
+    }
     const handleMaximize = () => {
       isFull.value = !isFull.value;
       emit('onMaximize');
     };
-    const handleClose = () => emit('onClose');
+    const handleClose = () => {
+      store.commit(appConfig.closeEventMutationType || props.closeEventMutationType);
+      emit('onClose');
+    }
     const setCssVariables = () => {
-      mainRef.value.style.setProperty('--toolbar-height', toolbarHeightRef.value);
-      mainRef.value.style.setProperty('--height', props.height);
+      if (mainRef.value) {
+        mainRef.value.style.setProperty('--toolbar-height', toolbarHeightRef.value);
+        mainRef.value.style.setProperty('--height', props.height);
+      }
     };
 
-    onMounted(() => {
-      setCssVariables();
-    });
+    onMounted(() => setCssVariables());
     watch(toolbarHeightRef, () => setCssVariables());
 
     return {

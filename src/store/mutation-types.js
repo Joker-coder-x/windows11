@@ -51,6 +51,18 @@ export const SHOW_NOTEPAD = "showNotepad";
 export const HIDDEN_NOTEPAD = "hiddenNotepad";
 export const CLOSE_NOTEPAD = "closeNotepad";
 
+export const SHOW_RECYCLE_BIN = "showRecycleBin";
+export const HIDDEN_RECYCLE_BIN = "hiddenRecycleBin";
+export const CLOSE_RECYCLE_BIN = "closeRecycleBin";
+
+export const SHOW_MY_COMPUTER = "showMyComputer";
+export const HIDDEN_MY_COMPUTER = "hiddenMyComputer";
+export const CLOSE_MY_COMPUTER = "closeMyComputer";
+
+export const SHOW_CLOUD_MUSIC = "showCloudMusic";
+export const HIDDEN_CLOUD_MUSIC = "hiddenCloudMusic";
+export const CLOSE_CLOUD_MUSIC = "closeCloudMusic";
+
 export const HIDDEN_ALL_NOT_CONTEXT_MENU_BOARD = "hiddenAllNotContextMenuBoard";
 export const HIDDEN_ALL_SINGLE_BOARD = "hiddenAllSingleBoard";
 
