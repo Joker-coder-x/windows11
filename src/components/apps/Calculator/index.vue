@@ -1,52 +1,48 @@
 <template>
-  <transition name="scale-slide">
-    <base-app-widget
-      v-if="isShowCalculator"
-      :class="['calculator', appIsActive ? 'active' : '']"
-      name="计算器"
-      width="21vw"
-      height="70vh"
-      :icon="require('assets/icons/calculator.png')"
-      toolbar-bg-color="#f3f3f3"
-      toolbar-text-color="#424242"
-      toolbar-operate-panel-icon-color="black"
-      toolbar-operate-panel-hover-color="#DBDBDB"
-      @on-minimize="handleMinimize"
-      @on-close="handleClose"
-      @mousedown.stop
-    >
-      <div class="calculator-bd">
-        <div class="calculator-type">
-          <span class="iconfont icon-classification"></span>
-          <span class="label">标准</span>
-        </div>
-        <div class="computed-view-area">
-          <div class="expression-area">{{ exp }}</div>
-          <div
-            class="result-area"
-            :style="{ fontSize: inputFontSize}"
-          >
-            {{ result }}
-          </div>
-        </div>
-        <div class="labels">
-          <div class="label-item disabled">MC</div>
-          <div class="label-item disabled">MR</div>
-          <div class="label-item">M+</div>
-          <div class="label-item">M-</div>
-          <div class="label-item">MS</div>
-          <div class="label-item disabled">M<span class="iconfont icon-arrow-down"></span> </div>
-        </div>
-        <div class="input-area">
-          <calculator-input-btn-list @click="handleInputBtnClick"></calculator-input-btn-list>
-        </div>
-        <div class="history-container">
-          <div>历史记录</div>
-          <calculator-history-list :history-list="historyList"></calculator-history-list>
+  <base-app-widget
+    :show="isShowCalculator"
+    :app-is-active="appIsActive"
+    :app-config="appConfig"
+    class="calculator"
+    width="21vw"
+    height="70vh"
+    toolbar-bg-color="#f3f3f3"
+    toolbar-text-color="#424242"
+    toolbar-operate-panel-icon-color="black"
+    toolbar-operate-panel-hover-color="#DBDBDB"
+    @mousedown.stop
+  >
+    <div class="calculator-bd">
+      <div class="calculator-type">
+        <span class="iconfont icon-classification"></span>
+        <span class="label">标准</span>
+      </div>
+      <div class="computed-view-area">
+        <div class="expression-area">{{ exp }}</div>
+        <div
+          class="result-area"
+          :style="{ fontSize: inputFontSize}"
+        >
+          {{ result }}
         </div>
       </div>
-    </base-app-widget>
-  </transition>
+      <div class="labels">
+        <div class="label-item disabled">MC</div>
+        <div class="label-item disabled">MR</div>
+        <div class="label-item">M+</div>
+        <div class="label-item">M-</div>
+        <div class="label-item">MS</div>
+        <div class="label-item disabled">M<span class="iconfont icon-arrow-down"></span> </div>
+      </div>
+      <div class="input-area">
+        <calculator-input-btn-list @click="handleInputBtnClick"></calculator-input-btn-list>
+      </div>
+      <div class="history-container">
+        <div>历史记录</div>
+        <calculator-history-list :history-list="historyList"></calculator-history-list>
+      </div>
+    </div>
+  </base-app-widget>
 </template>
 
 <script>
@@ -68,14 +64,12 @@ export default {
   name: "Calculator",
   _appConfig: {
     storeControlPropName: "isShowCalculator",
+    showEventMutationType: viewNamespace(SHOW_CALCULATOR),
+    hiddenEventMutationType: viewNamespace(HIDDEN_CALCULATOR),
+    closeEventMutationType: viewNamespace(CLOSE_CALCULATOR),
     info: {
       logo: require("assets/icons/calculator.png"),
       name: '计算器',
-      handler: (store) => {
-        store.getters[viewNamespace("isShowCalculator")] ?
-          store.commit(viewNamespace(HIDDEN_CALCULATOR)) :
-          store.commit(viewNamespace(SHOW_CALCULATOR));
-      }
     },
   },
   components: {
@@ -93,16 +87,11 @@ export default {
       handleInputBtnClick
     } = useCalculatorState();
 
-    const handleMinimize = () => store.commit(viewNamespace(HIDDEN_CALCULATOR));
-    const handleClose = () => store.commit(viewNamespace(CLOSE_CALCULATOR));
-
     return {
       result,
       exp,
       inputFontSize,
       historyList,
-      handleMinimize,
-      handleClose,
       handleInputBtnClick
     };
   },

@@ -2,7 +2,7 @@ import { createApp } from 'vue';
 import App from './App.vue';
 import router from './router';
 import store from './store';
-import appWidgetController from './app-widget-controller';
+import WidgetPlugin from './plugins/widget';
 import { systemNamespaceSymbol } from 'utils';
 
 import "styles/index.scss";
@@ -19,6 +19,6 @@ router.beforeEach((to, from, next) => {
 const app = createApp(App);
 
 app.use(store)
-  .use(appWidgetController)
+  .use(WidgetPlugin)
   .use(router)
   .mount('#app');

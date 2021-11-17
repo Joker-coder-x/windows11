@@ -7,25 +7,19 @@
       class="operate-item minimize"
       @click="handleMinimize"
     >
-      <img
-        src="~assets/icons/ui/minimize.png"
-        class="operate-icon" />
+      <span class="iconfont icon-minimize operate-icon"></span>
     </div>
     <div
       class="operate-item maximize"
       @click="handleMaximize"
     >
-      <img
-        src="~assets/icons/ui/maximize.png"
-        class="operate-icon" />
+      <span :class="['iconfont scale operate-icon', full ? 'icon-middlemize' : 'icon-maximize']"></span>
     </div>
     <div
       class="operate-item close"
       @click="handleClose"
     >
-      <img
-        src="~assets/icons/ui/close.png"
-        class="operate-icon" />
+      <span class="iconfont icon-close operate-icon"></span>
     </div>
   </div>
 </template>
@@ -41,6 +35,10 @@ import {
 export default {
   name: "BaseAppWidgetOperatePanel",
   props: {
+    full: {
+      type: Boolean,
+      default: false
+    },
     iconColor: {
       validator (value) {
         return ['white', 'black'].indexOf(value) !== -1;
@@ -69,7 +67,7 @@ export default {
 
     const setCssVariables = (operatePanelRef) => {
       const oStyleObj = operatePanelRef.value.style;
-      oStyleObj.setProperty('--icon-color', props.iconColor === 'white' ? 'invert(1)' : 'invert(0)');
+      oStyleObj.setProperty('--icon-color', props.iconColor === 'white' ? '#fff' : '#000');
       oStyleObj.setProperty('--hover-color', props.hoverColor);
       oStyleObj.setProperty('--close-hover-color', props.closeHoverColor);
     };
@@ -114,6 +112,10 @@ export default {
       &:hover {
         background-color: #B90505;
         background-color: var(--close-hover-color);
+
+        .operate-icon {
+          color: #fff;
+        }
       }
     }
 
@@ -130,10 +132,12 @@ export default {
     }
 
     .operate-icon {
-      width: 9px;
-      height: 9px;
-      filter: invert(1);
-      filter: var(--icon-color);
+      color: var(--icon-color);
+      font-size: 16px;
+
+      &.scale {
+        transform: scale(.65);
+      }
     }
   }
 }

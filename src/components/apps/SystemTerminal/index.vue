@@ -1,29 +1,25 @@
 <template>
-  <transition name="scale-slide">
-    <base-app-widget
-      v-if="isShowSystemTerminal"
-      name="系统终端"
-      :icon="require('assets/icons/terminal.png')"
-      :class="['system-terminal', appIsActive ? 'active' : '']"
-      @on-minimize="handleMinimize"
-      @on-close="handleClose"
-      @mousedown.stop
-    >
-      <div class="system-terminal-bd">
-        <div>Microsoft Windows [版本 10.0.22478.1012]</div>
-        <div>(c) Xifan Corporation。保留所有权利。</div>
-        <command-line
-          v-for="(command, index) of commandList"
-          :key="index"
-          :gap="command.gap"
-        >{{ command.text }}</command-line>
-        <command-input
-          ref="commandInputRef"
-          @on-submit-command="handleSubmitCommand"
-        ></command-input>
-      </div>
-    </base-app-widget>
-  </transition>
+  <base-app-widget
+    :show="isShowSystemTerminal"
+    :app-is-active="appIsActive"
+    :app-config="appConfig"
+    class="system-terminal"
+    @mousedown.stop
+  >
+    <div class="system-terminal-bd">
+      <div>Microsoft Windows [版本 10.0.22478.1012]</div>
+      <div>(c) Xifan Corporation。保留所有权利。</div>
+      <command-line
+        v-for="(command, index) of commandList"
+        :key="index"
+        :gap="command.gap"
+      >{{ command.text }}</command-line>
+      <command-input
+        ref="commandInputRef"
+        @on-submit-command="handleSubmitCommand"
+      ></command-input>
+    </div>
+  </base-app-widget>
 </template>
 
 <script>
@@ -46,14 +42,12 @@ export default {
   name: "SystemTerminal",
   _appConfig: {
     storeControlPropName: "isShowSystemTerminal",
+    showEventMutationType: viewNamespace(SHOW_SYSTEM_TERMINAL),
+    hiddenEventMutationType: viewNamespace(HIDDEN_SYSTEM_TERMINAL),
+    closeEventMutationType: viewNamespace(CLOSE_SYSTEM_TERMINAL),
     info: {
       logo: require("assets/icons/terminal.png"),
-      name: '系统终端',
-      handler: (store) => {
-        store.getters[viewNamespace("isShowSystemTerminal")] ?
-          store.commit(viewNamespace(HIDDEN_SYSTEM_TERMINAL)) :
-          store.commit(viewNamespace(SHOW_SYSTEM_TERMINAL));
-      }
+      name: '系统终端'
     },
     onShow (vm) {
       setTimeout(() => {
@@ -73,7 +67,6 @@ export default {
   },
   setup() {
     const store = useStore(),
-          handleMinimize = () => store.commit(viewNamespace(HIDDEN_SYSTEM_TERMINAL)),
           handleClose = () => store.commit(viewNamespace(CLOSE_SYSTEM_TERMINAL));
 
     const {
@@ -86,7 +79,6 @@ export default {
       commandList,
       commandInputRef,
       handleSubmitCommand,
-      handleMinimize,
       handleClose
     };
   },

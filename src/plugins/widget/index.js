@@ -17,11 +17,9 @@ import {
   taskNamespaceSymbol,
   viewNamespace,
   viewNamespaceSymbol
-} from "./utils";
+} from "utils";
 
 export default function (app) {
-  app.config.globalProperties.$APP_STATUS_MAP = APP_STATUS_MAP;
-
   app.mixin({
     data () {
       const vm = this,
@@ -32,15 +30,18 @@ export default function (app) {
       if (appConfig && isObject(appConfig)) {
         const {
           storeControlPropName,
+          showEventMutationType,
+          hiddenEventMutationType,
+          closeEventMutationType,
           onShow,
           onHidden,
           onClose
         } = appConfig;
 
         const appInfo = appConfig.info,
-          appIsActive = ref(false),
-          viewNamespaceState = store.state[viewNamespaceSymbol],
-          storeControlPropNameRef = computed(() => viewNamespaceState[storeControlPropName]);
+              appIsActive = ref(false),
+              viewNamespaceState = store.state[viewNamespaceSymbol],
+              storeControlPropNameRef = computed(() => viewNamespaceState[storeControlPropName]);
 
         watch(
           storeControlPropNameRef,
@@ -69,6 +70,14 @@ export default function (app) {
         if (appInfo) {
           const taskNamespaceState = store.state[taskNamespaceSymbol];
 
+          if (!appInfo.handler) {
+            appInfo.handler = function (store) {
+              store.getters[viewNamespace(storeControlPropName)] ?
+                store.commit(hiddenEventMutationType) :
+                store.commit(showEventMutationType);
+            }
+          }
+
           watch(
             computed(() => taskNamespaceState.tasks),
             (tasks) => {
@@ -94,8 +103,14 @@ export default function (app) {
         }
 
         return {
+          appIsActive,
+          appConfig: {
+            name: appInfo.name,
+            icon: appInfo.logo,
+            hiddenEventMutationType: hiddenEventMutationType,
+            closeEventMutationType: closeEventMutationType,
+          },
           [storeControlPropName]: computed(() => store.getters[viewNamespace(storeControlPropName)]),
-          appIsActive
         };
       } else {
         return {};

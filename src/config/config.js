@@ -10,8 +10,11 @@ import {
   SHOW_SYSTEM_TERMINAL,
   SHOW_CALCULATOR,
   SHOW_NOTEPAD,
+  SHOW_RECYCLE_BIN,
+  SHOW_MY_COMPUTER,
+  SHOW_CLOUD_MUSIC
  } from "store/mutation-types";
- import { viewNamespace } from "utils";
+import { viewNamespace } from "utils";
 import { sendEmail } from "../utils";
 
 export default {
@@ -25,11 +28,17 @@ export default {
   apps: [
     {
       icon: require("assets/icons/win/917.png"),
-      name: '此电脑'
+      name: '此电脑',
+      handler (store) {
+        store.commit(viewNamespace(SHOW_MY_COMPUTER));
+      }
     },
     {
       icon: require("assets/icons/bin0.png"),
       name: '回收站',
+      handler (store) {
+        store.commit(viewNamespace(SHOW_RECYCLE_BIN));
+      }
     },
     {
       icon: require("assets/icons/code.png"),
@@ -40,7 +49,10 @@ export default {
     },
     {
       icon: require("assets/icons/cloud-music.png"),
-      name: '网易云音乐'
+      name: '网易云音乐',
+      handler (store) {
+        store.commit(viewNamespace(SHOW_CLOUD_MUSIC));
+      }
     },
     {
       icon: require("assets/icons/edge.png"),
