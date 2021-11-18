@@ -14,8 +14,8 @@ import {
   SHOW_MY_COMPUTER,
   SHOW_CLOUD_MUSIC
  } from "store/mutation-types";
-import { viewNamespace } from "utils";
-import { sendEmail } from "../utils";
+import { viewNamespace, sendEmail } from "utils";
+import { jumpLink } from "../utils/dom";
 
 export default {
   // 桌面图标布局
@@ -87,6 +87,13 @@ export default {
       name: '邮件',
       handler () {
         sendEmail("3014375877@qq.com");
+      }
+    },
+    {
+      icon: require("assets/icons/github.png"),
+      name: 'github',
+      handler () {
+        jumpLink("https://github.com/Joker-coder-x");
       }
     },
   ],

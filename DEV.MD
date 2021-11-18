@@ -50,6 +50,8 @@
     - constant.js 该文件存放一些常量
     - dom.js 该文件存放操作dom的工具方法
   - transitioin 存放封装好的过渡动画组件
+  - plugins 插件目录
+    - widget app窗口插件
   - App.vue 入口根组件
   - main.js 入口文件
   - config 项目内部配置文件目录

@@ -53,6 +53,12 @@ export function $off (el, type, fn, useCapture) {
   $off(el, type, fn, useCapture);
 }
 
+/**
+ * @description 动态获取样式
+ * @param {Element} elem
+ * @param {String} prop
+ * @returns
+ */
 export function getStyles (elem, prop) {
   if (window.getComputedStyle) {
     return prop ? window.getComputedStyle(elem, null)[prop] : window.getComputedStyle(elem, null);
@@ -317,10 +323,22 @@ export function exitFullscreen() {
 
 /**
  * @description 发送邮件
+ * @param {String}
  */
 export function sendEmail (emailAddress) {
   const link = document.createElement('a');
   link.href = `mailto:${emailAddress}`;
+  link.click();
+}
+
+/**
+ * @description 跳转链接
+ * @param {String} url 需要跳转的url
+ */
+export function jumpLink (url) {
+  const link = document.createElement('a');
+  link.href = url;
+  link.target ="_blank";
   link.click();
 }
 
