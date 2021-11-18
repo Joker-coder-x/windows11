@@ -86,16 +86,16 @@ function loadImage (url, resolve, reject) {
 
   oImg.onload = function (e) {
     oImg.onload = null;
-    resolve(e);
+    resolve(url);
   };
   oImg.onerror = function (e) {
     oImg.onerror = null;
-    reject(e);
+    reject(url);
   };
   oImg.src = url;
 
   if (oImg.complete) {
-    resolve(img);
+    resolve(url);
   }
 }
 

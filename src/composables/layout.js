@@ -1,11 +1,13 @@
-import { onMounted } from "vue";
+import { onMounted, onUnmounted } from "vue";
 
 import config from "@/config";
 
 import {
   getStyles,
   pagePos,
-  layoutNamespace
+  layoutNamespace,
+  $on,
+  $off
 } from "utils";
 
 import { SET_APP_ITEM_SIZE } from "store/mutation-types";
@@ -14,34 +16,18 @@ const layoutConfig = config.layout;
 
 export default function initLayout (apps, oDesktop, store) {
   let layoutInfo = [],
-      appItemWidth = 0,
-      appItemHeight = 0;
+      appItemSize = {
+        width: 0,
+        height: 0
+      };
+
+  const setLayoutInfo = () => setAppItemSize(oDesktop, store,  apps, layoutInfo, appItemSize);
 
   onMounted(() => {
-    const { width, height } = getAppItemSize(
-      oDesktop.value,
-      layoutConfig.row,
-      layoutConfig.column,
-      layoutConfig.rowGap,
-      layoutConfig.columnGap
-    );
-
-    appItemWidth = width;
-    appItemHeight = height;
-    store.commit(layoutNamespace(SET_APP_ITEM_SIZE), { width, height });
-
-    // 初始化布局信息
-    layoutInfo = initLayOutInfo(
-      layoutConfig.row,
-      layoutConfig.column,
-      layoutConfig.rowGap,
-      layoutConfig.columnGap,
-      width,
-      height
-    );
-
-    setLayout(layoutInfo, apps, layoutConfig.row, layoutConfig.column);
+    setLayoutInfo();
+    $on(window, 'resize', setLayoutInfo, false);
   });
+  onUnmounted(() => $off(window, 'resize', setLayoutInfo, false));
 
   const handleDragOver = (e) => e.preventDefault();
   const handleDrop = (e) => {
@@ -54,8 +40,8 @@ export default function initLayout (apps, oDesktop, store) {
       x,
       y,
       layoutInfo,
-      appItemWidth,
-      appItemHeight,
+      appItemSize.width,
+      appItemSize.height,
       layoutConfig.rowGap,
       layoutConfig.columnGap
     );
@@ -74,6 +60,37 @@ export default function initLayout (apps, oDesktop, store) {
     handleSetAppId
   };
 }
+
+const setAppItemSize = (oDesktop, store, apps, layoutInfo, appItemSize) => {
+  const { width, height } = getAppItemSize(
+    oDesktop.value,
+    layoutConfig.row,
+    layoutConfig.column,
+    layoutConfig.rowGap,
+    layoutConfig.columnGap
+  );
+
+  appItemSize.width = width;
+  appItemSize.height = height;
+  store.commit(layoutNamespace(SET_APP_ITEM_SIZE), { width, height });
+
+  // 初始化布局信息
+  const newLayoutInfo = initLayOutInfo(
+    layoutConfig.row,
+    layoutConfig.column,
+    layoutConfig.rowGap,
+    layoutConfig.columnGap,
+    width,
+    height
+  );
+
+  if (layoutInfo.length) {
+    mergeLayoutInfo(newLayoutInfo, layoutInfo);
+  } else {
+    layoutInfo.push(...newLayoutInfo);
+    setLayout(layoutInfo, apps, layoutConfig.row, layoutConfig.column);
+  }
+};
 
 function getAppItemSize (elem, row, column, rowGap, columnGap) {
   const width = parseInt(getStyles(elem, 'width')) ,
@@ -201,4 +218,25 @@ function changeAppItemLayout (layoutInfo, oldPos, newPos) {
   newAppItem.app.x = newAppItem.x;
   newAppItem.app.y = newAppItem.y;
   oldAppItem.app = null;
+}
+
+function mergeLayoutInfo (newLayoutInfo, oldLayoutInfo) {
+  let row, newItem, oldItem;
+
+  for (let i = 0, l = oldLayoutInfo.length; i < l; i ++) {
+    row = oldLayoutInfo[i];
+    for (let j = 0, k = row.length; j < k; j ++) {
+      oldItem = row[j];
+      newItem = newLayoutInfo[i][j];
+
+      oldItem.x = newItem.x;
+      oldItem.y = newItem.y;
+
+      if (oldItem.app) {
+        const app = oldItem.app;
+        app.x = oldItem.x;
+        app.y = oldItem.y;
+      }
+    }
+  }
 }
